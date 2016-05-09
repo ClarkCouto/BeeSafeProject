@@ -44,5 +44,12 @@ public class Usuario {
         this.senha = senha;
     }
     
+//    public Usuario cadastrarUsuario(String nome, String email, String senha){
+//        Usuario user = new Usuario(nome, senha, email);
+//        return user;
+//    }
     
+    public boolean fazerLogin(String email, String senha){
+        return true;
+    }
 }

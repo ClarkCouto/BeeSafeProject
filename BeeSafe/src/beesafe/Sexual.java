@@ -7,16 +7,11 @@ package beesafe;
 
 /**
  *
- * @author Clark
+ * @author 0729159
  */
-public class Regiao {
-    private String nomeRegiao;
+public class Sexual extends TipoViolencia {
 
-    public Regiao(String nome) {
-        this.nomeRegiao = nome;
-    }
-
-    public String getNome() {
-        return nomeRegiao;
+    public Sexual(String tipo) {
+        super(tipo);
     }
 }

@@ -10,16 +10,16 @@ package beesafe;
  * @author Clark
  */
 public class Bairro {
-    private String nome;
+    private String nomeBairro;
     private Regiao regiao;
 
     public Bairro(String nome, Regiao regiao) {
-        this.nome = nome;
+        this.nomeBairro = nome;
         this.regiao = regiao;
     }
     
     public String getNome() {
-        return nome;
+        return nomeBairro;
     }
 
     public Regiao getRegiao() {
