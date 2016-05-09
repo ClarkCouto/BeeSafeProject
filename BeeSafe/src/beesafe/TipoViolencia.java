@@ -7,16 +7,16 @@ package beesafe;
 
 /**
  *
- * @author Clark
+ * @author 0729159
  */
-public class Regiao {
-    private String nomeRegiao;
-
-    public Regiao(String nome) {
-        this.nomeRegiao = nome;
+public class TipoViolencia {
+    private String tipo;
+    
+    public TipoViolencia(String tipo){
+        this.tipo = tipo;
     }
-
-    public String getNome() {
-        return nomeRegiao;
+    
+    public String getTipo(){
+        return this.tipo;
     }
 }

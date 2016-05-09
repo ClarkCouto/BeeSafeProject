@@ -11,13 +11,12 @@ package beesafe;
  */
 public class Endereco {
     private String rua;
-    private int numero;
-    //private String complemento;
+    private int num;
     private Bairro bairro;
 
     public Endereco(String rua, int numero, Bairro bairro) {
         this.rua = rua;
-        this.numero = numero;
+        this.num = numero;
         this.bairro = bairro;
     }
 
@@ -26,7 +25,7 @@ public class Endereco {
     }
 
     public int getNumero() {
-        return numero;
+        return num;
     }
 
     public Bairro getBairro() {
