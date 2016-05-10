@@ -18,17 +18,23 @@ public class Ocorrencia {
     private TipoViolencia tipoViolencia;
     private Date data;
 
-    public Ocorrencia(String rua, int numero, String bairro, String regiao, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
-//        Regiao r = getRegiao(regiao);
-//        Bairro b = getBairro(bairro);
-//        Endereco e = new Endereco(rua, numero, bairro);
-        this.endereco = endereco;
+    public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
+        Endereco e = new Endereco(rua, numero, bairro);
+        this.endereco = e;
         this.usuario = usuario;
         this.descricao = descricao;
         this.data = data;
         this.tipoViolencia = tipoViolencia;
     }
 
+    public Ocorrencia(Endereco endereco, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
+        this.endereco = endereco;
+        this.usuario = usuario;
+        this.descricao = descricao;
+        this.data = data;
+        this.tipoViolencia = tipoViolencia;
+    }
+        
     public Endereco getEndereco() {
         return endereco;
     }
