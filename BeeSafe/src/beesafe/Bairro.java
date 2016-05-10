@@ -22,7 +22,7 @@ public class Bairro {
         return nomeBairro;
     }
 
-    public Regiao getRegiao() {
-        return regiao;
+    public String getRegiao() {
+        return regiao.getNome();
     }   
 }
