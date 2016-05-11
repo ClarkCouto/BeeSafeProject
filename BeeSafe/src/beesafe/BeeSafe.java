@@ -5,6 +5,7 @@
  */
 package beesafe;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,7 +88,7 @@ public class BeeSafe {
         }
         
         System.out.println("");    
-        bd.criarUsuario("Cristiano", "cris@gmail.com", "123456");
+        bd.criarUsuario("Cristiano", "cristiano@gmail.com", "123456");
         bd.criarUsuario("Matheus", "matheus@gmail.com", "123456");
         bd.criarUsuario("Thayse", "thayse@gmail.com", "123456");
         System.out.println("\n===============================");
@@ -99,10 +100,12 @@ public class BeeSafe {
             count++;
             System.out.println(count +" = " + u.toString());
         }
-<<<<<<< HEAD
                 
         System.out.println("");    
-        //bd.criarOcorrencia(null, 0, null, null, null, null, null);
+        bd.criarOcorrencia("A", 1, "Cristo Redentor", "Cristiano", "cristiano@email.com", "123456", "Descrição 1", "Estupro", new Date());
+        bd.criarOcorrencia("B", 2, "Centro Histórico", "Thayse", "thayse@email.com", "123456", "Descrição 2", "Discriminação", new Date());
+        bd.criarOcorrencia("C", 3, "Sarandi", "Matheus", "matheus@email.com", "123456", "Descrição 3", "Agressão", new Date());        
+        bd.criarOcorrencia("D", 4, "Auxiliadora", "Matheus", "matheus@email.com", "123456", "Descrição 3", "Agressão", new Date());
         System.out.println("\n===============================");
         System.out.println("OCORRÊNCIAS CADASTRADAS:");
         System.out.println("===============================");
@@ -113,52 +116,6 @@ public class BeeSafe {
             System.out.println(o.toString());
         }
         
-=======
-        
-        System.out.println(""); 
-        bd.criarTipoViolencia("Agressão", "Fisica");
-        bd.criarTipoViolencia("Discriminação", "Psicologica");
-        bd.criarTipoViolencia("Estupro", "Sexual");
-        bd.criarTipoViolencia("Estupro", "Sexual");  
-        
-        System.out.println("\n===============================");
-        System.out.println("TIPOS DE VIOLÊNCIA CADASTRADOS:");
-        System.out.println("===============================");
-        List<TipoViolencia> tiposViolencia = bd.getTiposViolencia();
-        count = 0;
-        for(TipoViolencia tv : tiposViolencia){
-            count++;
-            System.out.println(count +" = " + tv.getTipo());
-        }
-        
-                
-        System.out.println("");    
-        bd.criarEndereco("A", 1, "Cristo Redentor");
-        bd.criarEndereco("B", 2, "Centro Histórico");
-        bd.criarEndereco("C", 3, "Sarandi");
-        bd.criarEndereco("D", 4, "Anchieta");
-        
-        System.out.println("\n===============================");
-        System.out.println("ENDEREÇOS CADASTRADOS:");
-        System.out.println("===============================");
-        List<Endereco> enderecos = bd.getEnderecos();
-        count = 0;
-        for(Endereco e : enderecos){
-            count++;
-            System.out.println(count +" = Rua: " + e.getRua() + "\tNumero: " + e.getNumero() + "\tBairro: " + e.getBairro().getNome() + "\tRegião: " + e.getBairro().getRegiao());
-        }
-        
-        System.out.println("");    
-        System.out.println("\n===============================");
-        System.out.println("USUÁRIOS CADASTRADOS:");
-        System.out.println("===============================");
-        List<Usuario> usuarios = bd.getUsuarios();
-        count = 0;
-        for(Usuario u : usuarios){
-            count++;
-            System.out.println(count +" = Nome: " + u.getNome() + "\tEmail: " + u.getEmail() + "\tSenha: " + u.getSenha());
-        }
->>>>>>> refs/remotes/origin/master
     }
     
 }
