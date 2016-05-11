@@ -19,4 +19,9 @@ public class Regiao {
     public String getNome() {
         return nomeRegiao;
     }
+    
+    @Override
+    public String toString(){
+         return this.getNome();
+    }
 }

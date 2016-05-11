@@ -59,10 +59,37 @@ public class BaseDeDados {
         }
     }
     
-    public void criarOcorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data){
-        Ocorrencia ocorrencia = new Ocorrencia(rua, numero, bairro, usuario, descricao, tipoViolencia, data);
-        listaOcorrencias.add(ocorrencia);
-        System.out.println("Ocorência cadastrada!");
+    public void criarOcorrencia(String rua, int numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data){
+        Usuario usuario = new Usuario(nomeUsuario, email, senha); 
+        //verifica se o usuario existe, caso não exista adiciona na lista de usuários
+        if(!validarUsuario(usuario)){
+            listaUsuarios.add(usuario);
+        }
+        Bairro bairro = validarBairro(nomeBairro);
+        //Verifica se o bairro existe
+        if(bairro != null){
+            TipoViolencia tipoViolencia = validarTipoViolencia(tipoDeViolencia);
+            //Verifica se o tipo de violência existe
+            if(tipoViolencia != null){
+                Endereco endereco = new Endereco(rua, numero, bairro);
+                //Verifica se o endereco já foi cadastrado anteriormente
+                boolean existe = validarEndereco(endereco);
+                if(!existe){
+                    //se não existir adiciona na lista
+                    listaEnderecos.add(endereco);
+                }
+                //Cria a ocorrência e adiciona na lista
+                Ocorrencia ocorrencia = new Ocorrencia(endereco, usuario, descricao, tipoViolencia, data);
+                listaOcorrencias.add(ocorrencia);
+                System.out.println("Ocorência cadastrada!");
+            }
+            else{
+                System.out.println("Ocorência não cadastrada! Tipo de Vilência inválido!");
+            }
+        }
+        else{
+            System.out.println("Ocorência não cadastrada! Bairro inválido!");
+        }
     }
     
     
@@ -108,9 +135,67 @@ public class BaseDeDados {
     }
     
     public void criarUsuario(String nome, String email, String senha){
-        Usuario usuario = new Usuario(nome, email, senha);
-        listaUsuarios.add(usuario);
-        System.out.println("Usuário cadastrado!");
+        Usuario user = new Usuario(nome, email, senha);
+        if(validarUsuario(user)){
+            System.out.println("Usuário já cadastrado anteriormente!");
+        }
+        else{
+            listaUsuarios.add(user);
+            System.out.println("Usuário cadastrado!");
+        }
+    }
+    
+    public List<Ocorrencia> pesquisar(List<String> parametros){
+        List<Ocorrencia> lista = getOcorrencias();
+        //Filtra pela Data
+        if(parametros.get(0) != ""){
+        }
+        //Filtra pelo Tipo de Violência
+        if(parametros.get(1) != ""){
+        }
+        //Filtra pela Região
+        if(parametros.get(2) != ""){
+        }
+        //Filtra pelo Bairro
+        if(parametros.get(3) != ""){
+        }
+        //Filtra pela Região
+        if(parametros.get(4) != ""){
+        }
+        //Filtra pela Rua
+        if(parametros.get(5) != ""){
+        }
+        //Filtra pelo Usuário
+        if(parametros.get(6) != ""){
+        }
+        return null;
+    }
+    
+    public double gerarEstatisticas(List<String> parametros){
+        List<Ocorrencia> lista = getOcorrencias();
+        double quantidade = 0;
+        //Filtra pela Data
+        if(parametros.get(0) != ""){
+        }
+        //Filtra pelo Tipo de Violência
+        if(parametros.get(1) != ""){
+        }
+        //Filtra pela Região
+        if(parametros.get(2) != ""){
+        }
+        //Filtra pelo Bairro
+        if(parametros.get(3) != ""){
+        }
+        //Filtra pela Região
+        if(parametros.get(4) != ""){
+        }
+        //Filtra pela Rua
+        if(parametros.get(5) != ""){
+        }
+        //Filtra pelo Usuário
+        if(parametros.get(6) != ""){
+        }
+        return quantidade;
     }
     
     public List<Bairro> getBairros(){
@@ -146,6 +231,15 @@ public class BaseDeDados {
         return null;
     }
     
+    public boolean validarEndereco(Endereco endereco){
+        for(Endereco e : listaEnderecos){
+            if(endereco.equals(e)){
+                return true;
+            }
+        }
+        return false;
+    }
+        
     public Regiao validarRegiao(String regiao){
         for(Regiao r : listaRegioes){
             if(r.getNome().toUpperCase().equals(regiao.toUpperCase())){
@@ -162,5 +256,14 @@ public class BaseDeDados {
             }
         }
         return null;
+    }
+    
+    public boolean validarUsuario(Usuario usuario){
+        for(Usuario u : listaUsuarios){
+            if(usuario.equals(u)){
+                return true;
+            }
+        }
+        return false;
     }
 }
