@@ -101,7 +101,7 @@ public class BeeSafe {
         }
                 
         System.out.println("");    
-        bd.criarOcorrencia(null, 0, null, null, null, null, null);
+        //bd.criarOcorrencia(null, 0, null, null, null, null, null);
         System.out.println("\n===============================");
         System.out.println("OCORRÊNCIAS CADASTRADAS:");
         System.out.println("===============================");
