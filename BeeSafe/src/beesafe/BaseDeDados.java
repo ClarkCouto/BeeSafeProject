@@ -47,6 +47,18 @@ public class BaseDeDados {
         }
     }
     
+    public void criarEndereco(String rua, int numero, String nomeBairro){
+        Bairro bairro = validarBairro(nomeBairro);
+        if(bairro != null){
+            Endereco endereco = new Endereco(rua, numero, bairro);
+            listaEnderecos.add(endereco);
+            System.out.println("Endereço cadastrado!");
+        }
+        else{
+            System.out.println("O bairro " + nomeBairro + " não existe!");
+        }
+    }
+    
     public void criarOcorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data){
         Ocorrencia ocorrencia = new Ocorrencia(rua, numero, bairro, usuario, descricao, tipoViolencia, data);
         listaOcorrencias.add(ocorrencia);

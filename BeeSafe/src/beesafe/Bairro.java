@@ -25,4 +25,9 @@ public class Bairro {
     public String getRegiao() {
         return regiao.getNome();
     }   
+    
+    @Override
+    public String toString(){
+         return this.getNome() + " - " + this.getRegiao();
+    }
 }

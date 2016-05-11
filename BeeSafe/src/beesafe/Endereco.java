@@ -31,4 +31,9 @@ public class Endereco {
     public Bairro getBairro() {
         return bairro;
     }
+    
+    @Override
+    public String toString(){
+         return "Rua: " + this.getRua() + "\t Número: " + this.getNumero() + "\t Bairro: " + this.getBairro().getNome() + "\t Região: " + this.getBairro().getRegiao();
+    }
 }

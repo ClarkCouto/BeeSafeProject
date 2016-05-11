@@ -52,4 +52,9 @@ public class Usuario {
     public boolean fazerLogin(String email, String senha){
         return true;
     }
+    
+    @Override
+    public String toString(){
+         return "Nome: " + this.getNome() + "\t Email: " + this.getEmail() + "\t Senha: " + this.getSenha();
+    }
 }

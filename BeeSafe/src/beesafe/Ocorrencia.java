@@ -46,4 +46,9 @@ public class Ocorrencia {
     public String getDescricao() {
         return descricao;
     }
+    
+    @Override
+    public String toString(){
+         return "Data: " + this.data.toString() + "\t Tipo: " + this.tipoViolencia.toString() + "\t Usuario: " + this.getUsuario().getNome() + "\t Endereco: " + this.getEndereco().toString();
+    }
 }
