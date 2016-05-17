@@ -5,13 +5,13 @@
  */
 package testes;
 
-import beesafe.Bairro;
-import beesafe.BaseDeDados;
-import beesafe.Endereco;
-import beesafe.Ocorrencia;
-import beesafe.Regiao;
-import beesafe.TipoViolencia;
-import beesafe.Usuario;
+import dominio.Bairro;
+import dominio.BaseDeDados;
+import dominio.Endereco;
+import dominio.Ocorrencia;
+import dominio.Regiao;
+import dominio.TipoViolencia;
+import dominio.Usuario;
 import java.util.Date;
 import java.util.List;
 

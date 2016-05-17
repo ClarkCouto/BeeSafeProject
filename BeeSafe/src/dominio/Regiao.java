@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beesafe;
+package dominio;
 
 /**
  *
  * @author Clark
  */
 public class Regiao {
-    private String nomeRegiao;
+    private String nome;
 
     public Regiao(String nome) {
-        this.nomeRegiao = nome;
+        this.nome = nome;
     }
 
     public String getNome() {
-        return nomeRegiao;
+        return nome;
     }
     
     @Override
