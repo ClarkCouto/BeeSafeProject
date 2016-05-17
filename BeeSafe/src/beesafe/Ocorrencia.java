@@ -5,6 +5,7 @@
  */
 package beesafe;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,6 +18,7 @@ public class Ocorrencia {
     private String descricao;
     private TipoViolencia tipoViolencia;
     private Date data;
+    private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
     public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
         Endereco e = new Endereco(rua, numero, bairro);
@@ -49,6 +51,6 @@ public class Ocorrencia {
     
     @Override
     public String toString(){
-         return "Data: " + this.data.toString() + "\t Tipo: " + this.tipoViolencia.toString() + "\t Usuario: " + this.getUsuario().getNome() + "\t Endereco: " + this.getEndereco().toString();
+         return "Data: " + formataData.format(this.data) + "\t Tipo: " + this.tipoViolencia.toString() + "\t Usuario: " + this.getUsuario().getNome() + "\t Endereco: " + this.getEndereco().toString();
     }
 }
