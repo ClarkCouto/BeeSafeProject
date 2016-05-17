@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beesafe;
+package dominio;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,24 +19,21 @@ public class Ocorrencia {
     private Usuario usuario;
     private String descricao;
     private TipoViolencia tipoViolencia;
+    private List<Comentario> comentarios;
     private Date data;
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
-        Endereco e = new Endereco(rua, numero, bairro);
-        this.endereco = e;
-        this.usuario = usuario;
-        this.descricao = descricao;
-        this.data = data;
-        this.tipoViolencia = tipoViolencia;
-    }
-
     public Ocorrencia(Endereco endereco, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
+        comentarios = new ArrayList<Comentario>();
         this.endereco = endereco;
         this.usuario = usuario;
         this.descricao = descricao;
         this.data = data;
         this.tipoViolencia = tipoViolencia;
+    }   
+    
+    public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
+        this(new Endereco(rua, numero, bairro), usuario, descricao, tipoViolencia, data);
     }
         
     public Endereco getEndereco() {
@@ -47,6 +46,14 @@ public class Ocorrencia {
 
     public String getDescricao() {
         return descricao;
+    }
+    
+    public void adiconarComentario(Comentario comentario){
+        comentarios.add(comentario);
+    }
+    
+    public List<Comentario> getComentarios(){
+        return comentarios;
     }
     
     @Override

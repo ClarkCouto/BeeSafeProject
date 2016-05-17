@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beesafe;
+package dominio;
 
 /**
  *
  * @author 0729159
  */
-public class Psicologica extends TipoViolencia {
+public class Sexual extends TipoViolencia {
 
-    public Psicologica(String tipo) {
+    public Sexual(String tipo) {
         super(tipo);
     }
-    
 }
