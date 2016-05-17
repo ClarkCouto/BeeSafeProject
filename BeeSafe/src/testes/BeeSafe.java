@@ -3,8 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beesafe;
+package testes;
 
+import beesafe.Bairro;
+import beesafe.BaseDeDados;
+import beesafe.Endereco;
+import beesafe.Ocorrencia;
+import beesafe.Regiao;
+import beesafe.TipoViolencia;
+import beesafe.Usuario;
 import java.util.Date;
 import java.util.List;
 
