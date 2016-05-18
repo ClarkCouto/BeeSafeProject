@@ -202,24 +202,48 @@ public class BaseDeDados {
         return listaBairros;
     }
     
+    public Bairro getBairro(int codBairro){
+        return listaBairros.get(codBairro);
+    }
+    
     public List<Endereco> getEnderecos(){
         return listaEnderecos;
     }
     
+    public Endereco getEndereco(int codEndereco){
+        return listaEnderecos.get(codEndereco);
+    }
+        
     public List<Ocorrencia> getOcorrencias(){
         return listaOcorrencias;
+    }
+    
+    public Ocorrencia getOcorrencia(int codOcorrencia){
+        return listaOcorrencias.get(codOcorrencia);
     }
     
     public List<Regiao> getRegioes(){
         return listaRegioes;
     }
     
+    public Regiao getRegiao(int codRegiao){
+        return listaRegioes.get(codRegiao);
+    }
+    
     public List<TipoViolencia> getTiposViolencia(){
         return listaTiposViolencia;
     }
     
+    public TipoViolencia getTipoViolencia(int codTipoViolencia){
+        return listaTiposViolencia.get(codTipoViolencia);
+    }
+    
     public List<Usuario> getUsuarios(){
         return listaUsuarios;
+    }
+    
+    public Usuario getUsuario(int codUsuario){
+        return listaUsuarios.get(codUsuario);
     }
         
     public Bairro validarBairro(String bairro){

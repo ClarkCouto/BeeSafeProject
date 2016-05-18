@@ -5,16 +5,23 @@
  */
 package telas;
 
+import dominio.Bairro;
+import dominio.BaseDeDados;
+import dominio.Regiao;
+
 /**
  *
  * @author 0729159
  */
 public class TelaBairros extends javax.swing.JFrame {
 
+    private BaseDeDados bd;
     /**
      * Creates new form CadastrarBairro
      */
+    //public TelaBairros(BaseDeDados bd) {
     public TelaBairros() {
+        this.bd = bd;
         initComponents();
     }
 
@@ -30,13 +37,14 @@ public class TelaBairros extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblBairros = new javax.swing.JLabel();
-        lblNomeBairro = new javax.swing.JTextField();
+        txtNomeBairro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         comboRegioes = new javax.swing.JComboBox();
         lblBairrosCadastrados = new javax.swing.JLabel();
         btnCriarBairro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +59,11 @@ public class TelaBairros extends javax.swing.JFrame {
         lblBairrosCadastrados.setText("BAIRROS CADASTRADOS");
 
         btnCriarBairro.setText("Criar Bairro");
+        btnCriarBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarBairroActionPerformed(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -58,6 +71,8 @@ public class TelaBairros extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane1.setViewportView(jList1);
+
+        btnVoltar.setText("Voltar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,7 +85,7 @@ public class TelaBairros extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(18, 18, 18)
-                            .addComponent(lblNomeBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNomeBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -85,8 +100,13 @@ public class TelaBairros extends javax.swing.JFrame {
                         .addGap(54, 54, 54)))
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addComponent(lblBairros)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(lblBairros))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,7 +117,7 @@ public class TelaBairros extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lblNomeBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -107,8 +127,10 @@ public class TelaBairros extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(lblBairrosCadastrados)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,6 +148,12 @@ public class TelaBairros extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCriarBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarBairroActionPerformed
+//        Regiao regiao = bd.getRegiao(0);
+//        Bairro bairro = new Bairro(txtNomeBairro.getText(), regiao);
+        bd.criarBairro(txtNomeBairro.getText(), comboRegioes.getName());
+    }//GEN-LAST:event_btnCriarBairroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,6 +193,7 @@ public class TelaBairros extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarBairro;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox comboRegioes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -173,6 +202,6 @@ public class TelaBairros extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairros;
     private javax.swing.JLabel lblBairrosCadastrados;
-    private javax.swing.JTextField lblNomeBairro;
+    private javax.swing.JTextField txtNomeBairro;
     // End of variables declaration//GEN-END:variables
 }
