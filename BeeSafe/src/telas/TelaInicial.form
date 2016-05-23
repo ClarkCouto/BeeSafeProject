@@ -25,8 +25,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" pref="356" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,6 +110,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Bairros"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBairrosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEnderecos">
           <Properties>
@@ -120,25 +123,37 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ocorr&#xea;ncias"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOcorrenciasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRegiao">
           <Properties>
             <Property name="text" type="java.lang.String" value="Regi&#xf5;es"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegiaoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnTipoViolencia">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipos de Viol&#xea;ncia"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTipoViolenciaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnUsuarios">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuariosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Escolha uma op&#xe7;&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="ESCOLHA UMA OP&#xc7;&#xc3;O:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnPesquisar">

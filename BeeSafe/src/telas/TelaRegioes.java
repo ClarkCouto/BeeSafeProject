@@ -5,17 +5,33 @@
  */
 package telas;
 
+import dominio.BaseDeDados;
+import dominio.Regiao;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 0729159
  */
 public class TelaRegioes extends javax.swing.JFrame {
-
+    
+    private BaseDeDados bd;
+    private DefaultListModel lista = new DefaultListModel(); 
     /**
      * Creates new form TelaRegioes
      */
-    public TelaRegioes() {
+    public TelaRegioes(BaseDeDados base) {
+        this.bd = base;
         initComponents();
+        atualizarListaRegioes();
+        
+        //Centraliza a tela
+        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
     }
 
     /**
@@ -32,7 +48,7 @@ public class TelaRegioes extends javax.swing.JFrame {
         txtNomeRegiao = new javax.swing.JTextField();
         btnCriarRegiao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        listaRegioes = new javax.swing.JList();
         lblTituloRegioes = new javax.swing.JLabel();
         lblRegioes = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
@@ -48,19 +64,29 @@ public class TelaRegioes extends javax.swing.JFrame {
         });
 
         btnCriarRegiao.setText("Criar");
+        btnCriarRegiao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarRegiaoActionPerformed(evt);
+            }
+        });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        listaRegioes.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaRegioes);
 
         lblTituloRegioes.setText("Regiões Cadastradas");
 
         lblRegioes.setText("REGIÕES");
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,50 +155,79 @@ public class TelaRegioes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeRegiaoActionPerformed
 
+    private void btnCriarRegiaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarRegiaoActionPerformed
+        if (txtNomeRegiao.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Você deve informar o nome da Região.", "Atenção!", JOptionPane.WARNING_MESSAGE);
+        } 
+        else{
+            String mensagem = bd.criarRegiao(txtNomeRegiao.getText());
+            if(!mensagem.equals("OK")){
+                JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                txtNomeRegiao.setText("");
+                atualizarListaRegioes();
+            }
+        }
+    }//GEN-LAST:event_btnCriarRegiaoActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.setVisible(false);
+        new TelaInicial(bd).setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void atualizarListaRegioes(){
+        //A lista está ficando duplicada
+        List<Regiao> l = bd.getRegioes();
+        for(Regiao r : l){
+            lista.addElement(r);
+        }
+        this.listaRegioes.setModel(lista);
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaRegioes().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaRegioes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TelaRegioes().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarRegiao;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNomeRegiao;
     private javax.swing.JLabel lblRegioes;
     private javax.swing.JLabel lblTituloRegioes;
+    private javax.swing.JList listaRegioes;
     private javax.swing.JTextField txtNomeRegiao;
     // End of variables declaration//GEN-END:variables
 }

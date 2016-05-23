@@ -1,28 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package telas;
 
 import dominio.Bairro;
 import dominio.BaseDeDados;
 import dominio.Regiao;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author 0729159
+ * @author Cristiano do Couto
  */
 public class TelaBairros extends javax.swing.JFrame {
 
     private BaseDeDados bd;
-    /**
-     * Creates new form CadastrarBairro
-     */
-    //public TelaBairros(BaseDeDados bd) {
-    public TelaBairros() {
-        this.bd = bd;
+    private DefaultListModel lista = new DefaultListModel(); 
+    private DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+    public TelaBairros(BaseDeDados base) {
+        this.bd = base;
         initComponents();
+        preencherComboRegioes();
+        atualizarListaBairros();
+        
+        //Centraliza a tela
+        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
     }
 
     /**
@@ -43,7 +51,7 @@ public class TelaBairros extends javax.swing.JFrame {
         lblBairrosCadastrados = new javax.swing.JLabel();
         btnCriarBairro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        listaBairros = new javax.swing.JList();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,14 +73,19 @@ public class TelaBairros extends javax.swing.JFrame {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        listaBairros.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaBairros);
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,23 +94,21 @@ public class TelaBairros extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCriarBairro)
+                        .addGap(81, 81, 81))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(18, 18, 18)
                             .addComponent(txtNomeBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(comboRegioes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBairrosCadastrados)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(btnCriarBairro)))
-                        .addGap(54, 54, 54)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblBairrosCadastrados)
+                                .addComponent(comboRegioes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,9 +135,9 @@ public class TelaBairros extends javax.swing.JFrame {
                     .addComponent(comboRegioes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCriarBairro)
-                .addGap(4, 4, 4)
+                .addGap(11, 11, 11)
                 .addComponent(lblBairrosCadastrados)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltar)
@@ -150,46 +161,82 @@ public class TelaBairros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarBairroActionPerformed
-//        Regiao regiao = bd.getRegiao(0);
-//        Bairro bairro = new Bairro(txtNomeBairro.getText(), regiao);
-        bd.criarBairro(txtNomeBairro.getText(), comboRegioes.getName());
+        if (txtNomeBairro.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Você deve informar o nome do Bairro.", "Atenção!", JOptionPane.WARNING_MESSAGE);
+        } 
+        else if (comboRegioes.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Você deve selecionar a Região!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            String mensagem = bd.criarBairro(txtNomeBairro.getText(), comboRegioes.getSelectedItem().toString());
+            if(!mensagem.equals("OK")){
+                JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                txtNomeBairro.setText("");
+                comboRegioes.setSelectedIndex(-1);
+                atualizarListaBairros();
+            }
+        }
     }//GEN-LAST:event_btnCriarBairroActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.setVisible(false);
+        new TelaInicial(bd).setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void atualizarListaBairros(){
+        //A lista está ficando duplicada
+        List<Bairro> bairros = bd.getBairros();
+        for(Bairro b : bairros){
+            lista.addElement(b);
+        }
+        this.listaBairros.setModel(lista);
+    }
+    
+    private void preencherComboRegioes(){
+        List<Regiao> regioes = bd.getRegioes();
+        for(Regiao r : regioes){
+            model.addElement(r);
+        }
+        comboRegioes.setModel(model);
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaBairros().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TelaBairros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TelaBairros().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarBairro;
@@ -197,11 +244,11 @@ public class TelaBairros extends javax.swing.JFrame {
     private javax.swing.JComboBox comboRegioes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairros;
     private javax.swing.JLabel lblBairrosCadastrados;
+    private javax.swing.JList listaBairros;
     private javax.swing.JTextField txtNomeBairro;
     // End of variables declaration//GEN-END:variables
 }

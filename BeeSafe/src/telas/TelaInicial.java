@@ -6,6 +6,9 @@
 package telas;
 
 import dominio.BaseDeDados;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import testes.BeeSafe;
 
 /**
  *
@@ -16,12 +19,46 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
+    private BeeSafe bs;
     private BaseDeDados bd;
-    public TelaInicial() {
-        if(bd == null){
-            bd = new BaseDeDados();
+    private TelaBairros telaBairros;
+    private TelaOcorrencias telaOcorrencias;
+    private TelaRegioes telaRegioes;
+    private TelaTipoViolencia telaTipoViolencia;
+    private TelaUsuarios telaUsuarios;
+    
+    public TelaInicial(BaseDeDados base) {
+        if(base == null){
+            bs = new BeeSafe();
+            base = bs.iniciarBaseDeDados();
         }
+        bd = base;
+//        if(telaBairros == null){
+//            telaBairros = new TelaBairros(bd);
+//        }
+//        if(telaOcorrencias == null){
+//            telaOcorrencias = new TelaOcorrencias(bd);
+//        }
+//        if(telaRegioes == null){
+//            telaRegioes = new TelaRegioes(bd);
+//        }
+//        if(telaTipoViolencia == null){
+//            telaTipoViolencia = new TelaTipoViolencia(bd);
+//        }
+//        if(telaUsuarios == null){
+//            telaUsuarios = new TelaUsuarios(bd);
+            
+        telaBairros = new TelaBairros(bd);
+        telaOcorrencias = new TelaOcorrencias(bd);
+        telaRegioes = new TelaRegioes(bd);
+        telaTipoViolencia = new TelaTipoViolencia(bd);
+        telaUsuarios = new TelaUsuarios(bd);
+        
         initComponents();
+        //Centraliza a tela
+        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
+        this.setVisible(true);
     }
 
     /**
@@ -47,18 +84,43 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnBairros.setText("Bairros");
+        btnBairros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBairrosActionPerformed(evt);
+            }
+        });
 
         btnEnderecos.setText("Endereços");
 
         btnOcorrencias.setText("Ocorrências");
+        btnOcorrencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOcorrenciasActionPerformed(evt);
+            }
+        });
 
         btnRegiao.setText("Regiões");
+        btnRegiao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegiaoActionPerformed(evt);
+            }
+        });
 
         btnTipoViolencia.setText("Tipos de Violência");
+        btnTipoViolencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTipoViolenciaActionPerformed(evt);
+            }
+        });
 
         btnUsuarios.setText("Usuários");
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
 
-        lblTitulo.setText("Escolha uma opção");
+        lblTitulo.setText("ESCOLHA UMA OPÇÃO:");
 
         btnPesquisar.setText("Pesquisar");
 
@@ -120,8 +182,8 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,6 +195,31 @@ public class TelaInicial extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBairrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBairrosActionPerformed
+        this.setVisible(false);
+        telaBairros.setVisible(true);
+    }//GEN-LAST:event_btnBairrosActionPerformed
+
+    private void btnRegiaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegiaoActionPerformed
+        this.setVisible(false);
+        telaRegioes.setVisible(true);
+    }//GEN-LAST:event_btnRegiaoActionPerformed
+
+    private void btnOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcorrenciasActionPerformed
+        //this.setVisible(false);
+        telaOcorrencias.setVisible(true);
+    }//GEN-LAST:event_btnOcorrenciasActionPerformed
+
+    private void btnTipoViolenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoViolenciaActionPerformed
+        //this.setVisible(false);
+        telaTipoViolencia.setVisible(true);
+    }//GEN-LAST:event_btnTipoViolenciaActionPerformed
+
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        //this.setVisible(false);
+        telaUsuarios.setVisible(true);
+    }//GEN-LAST:event_btnUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,7 +251,7 @@ public class TelaInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicial().setVisible(true);
+                new TelaInicial(null).setVisible(true);
             }
         });
     }
