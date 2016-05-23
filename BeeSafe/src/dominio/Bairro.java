@@ -5,6 +5,8 @@
  */
 package dominio;
 
+import java.util.Objects;
+
 /**
  *
  * @author Clark
@@ -26,8 +28,33 @@ public class Bairro {
         return regiao.getNome();
     }   
     
+    public String getInformacoesBairro(){        
+         return this.getNome() + " - " + this.getRegiao();
+    }
+    
     @Override
     public String toString(){
-         return this.getNome() + " - " + this.getRegiao();
+         return this.getNome();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Bairro other = (Bairro) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.regiao, other.regiao)) {
+            return false;
+        }
+        return true;
     }
 }

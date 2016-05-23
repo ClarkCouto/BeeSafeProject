@@ -24,7 +24,7 @@ public class Ocorrencia {
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
     public Ocorrencia(Endereco endereco, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
-        comentarios = new ArrayList<Comentario>();
+        comentarios = new ArrayList<>();
         this.endereco = endereco;
         this.usuario = usuario;
         this.descricao = descricao;
@@ -35,17 +35,45 @@ public class Ocorrencia {
     public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
         this(new Endereco(rua, numero, bairro), usuario, descricao, tipoViolencia, data);
     }
-        
+    
+    public String getDescricao() {
+        return descricao;
+    }
+    
     public Endereco getEndereco() {
         return endereco;
     }
 
     public Usuario getUsuario() {
         return usuario;
+    }    
+    
+    public Bairro getBairro(){
+        return endereco.getBairro();
     }
 
-    public String getDescricao() {
-        return descricao;
+//    public String getBairro(){
+//        return endereco.getBairro().getNome();
+//    }
+    
+    public Date getData(){
+        return this.data;
+    }
+    
+//    public String getData(){
+//        return formataData.format(this.data);
+//    }
+    
+    public String getNomeUsuario(){
+        return usuario.getNome();
+    }
+    
+    public String getRegiao(){
+        return endereco.getBairro().getRegiao();
+    }
+
+    public String getTipoViolencia(){
+        return tipoViolencia.getTipo();
     }
     
     public void adiconarComentario(Comentario comentario){

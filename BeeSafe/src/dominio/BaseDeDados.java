@@ -5,7 +5,9 @@
  */
 package dominio;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,20 +16,23 @@ import java.util.List;
  * @author Clark
  */
 public class BaseDeDados {
-    private List<Ocorrencia> listaOcorrencias = new ArrayList<Ocorrencia>();
-    private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-    private List<Endereco> listaEnderecos = new ArrayList<Endereco>();
-    private List<Bairro> listaBairros = new ArrayList<Bairro>();
-    private List<Regiao> listaRegioes = new ArrayList<Regiao>();
-    private List<TipoViolencia> listaTiposViolencia = new ArrayList<TipoViolencia>();
+    private List<Ocorrencia> listaOcorrencias = new ArrayList<>();
+    private List<Usuario> listaUsuarios = new ArrayList<>();
+    private List<Endereco> listaEnderecos = new ArrayList<>();
+    private List<Bairro> listaBairros = new ArrayList<>();
+    private List<Regiao> listaRegioes = new ArrayList<>();
+    private List<TipoViolencia> listaTiposViolencia = new ArrayList<>();
+    private List<TipoUsuario> listaTiposUsuario = new ArrayList<>();
+    private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
+    private Calendar c = Calendar.getInstance();
  
-    public List<Ocorrencia> pesquisar(ArrayList<String> parametros){
-        return listaOcorrencias;
-    }
+//    public List<Ocorrencia> pesquisar(ArrayList<String> parametros){
+//        return listaOcorrencias;
+//    }
     
-    public double gerarEstatisticas(ArrayList<String> parametros){
-        return 0;
-    }
+//    public double gerarEstatisticas(ArrayList<String> parametros){
+//        return 0;
+//    }
     
     public String criarBairro(String nomeBairro, String nomeRegiao){
         Regiao regiao = validarRegiao(nomeRegiao);
@@ -39,11 +44,11 @@ public class BaseDeDados {
                 return "OK";
             }
             else{
-                return "O bairro " + nomeBairro + " já existe!";
+                return "O bairro " + nomeBairro + " ja existe!";
             }
         }
         else{
-            return "A região " + nomeRegiao + " não existe!";
+            return "A regiao " + nomeRegiao + " nao existe!";
         }
     }
     
@@ -55,53 +60,48 @@ public class BaseDeDados {
             return "OK";
         }
         else{
-            return "O bairro " + nomeBairro + " não existe!";
+            return "O bairro " + nomeBairro + " nao existe!";
         }
     }
     
     public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String descricao, String tipoDeViolencia, Date data){
-//    public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data){
-//        Usuario usuario = new Usuario(nomeUsuario, email, senha); 
-//        //verifica se o usuario existe, caso não exista adiciona na lista de usuários
-//        if(!validarUsuario(usuario)){
-//            listaUsuarios.add(usuario);
-//        }
         Usuario usuario = getUsuario(nomeUsuario);
+        //Verifica se o usuario existe
         if(usuario != null){
             Bairro bairro = validarBairro(nomeBairro);
             //Verifica se o bairro existe
             if(bairro != null){
                 TipoViolencia tipoViolencia = validarTipoViolencia(tipoDeViolencia);
-                //Verifica se o tipo de violência existe
+                //Verifica se o tipo de violencia existe
                 if(tipoViolencia != null){
                     try{
                         int num = Integer.parseInt(numero);
                         Endereco endereco = new Endereco(rua, num, bairro);
-                        //Verifica se o endereco já foi cadastrado anteriormente
+                        //Verifica se o endereco ja foi cadastrado anteriormente
                         boolean existe = validarEndereco(endereco);
                         if(!existe){
-                            //se não existir adiciona na lista
+                            //se nao existir adiciona na lista
                             listaEnderecos.add(endereco);
                         }
-                        //Cria a ocorrência e adiciona na lista
+                        //Cria a ocorrencia e adiciona na lista
                         Ocorrencia ocorrencia = new Ocorrencia(endereco, usuario, descricao, tipoViolencia, data);
                         listaOcorrencias.add(ocorrencia);
                         return "OK";
                     }
                     catch(Exception e){
-                        return "Número inválido!";
+                        return "Numero invalido!";
                     }
                 }
                 else{
-                    return "Tipo de Ocorrência inválido!";
+                    return "Tipo de Ocorrencia invalido!";
                 }
             }
             else{
-                return "Bairro inválido!";
+                return "Bairro invalido!";
             }
         }
         else{
-            return "Usuário não cadastrado!";
+            return "Usuario nao cadastrado!";
         }
     }
     
@@ -114,103 +114,227 @@ public class BaseDeDados {
             return "OK";
         }
         else{
-            return "A região " + nomeRegiao + " já existe!";
+            return "A regiao " + nomeRegiao + " ja existe!";
         }
     }
     
-    public String criarTipoViolencia(String nome, String tipo){
-        TipoViolencia tv = validarTipoViolencia(nome.toUpperCase());
-        String situacao;
-        if(tv == null){
-            switch(tipo.toUpperCase()){
-                case "FISICA": 
-                    Fisica vf = new Fisica(nome);
-                    listaTiposViolencia.add(vf);
-                    situacao = "OK";
-                    break;
-                case "PSICOLOGICA": 
-                    Psicologica vp = new Psicologica(nome);
-                    listaTiposViolencia.add(vp);
-                    situacao = "OK";
-                    break;
-                case "SEXUAL": 
-                    Sexual vs = new Sexual(nome);
-                    listaTiposViolencia.add(vs);
-                    situacao = "OK";
-                    break;
-                default:
-                    situacao = "Tipo de Violência inválido!";
-                    break;
-            }
-        }
-        else{
-            situacao = "Tipo de ocorrência " + tipo + " já existe!";
-        }
-        return situacao;
-    }
-    
-    public String criarUsuario(String nome, String email, String senha){
-        Usuario user = new Usuario(nome, email, senha);
-        if(validarUsuario(user)){
-            return "Usuário já cadastrado anteriormente!";
-        }
-        else{
-            listaUsuarios.add(user);
+    public String criarTipoUsuario(String tipo){
+        TipoUsuario tipoUsuario = validarTipoUsuario(tipo.toUpperCase());
+        if(tipoUsuario == null){
+            tipoUsuario =  new TipoUsuario(tipo);
+            listaTiposUsuario.add(tipoUsuario);
             return "OK";
         }
+        else{
+            return "O Tipo de Usuario " + tipoUsuario + " ja existe!";
+        }
     }
     
-    public List<Ocorrencia> pesquisar(List<String> parametros){
-        List<Ocorrencia> lista = getOcorrencias();
-        List<Ocorrencia> aux = new ArrayList<Ocorrencia>();
-        //Filtra pela Data
-        if(parametros.get(0) != ""){
-            
+    public String criarTipoViolencia(String tipo){
+        TipoViolencia tipoViolencia = validarTipoViolencia(tipo.toUpperCase());
+        if(tipoViolencia == null){
+            tipoViolencia =  new TipoViolencia(tipo);
+            listaTiposViolencia.add(tipoViolencia);
+            return "OK";
         }
-        //Filtra pelo Tipo de Violência
-        if(parametros.get(1) != ""){
-            for(Ocorrencia o: lista){
-                //if(o.)
-                    aux.add(o);
+        else{
+            return "O Tipo Violencia " + tipoViolencia + " ja existe!";
+        }
+    }
+    
+    public String criarUsuario(String nome, String email, String senha, String tipo){
+        TipoUsuario tipoUsuario = validarTipoUsuario(tipo);
+        if(tipoUsuario == null){
+            return "Tipo Usuario invalido!";
+        }
+        else{
+            Usuario user = new Usuario(nome, email, senha, tipoUsuario);
+            if(validarUsuario(user)){
+                return "Usuario ja cadastrado anteriormente!";
+            }
+            else{
+                listaUsuarios.add(user);
+                return "OK";
             }
         }
-        //Filtra pela Região
-        if(parametros.get(2) != ""){
+    }
+    
+    public List<Ocorrencia> pesquisar(List<Object> parametros){
+        
+        List<Ocorrencia> lista = getOcorrencias();
+//        if(!parametros.get(0).equals("") && !parametros.get(1).equals("")){
+//            //filtrar por período
+//        }
+        //Filtra a partir da DataInicial
+        if(parametros.get(0) != null){
+            for(Ocorrencia o: lista){
+                c.setTime(o.getData());
+                if(!c.after(parametros.get(0)))
+                    lista.remove(o);
+            }
+        }        
+        //Filtra ate a DataFinal
+        if(parametros.get(1) != null){
+            for(Ocorrencia o: lista){
+                c.setTime(o.getData());
+                if(!c.before(parametros.get(0)))
+                    lista.remove(o);
+            }
+        }
+        //Filtra pelo Ano
+        if((int)parametros.get(2) > 0){
+            for(Ocorrencia o: lista){
+                c.setTime(o.getData());
+                int ano = (int)parametros.get(2);
+                if(c.get(Calendar.YEAR) != ano)
+                    lista.remove(o);
+            }
+        }
+        //Filtra pela Mes
+        if(!parametros.get(3).equals("")){
+            for(Ocorrencia o: lista){
+                c.setTime(o.getData());
+                int mes = (int)parametros.get(3);
+                if(c.get(Calendar.MONTH) != mes)
+                    lista.remove(o);
+            }
+        }
+        //Filtra pelo Tipo de Violencia
+        if(!parametros.get(4).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getTipoViolencia().equals(parametros.get(4)))
+                    lista.remove(o);
+            }
+        }
+        //Filtra pela Regiao
+        if(!parametros.get(5).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getRegiao().equals(parametros.get(5)))
+                    lista.remove(o);
+            }
         }
         //Filtra pelo Bairro
-        if(parametros.get(3) != ""){
+        if(parametros.get(6) != null){
+            for(Ocorrencia o: lista){
+                if(!o.getBairro().equals(parametros.get(6)))
+                    lista.remove(o);
+            }
         }
         //Filtra pela Rua
-        if(parametros.get(4) != ""){
+        if(!parametros.get(7).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getEndereco().getRua().equals(parametros.get(7)))
+                    lista.remove(o);
+            }
         }
-        //Filtra pelo Usuário
-        if(parametros.get(5) != ""){
-        }
-        return null;
+        return lista;
     }
+    
+//    public List<Ocorrencia> pesquisar(List<String> parametros){
+//        
+//        List<Ocorrencia> lista = getOcorrencias();
+////        if(!parametros.get(0).equals("") && !parametros.get(1).equals("")){
+////            //filtrar por período
+////        }
+//        //Filtra a partir da DataInicial
+//        if(!parametros.get(0).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getData().equals(parametros.get(0)))
+//                    lista.remove(o);
+//            }
+//        }        
+//        //Filtra ate a DataFinal
+//        if(!parametros.get(1).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getData().equals(parametros.get(1)))
+//                    lista.remove(o);
+//            }
+//        }
+//        //Filtra pelo Ano
+//        if(!parametros.get(2).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getData().equals(parametros.get(2)))
+//                    lista.remove(o);
+//            }
+//        }
+//        //Filtra pela Ano
+//        if(!parametros.get(3).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getData().equals(parametros.get(3)))
+//                    lista.remove(o);
+//            }
+//        }
+//        //Filtra pelo Tipo de Violencia
+//        if(!parametros.get(4).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getTipoViolencia().equals(parametros.get(4)))
+//                    lista.remove(o);
+//            }
+//        }
+//        //Filtra pela Regiao
+//        if(!parametros.get(5).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getRegiao().equals(parametros.get(5)))
+//                    lista.remove(o);
+//            }
+//        }
+//        //Filtra pelo Bairro
+//        if(!parametros.get(6).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getBairro().equals(parametros.get(6)))
+//                    lista.remove(o);
+//            }
+//        }
+//        //Filtra pela Rua
+//        if(!parametros.get(7).equals("")){
+//            for(Ocorrencia o: lista){
+//                if(!o.getEndereco().getRua().equals(parametros.get(7)))
+//                    lista.remove(o);
+//            }
+//        }
+//        return lista;
+//    }
     
     public double gerarEstatisticas(List<String> parametros){
         List<Ocorrencia> lista = getOcorrencias();
+        int quantidadeTotal = lista.size();
         double quantidade = 0;
         //Filtra pela Data
-        if(parametros.get(0) != ""){
+        if(!parametros.get(0).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getData().equals(parametros.get(0)))
+                    lista.remove(o);
+            }
         }
-        //Filtra pelo Tipo de Violência
-        if(parametros.get(1) != ""){
+        //Filtra pelo Tipo de Violencia
+        if(!parametros.get(1).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getTipoViolencia().equals(parametros.get(1)))
+                    lista.remove(o);
+            }
         }
-        //Filtra pela Região
-        if(parametros.get(2) != ""){
+        //Filtra pela Regiao
+        if(!parametros.get(2).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getRegiao().equals(parametros.get(1)))
+                    lista.remove(o);
+            }
         }
         //Filtra pelo Bairro
-        if(parametros.get(3) != ""){
+        if(!parametros.get(3).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getBairro().equals(parametros.get(3)))
+                    lista.remove(o);
+            }
         }
         //Filtra pela Rua
-        if(parametros.get(4) != ""){
+        if(!parametros.get(4).equals("")){
+            for(Ocorrencia o: lista){
+                if(!o.getEndereco().getRua().equals(parametros.get(4)))
+                    lista.remove(o);
+            }
         }
-        //Filtra pelo Usuário
-        if(parametros.get(5) != ""){
-        }
-        return quantidade;
+        return quantidade/quantidadeTotal;
     }
     
     public List<Bairro> getBairros(){
@@ -294,9 +418,18 @@ public class BaseDeDados {
     }
     
     public TipoViolencia validarTipoViolencia(String tipo){
-        for(TipoViolencia r : listaTiposViolencia){
-            if(r.getTipo().toUpperCase().equals(tipo.toUpperCase())){
-                return r;
+        for(TipoViolencia tv : listaTiposViolencia){
+            if(tv.getTipo().toUpperCase().equals(tipo.toUpperCase())){
+                return tv;
+            }
+        }
+        return null;
+    }    
+    
+    public TipoUsuario validarTipoUsuario(String tipo){
+        for(TipoUsuario tu : listaTiposUsuario){
+            if(tu.getTipo().toUpperCase().equals(tipo.toUpperCase())){
+                return tu;
             }
         }
         return null;

@@ -7,6 +7,7 @@ package telas;
 
 import dominio.BaseDeDados;
 import dominio.TipoViolencia;
+import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -23,15 +24,17 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
     private BaseDeDados bd;
     private DefaultListModel lista; 
     private DefaultComboBoxModel model;
+    private Usuario usuario;
     /**
      * Creates new form TelaTipoViolencia
      */
-    public TelaTipoViolencia(BaseDeDados base) {
+    public TelaTipoViolencia(BaseDeDados base, Usuario user) {
+        super("Tipos de Violência");
         this.bd = base;
+        this.usuario = user;
         initComponents();
         
         atualizarListaTiposViolencia();
-        preencherComboTiposViolencia();
         
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
@@ -163,13 +166,10 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
 
     private void btnCriarTipoViolenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarTipoViolenciaActionPerformed
         if (txtTipoViolencia.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Você deve informar o campo Violência.", "Atenção!", JOptionPane.WARNING_MESSAGE);
-        }
-        else if (comboTiposViolencia.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Violência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Você deve informar o campo Tipo Violência.", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
         else{
-            String mensagem = bd.criarTipoViolencia(txtTipoViolencia.getText(), comboTiposViolencia.getSelectedItem().toString());
+            String mensagem = bd.criarTipoViolencia(txtTipoViolencia.getText());
             if(!mensagem.equals("OK")){
                 JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
             }
@@ -182,10 +182,9 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
-        new TelaInicial(bd).setVisible(true);
+        new TelaPrincipal(bd, usuario).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    
     private void atualizarListaTiposViolencia(){
         lista = new DefaultListModel();
         List<TipoViolencia> tipos = bd.getTiposViolencia();
@@ -193,14 +192,6 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
             lista.addElement(tv);
         }
         this.listaTiposViolencia.setModel(lista);
-    }
-    
-    private void preencherComboTiposViolencia(){
-        model = new DefaultComboBoxModel();
-        model.addElement("Fisica");
-        model.addElement("Psicologica");
-        model.addElement("Sexual");
-        comboTiposViolencia.setModel(model);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

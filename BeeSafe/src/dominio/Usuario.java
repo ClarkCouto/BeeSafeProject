@@ -13,11 +13,13 @@ public class Usuario {
     private String nome;
     private String email;
     private String senha;
+    private TipoUsuario tipoUsuario;
 
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNome() {
@@ -32,6 +34,10 @@ public class Usuario {
         return senha;
     }
 
+    public TipoUsuario getTipoUsuario(){
+        return tipoUsuario;
+    }
+    
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -44,17 +50,20 @@ public class Usuario {
         this.senha = senha;
     }
     
-//    public Usuario cadastrarUsuario(String nome, String email, String senha){
-//        Usuario user = new Usuario(nome, senha, email);
-//        return user;
-//    }
+    public void setTipoUsuario(TipoUsuario tipo){
+        this.tipoUsuario = tipo;
+    }
     
     public boolean fazerLogin(String email, String senha){
+        if(!this.email.equals(email) || !this.senha.equals(senha)){
+            return false;
+        }
         return true;
     }
     
     public String getInformacoesUsuario(){        
-         return "Nome: " + this.getNome() + "\t Email: " + this.getEmail() + "\t Senha: " + this.getSenha();
+         //return "Nome: " + this.getNome() + "\t Email: " + this.getEmail() + "\t Senha: " + this.getSenha() + "\t Tipo: " + this.getTipoUsuario().getTipo();
+         return "Nome: " + this.getNome() + "\nEmail: " + this.getEmail() + "\nSenha: " + this.getSenha() + "\nTipo: " + this.getTipoUsuario().getTipo();
     }
     
     @Override

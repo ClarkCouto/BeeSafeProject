@@ -9,23 +9,23 @@ import java.util.Objects;
 
 /**
  *
- * @author Clark
+ * @author ccouto
  */
-public class Regiao {
-    private String nome;
-
-    public Regiao(String nome) {
-        this.nome = nome;
+public class TipoUsuario {
+    private String tipo;
+    
+    public TipoUsuario(String tipo){
+        this.tipo = tipo;
     }
-
-    public String getNome() {
-        return nome;
+    
+    public String getTipo(){
+        return this.tipo.toUpperCase();
     }
     
     @Override
     public String toString(){
-         return this.getNome();
-    }
+         return this.getTipo();
+    }    
 
     @Override
     public boolean equals(Object obj) {
@@ -38,10 +38,11 @@ public class Regiao {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Regiao other = (Regiao) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
+        final TipoUsuario other = (TipoUsuario) obj;
+        if (!Objects.equals(this.tipo, other.tipo)) {
             return false;
         }
         return true;
     }
+    
 }
