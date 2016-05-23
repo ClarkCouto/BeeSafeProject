@@ -59,42 +59,49 @@ public class BaseDeDados {
         }
     }
     
-    public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data){
-        Usuario usuario = new Usuario(nomeUsuario, email, senha); 
-        //verifica se o usuario existe, caso não exista adiciona na lista de usuários
-        if(!validarUsuario(usuario)){
-            listaUsuarios.add(usuario);
-        }
-        Bairro bairro = validarBairro(nomeBairro);
-        //Verifica se o bairro existe
-        if(bairro != null){
-            TipoViolencia tipoViolencia = validarTipoViolencia(tipoDeViolencia);
-            //Verifica se o tipo de violência existe
-            if(tipoViolencia != null){
-                try{
-                    int num = Integer.parseInt(numero);
-                    Endereco endereco = new Endereco(rua, num, bairro);
-                    //Verifica se o endereco já foi cadastrado anteriormente
-                    boolean existe = validarEndereco(endereco);
-                    if(!existe){
-                        //se não existir adiciona na lista
-                        listaEnderecos.add(endereco);
+    public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String descricao, String tipoDeViolencia, Date data){
+//    public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data){
+//        Usuario usuario = new Usuario(nomeUsuario, email, senha); 
+//        //verifica se o usuario existe, caso não exista adiciona na lista de usuários
+//        if(!validarUsuario(usuario)){
+//            listaUsuarios.add(usuario);
+//        }
+        Usuario usuario = getUsuario(nomeUsuario);
+        if(usuario != null){
+            Bairro bairro = validarBairro(nomeBairro);
+            //Verifica se o bairro existe
+            if(bairro != null){
+                TipoViolencia tipoViolencia = validarTipoViolencia(tipoDeViolencia);
+                //Verifica se o tipo de violência existe
+                if(tipoViolencia != null){
+                    try{
+                        int num = Integer.parseInt(numero);
+                        Endereco endereco = new Endereco(rua, num, bairro);
+                        //Verifica se o endereco já foi cadastrado anteriormente
+                        boolean existe = validarEndereco(endereco);
+                        if(!existe){
+                            //se não existir adiciona na lista
+                            listaEnderecos.add(endereco);
+                        }
+                        //Cria a ocorrência e adiciona na lista
+                        Ocorrencia ocorrencia = new Ocorrencia(endereco, usuario, descricao, tipoViolencia, data);
+                        listaOcorrencias.add(ocorrencia);
+                        return "OK";
                     }
-                    //Cria a ocorrência e adiciona na lista
-                    Ocorrencia ocorrencia = new Ocorrencia(endereco, usuario, descricao, tipoViolencia, data);
-                    listaOcorrencias.add(ocorrencia);
-                    return "OK";
+                    catch(Exception e){
+                        return "Número inválido!";
+                    }
                 }
-                catch(Exception e){
-                    return "Número inválido!";
+                else{
+                    return "Tipo de Ocorrência inválido!";
                 }
             }
             else{
-                return "Ocorência não cadastrada! Tipo de Ocorrência inválido!";
+                return "Bairro inválido!";
             }
         }
         else{
-            return "Ocorência não cadastrada! Bairro inválido!";
+            return "Usuário não cadastrado!";
         }
     }
     
@@ -149,7 +156,7 @@ public class BaseDeDados {
         }
         else{
             listaUsuarios.add(user);
-            return "Usuário cadastrado!";
+            return "OK";
         }
     }
     
@@ -250,8 +257,13 @@ public class BaseDeDados {
         return listaUsuarios;
     }
     
-    public Usuario getUsuario(int codUsuario){
-        return listaUsuarios.get(codUsuario);
+    public Usuario getUsuario(String nomeUsuario){
+        for(Usuario u : listaUsuarios){
+            if(u.getNome().toUpperCase().equals(nomeUsuario.toUpperCase())){
+                return u;
+            }
+        }
+        return null;
     }
         
     public Bairro validarBairro(String bairro){

@@ -5,8 +5,10 @@
  */
 package telas;
 
+import dominio.Bairro;
 import dominio.BaseDeDados;
 import dominio.Ocorrencia;
+import dominio.TipoViolencia;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
@@ -22,13 +24,15 @@ import javax.swing.JOptionPane;
 public class TelaOcorrencias extends javax.swing.JFrame {
 
     private BaseDeDados bd;
-    private DefaultListModel lista = new DefaultListModel(); 
-    private DefaultComboBoxModel model = new DefaultComboBoxModel();
+    private DefaultListModel lista; 
+    private DefaultComboBoxModel model;
     
     public TelaOcorrencias(BaseDeDados base) {
         this.bd = base;
         initComponents();
         
+        preencherComboBairros();
+        preencherComboTiposViolencia();
         atualizarListaOcorrencias();
         
         //Centraliza a tela
@@ -59,13 +63,15 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         comboBairros = new javax.swing.JComboBox();
         lblBairro = new javax.swing.JLabel();
         lblTipoOcorrencia = new javax.swing.JLabel();
-        comboTipoOcorrencia = new javax.swing.JComboBox();
+        comboTiposViolencia = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
         btnCriarOcorrencia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaOcorrencias = new javax.swing.JList();
         btnVoltar = new javax.swing.JButton();
+        lblDescricao = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,7 +89,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
 
         lblTipoOcorrencia.setText("Tipo de Ocorrência:");
 
-        comboTipoOcorrencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
@@ -110,6 +116,10 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             }
         });
 
+        lblDescricao.setText("Descrição:");
+
+        jLabel1.setText("OCORRÊNCIAS CADASTRADAS");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,42 +127,48 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(lblTitulo))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblData)
+                                    .addComponent(lblRua)
+                                    .addComponent(lblNumero)
+                                    .addComponent(lblBairro))
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtData)
+                                    .addComponent(txtRua)
+                                    .addComponent(txtNumero)
+                                    .addComponent(comboBairros, 0, 150, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(lblTitulo)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(54, 54, 54))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblData)
-                            .addComponent(lblRua)
-                            .addComponent(lblNumero)
-                            .addComponent(lblBairro))
-                        .addGap(68, 68, 68)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtData)
-                            .addComponent(txtRua)
-                            .addComponent(txtNumero)
-                            .addComponent(comboBairros, 0, 150, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane2))
+                            .addComponent(lblTipoOcorrencia)
+                            .addComponent(lblDescricao))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addComponent(btnVoltar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblTipoOcorrencia)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboTipoOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addComponent(btnCriarOcorrencia)))))
-                .addGap(0, 10, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCriarOcorrencia)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(btnVoltar)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,16 +195,20 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipoOcorrencia)
-                    .addComponent(comboTipoOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDescricao)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCriarOcorrencia)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVoltar)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -204,8 +224,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,13 +247,13 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Bairro!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        else if (comboTipoOcorrencia.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Ocorrência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+        else if (comboTiposViolencia.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Violência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             return;
         }
         else{
             //String rua, int numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data
-            String mensagem = bd.criarOcorrencia(txtRua.getText(), txtNumero.getText(), comboBairros.getSelectedItem().toString(), "user", "email", "senha", txtDescricao.getText(), comboTipoOcorrencia.getSelectedItem().toString(), new Date());
+            String mensagem = bd.criarOcorrencia(txtRua.getText(), txtNumero.getText(), comboBairros.getSelectedItem().toString(), "user", txtDescricao.getText(), comboTiposViolencia.getSelectedItem().toString(), new Date());
             if(!mensagem.equals("OK")){
                 JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
             }
@@ -243,6 +262,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 txtNumero.setText("");
                 txtDescricao.setText("");
                 comboBairros.setSelectedIndex(-1);
+                comboTiposViolencia.setSelectedIndex(-1);
                 atualizarListaOcorrencias();
             }
         }
@@ -253,9 +273,8 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         new TelaInicial(bd).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    
     private void atualizarListaOcorrencias(){
-        //A lista está ficando duplicada
+        lista = new DefaultListModel();
         List<Ocorrencia> ocorrencias = bd.getOcorrencias();
         for(Ocorrencia o : ocorrencias){
             lista.addElement(o);
@@ -263,16 +282,35 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         this.listaOcorrencias.setModel(lista);
     }
 
+    private void preencherComboBairros(){
+        model = new DefaultComboBoxModel();
+        List<Bairro> bairros = bd.getBairros();
+        for(Bairro b : bairros){
+            model.addElement(b);
+        }
+        comboBairros.setModel(model);
+    }
+    private void preencherComboTiposViolencia(){
+        model = new DefaultComboBoxModel();
+        List<TipoViolencia> tipos = bd.getTiposViolencia();
+        for(TipoViolencia t : tipos){
+            model.addElement(t);
+        }
+        comboTiposViolencia.setModel(model);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarOcorrencia;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox comboBairros;
-    private javax.swing.JComboBox comboTipoOcorrencia;
+    private javax.swing.JComboBox comboTiposViolencia;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblRua;
     private javax.swing.JLabel lblTipoOcorrencia;

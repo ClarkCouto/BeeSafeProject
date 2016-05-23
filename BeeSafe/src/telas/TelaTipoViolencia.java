@@ -21,8 +21,8 @@ import javax.swing.JOptionPane;
 public class TelaTipoViolencia extends javax.swing.JFrame {
 
     private BaseDeDados bd;
-    private DefaultListModel lista = new DefaultListModel(); 
-    private DefaultComboBoxModel model = new DefaultComboBoxModel();
+    private DefaultListModel lista; 
+    private DefaultComboBoxModel model;
     /**
      * Creates new form TelaTipoViolencia
      */
@@ -187,7 +187,7 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
 
     
     private void atualizarListaTiposViolencia(){
-        //A lista está ficando duplicada
+        lista = new DefaultListModel();
         List<TipoViolencia> tipos = bd.getTiposViolencia();
         for(TipoViolencia tv : tipos){
             lista.addElement(tv);
@@ -196,6 +196,7 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
     }
     
     private void preencherComboTiposViolencia(){
+        model = new DefaultComboBoxModel();
         model.addElement("Fisica");
         model.addElement("Psicologica");
         model.addElement("Sexual");

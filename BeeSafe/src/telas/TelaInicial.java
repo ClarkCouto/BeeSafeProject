@@ -229,8 +229,8 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //this.setVisible(false);
-        //telaPesquisar.setVisible(true);
+        this.setVisible(false);
+        telaPesquisar.setVisible(true);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**

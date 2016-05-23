@@ -21,7 +21,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
 
   
     private BaseDeDados bd;
-    private DefaultListModel lista = new DefaultListModel(); 
+    private DefaultListModel lista; 
     /**
      * Creates new form TelaUsuarios
      */
@@ -201,7 +201,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void atualizarListaUsuarios(){
-        //A lista está ficando duplicada
+        lista = new DefaultListModel(); 
         List<Usuario> usuarios = bd.getUsuarios();
         for(Usuario u : usuarios){
             lista.addElement(u);

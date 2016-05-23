@@ -53,8 +53,12 @@ public class Usuario {
         return true;
     }
     
+    public String getInformacoesUsuario(){        
+         return "Nome: " + this.getNome() + "\t Email: " + this.getEmail() + "\t Senha: " + this.getSenha();
+    }
+    
     @Override
     public String toString(){
-         return "Nome: " + this.getNome() + "\t Email: " + this.getEmail() + "\t Senha: " + this.getSenha();
+         return this.getNome();
     }
 }

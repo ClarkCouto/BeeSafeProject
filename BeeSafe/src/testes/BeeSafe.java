@@ -53,10 +53,17 @@ public class BeeSafe {
         bd.criarUsuario("Matheus", "matheus@gmail.com", "123456");
         bd.criarUsuario("Thayse", "thayse@gmail.com", "123456");
         
-        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "cristiano@email.com", "123456", "Descrição 1", "Estupro", new Date());
-        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "thayse@email.com", "123456", "Descrição 2", "Discriminação", new Date());
-        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "matheus@email.com", "123456", "Descrição 3", "Agressão", new Date());        
-        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "matheus@email.com", "123456", "Descrição 3", "Agressão", new Date());
+        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "Descrição 1", "Estupro", new Date());
+        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "Descrição 2", "Discriminação", new Date());
+        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "Descrição 3", "Agressão", new Date());        
+        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "Descrição 3", "Agressão", new Date());
+        
+        //passando o usuario completo
+//        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "cristiano@email.com", "123456", "Descrição 1", "Estupro", new Date());
+//        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "thayse@email.com", "123456", "Descrição 2", "Discriminação", new Date());
+//        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "matheus@email.com", "123456", "Descrição 3", "Agressão", new Date());        
+//        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "matheus@email.com", "123456", "Descrição 3", "Agressão", new Date());
+        
         
         return bd;
     }
