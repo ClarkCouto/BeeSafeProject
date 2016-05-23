@@ -39,6 +39,7 @@ public class BeeSafe {
         bd.criarBairro("Cristal", "Sul");
         bd.criarBairro("Partenon", "Leste");
         
+        
         bd.criarTipoViolencia("Agressão", "Fisica");
         bd.criarTipoViolencia("Discriminação", "Psicologica");
         bd.criarTipoViolencia("Estupro", "Sexual");

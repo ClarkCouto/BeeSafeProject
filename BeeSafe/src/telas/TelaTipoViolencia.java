@@ -16,14 +16,16 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Clark
+ * @author 0729159
  */
-public class TelaTipoViolencia extends javax.swing.JPanel {
+public class TelaTipoViolencia extends javax.swing.JFrame {
 
     private BaseDeDados bd;
     private DefaultListModel lista = new DefaultListModel(); 
     private DefaultComboBoxModel model = new DefaultComboBoxModel();
-    
+    /**
+     * Creates new form TelaTipoViolencia
+     */
     public TelaTipoViolencia(BaseDeDados base) {
         this.bd = base;
         initComponents();
@@ -34,8 +36,10 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
+        
+        //Encerrar a aplicação quando fechar a tela 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,18 +51,24 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        lblTipoViolencia = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtTipoViolencia = new javax.swing.JTextField();
+        lblTipoViolencia = new javax.swing.JLabel();
+        comboTiposViolencia = new javax.swing.JComboBox();
         btnCriarTipoViolencia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaTiposViolencia = new javax.swing.JList();
         btnVoltar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        comboTiposViolencia = new javax.swing.JComboBox();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setText("TIPOS DE VIOLÊNCIA");
 
+        jLabel1.setText("Violência:");
+
         lblTipoViolencia.setText("Tipo de Violência:");
+
+        comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnCriarTipoViolencia.setText("Criar");
         btnCriarTipoViolencia.addActionListener(new java.awt.event.ActionListener() {
@@ -80,10 +90,6 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
                 btnVoltarActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Violência:");
-
-        comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,11 +138,11 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVoltar)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -151,12 +157,14 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCriarTipoViolenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarTipoViolenciaActionPerformed
         if (txtTipoViolencia.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o campo Violência.", "Atenção!", JOptionPane.WARNING_MESSAGE);
-        } 
+        }
         else if (comboTiposViolencia.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Violência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
@@ -174,8 +182,9 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
-        new TelaInicial(bd).setVisible(true);       
+        new TelaInicial(bd).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
     
     private void atualizarListaTiposViolencia(){
         //A lista está ficando duplicada
@@ -193,7 +202,6 @@ public class TelaTipoViolencia extends javax.swing.JPanel {
         comboTiposViolencia.setModel(model);
     }
     
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarTipoViolencia;
     private javax.swing.JButton btnVoltar;
