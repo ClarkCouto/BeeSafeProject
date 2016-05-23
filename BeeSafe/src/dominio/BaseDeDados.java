@@ -29,37 +29,37 @@ public class BaseDeDados {
         return 0;
     }
     
-    public void criarBairro(String nomeBairro, String nomeRegiao){
+    public String criarBairro(String nomeBairro, String nomeRegiao){
         Regiao regiao = validarRegiao(nomeRegiao);
         if(regiao != null){
             Bairro bairro = validarBairro(nomeBairro);
             if(bairro == null){
                 bairro = new Bairro(nomeBairro, regiao);
                 listaBairros.add(bairro);
-                System.out.println("Bairro cadastrado!");
+                return "OK";
             }
             else{
-                System.out.println("O bairro " + nomeBairro + " já existe!");
+                return "O bairro " + nomeBairro + " já existe!";
             }
         }
         else{
-            System.out.println("A região " + nomeRegiao + " não existe!");
+            return "A região " + nomeRegiao + " não existe!";
         }
     }
     
-    public void criarEndereco(String rua, int numero, String nomeBairro){
+    public String criarEndereco(String rua, int numero, String nomeBairro){
         Bairro bairro = validarBairro(nomeBairro);
         if(bairro != null){
             Endereco endereco = new Endereco(rua, numero, bairro);
             listaEnderecos.add(endereco);
-            System.out.println("Endereço cadastrado!");
+            return "OK";
         }
         else{
-            System.out.println("O bairro " + nomeBairro + " não existe!");
+            return "O bairro " + nomeBairro + " não existe!";
         }
     }
     
-    public void criarOcorrencia(String rua, int numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data){
+    public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data){
         Usuario usuario = new Usuario(nomeUsuario, email, senha); 
         //verifica se o usuario existe, caso não exista adiciona na lista de usuários
         if(!validarUsuario(usuario)){
@@ -71,87 +71,101 @@ public class BaseDeDados {
             TipoViolencia tipoViolencia = validarTipoViolencia(tipoDeViolencia);
             //Verifica se o tipo de violência existe
             if(tipoViolencia != null){
-                Endereco endereco = new Endereco(rua, numero, bairro);
-                //Verifica se o endereco já foi cadastrado anteriormente
-                boolean existe = validarEndereco(endereco);
-                if(!existe){
-                    //se não existir adiciona na lista
-                    listaEnderecos.add(endereco);
+                try{
+                    int num = Integer.parseInt(numero);
+                    Endereco endereco = new Endereco(rua, num, bairro);
+                    //Verifica se o endereco já foi cadastrado anteriormente
+                    boolean existe = validarEndereco(endereco);
+                    if(!existe){
+                        //se não existir adiciona na lista
+                        listaEnderecos.add(endereco);
+                    }
+                    //Cria a ocorrência e adiciona na lista
+                    Ocorrencia ocorrencia = new Ocorrencia(endereco, usuario, descricao, tipoViolencia, data);
+                    listaOcorrencias.add(ocorrencia);
+                    return "OK";
                 }
-                //Cria a ocorrência e adiciona na lista
-                Ocorrencia ocorrencia = new Ocorrencia(endereco, usuario, descricao, tipoViolencia, data);
-                listaOcorrencias.add(ocorrencia);
-                System.out.println("Ocorência cadastrada!");
+                catch(Exception e){
+                    return "Número inválido!";
+                }
             }
             else{
-                System.out.println("Ocorência não cadastrada! Tipo de Vilência inválido!");
+                return "Ocorência não cadastrada! Tipo de Ocorrência inválido!";
             }
         }
         else{
-            System.out.println("Ocorência não cadastrada! Bairro inválido!");
+            return "Ocorência não cadastrada! Bairro inválido!";
         }
     }
     
     
-    public void criarRegiao(String nomeRegiao){
+    public String criarRegiao(String nomeRegiao){
         Regiao regiao = validarRegiao(nomeRegiao);
         if(regiao == null){
             regiao =  new Regiao(nomeRegiao);
             listaRegioes.add(regiao);
-            System.out.println("Região cadastrada!");
+            return "OK";
         }
         else{
-            System.out.println("A região " + nomeRegiao + " já existe!");
+            return "A região " + nomeRegiao + " já existe!";
         }
     }
     
-    public void criarTipoViolencia(String nome, String tipo){
+    public String criarTipoViolencia(String nome, String tipo){
         TipoViolencia tv = validarTipoViolencia(nome.toUpperCase());
+        String situacao;
         if(tv == null){
             switch(tipo.toUpperCase()){
                 case "FISICA": 
                     Fisica vf = new Fisica(nome);
                     listaTiposViolencia.add(vf);
-                    System.out.println("Tipo de Violência cadastrada!");
+                    situacao = "OK";
                     break;
                 case "PSICOLOGICA": 
                     Psicologica vp = new Psicologica(nome);
                     listaTiposViolencia.add(vp);
-                    System.out.println("Tipo de Violência cadastrada!");
+                    situacao = "OK";
                     break;
                 case "SEXUAL": 
                     Sexual vs = new Sexual(nome);
                     listaTiposViolencia.add(vs);
-                    System.out.println("Tipo de Violência cadastrada!");
+                    situacao = "OK";
                     break;
                 default:
-                    System.out.println("Tipo de Violência inválido!");
+                    situacao = "Tipo de Violência inválido!";
                     break;
             }
         }
         else{
-            System.out.println("Tipo de ocorrência " + tipo + " já existe!");
+            situacao = "Tipo de ocorrência " + tipo + " já existe!";
         }
+        return situacao;
     }
     
-    public void criarUsuario(String nome, String email, String senha){
+    public String criarUsuario(String nome, String email, String senha){
         Usuario user = new Usuario(nome, email, senha);
         if(validarUsuario(user)){
-            System.out.println("Usuário já cadastrado anteriormente!");
+            return "Usuário já cadastrado anteriormente!";
         }
         else{
             listaUsuarios.add(user);
-            System.out.println("Usuário cadastrado!");
+            return "Usuário cadastrado!";
         }
     }
     
     public List<Ocorrencia> pesquisar(List<String> parametros){
         List<Ocorrencia> lista = getOcorrencias();
+        List<Ocorrencia> aux = new ArrayList<Ocorrencia>();
         //Filtra pela Data
         if(parametros.get(0) != ""){
+            
         }
         //Filtra pelo Tipo de Violência
         if(parametros.get(1) != ""){
+            for(Ocorrencia o: lista){
+                //if(o.)
+                    aux.add(o);
+            }
         }
         //Filtra pela Região
         if(parametros.get(2) != ""){
@@ -159,14 +173,11 @@ public class BaseDeDados {
         //Filtra pelo Bairro
         if(parametros.get(3) != ""){
         }
-        //Filtra pela Região
+        //Filtra pela Rua
         if(parametros.get(4) != ""){
         }
-        //Filtra pela Rua
-        if(parametros.get(5) != ""){
-        }
         //Filtra pelo Usuário
-        if(parametros.get(6) != ""){
+        if(parametros.get(5) != ""){
         }
         return null;
     }
@@ -186,14 +197,11 @@ public class BaseDeDados {
         //Filtra pelo Bairro
         if(parametros.get(3) != ""){
         }
-        //Filtra pela Região
+        //Filtra pela Rua
         if(parametros.get(4) != ""){
         }
-        //Filtra pela Rua
-        if(parametros.get(5) != ""){
-        }
         //Filtra pelo Usuário
-        if(parametros.get(6) != ""){
+        if(parametros.get(5) != ""){
         }
         return quantidade;
     }
