@@ -26,6 +26,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private TelaRegioes telaRegioes;
     private TelaTipoViolencia telaTipoViolencia;
     private TelaUsuarios telaUsuarios;
+    private TelaPesquisar telaPesquisar;
     
     public TelaInicial(BaseDeDados base) {
         if(base == null){
@@ -53,6 +54,7 @@ public class TelaInicial extends javax.swing.JFrame {
         telaRegioes = new TelaRegioes(bd);
         telaTipoViolencia = new TelaTipoViolencia(bd);
         telaUsuarios = new TelaUsuarios(bd);
+        telaPesquisar = new TelaPesquisar(bd);
         
         initComponents();
         //Centraliza a tela
@@ -123,6 +125,11 @@ public class TelaInicial extends javax.swing.JFrame {
         lblTitulo.setText("ESCOLHA UMA OPÇÃO:");
 
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         btnEstatisticas.setText("Estatísticas");
 
@@ -207,19 +214,24 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegiaoActionPerformed
 
     private void btnOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcorrenciasActionPerformed
-        //this.setVisible(false);
+        this.setVisible(false);
         telaOcorrencias.setVisible(true);
     }//GEN-LAST:event_btnOcorrenciasActionPerformed
 
     private void btnTipoViolenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoViolenciaActionPerformed
-        //this.setVisible(false);
+        this.setVisible(false);
         telaTipoViolencia.setVisible(true);
     }//GEN-LAST:event_btnTipoViolenciaActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        //this.setVisible(false);
-        telaUsuarios.setVisible(true);
+       this.setVisible(false);
+       telaUsuarios.setVisible(true);
     }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        //this.setVisible(false);
+        //telaPesquisar.setVisible(true);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments

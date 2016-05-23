@@ -31,6 +31,9 @@ public class TelaBairros extends javax.swing.JFrame {
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
+        
+        //Encerrar a aplicação quando fechar a tela 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
