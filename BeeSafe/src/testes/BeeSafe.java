@@ -8,13 +8,6 @@ package testes;
 import dominio.BaseDeDados;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-//import dominio.Bairro;
-//import dominio.Endereco;
-//import dominio.Ocorrencia;
-//import dominio.Regiao;
-//import dominio.TipoViolencia;
-//import dominio.Usuario;
-//import java.util.List;
 
 /**
  *
@@ -75,6 +68,13 @@ public class BeeSafe {
         catch(Exception e){}
         return dataFormatada;
     }
+//import dominio.Bairro;
+//import dominio.Endereco;
+//import dominio.Ocorrencia;
+//import dominio.Regiao;
+//import dominio.TipoViolencia;
+//import dominio.Usuario;
+//import java.util.List;
 //    public static void main(String[] args) {
 //        BaseDeDados bd = new BaseDeDados();
 //        
