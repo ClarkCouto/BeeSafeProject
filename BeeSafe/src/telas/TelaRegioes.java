@@ -7,6 +7,7 @@ package telas;
 
 import dominio.BaseDeDados;
 import dominio.Regiao;
+import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -21,11 +22,14 @@ public class TelaRegioes extends javax.swing.JFrame {
     
     private BaseDeDados bd;
     private DefaultListModel lista; 
+    private Usuario usuario;
     /**
      * Creates new form TelaRegioes
      */
-    public TelaRegioes(BaseDeDados base) {
+    public TelaRegioes(BaseDeDados base, Usuario user) {
+        super("Regiões");
         this.bd = base;
+        this.usuario = user;
         initComponents();
         atualizarListaRegioes();
         
@@ -177,7 +181,7 @@ public class TelaRegioes extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
-        new TelaInicial(bd).setVisible(true);
+        new TelaPrincipal(bd, usuario).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void atualizarListaRegioes(){

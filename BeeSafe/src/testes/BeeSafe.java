@@ -5,21 +5,16 @@
  */
 package testes;
 
-import dominio.Bairro;
 import dominio.BaseDeDados;
-import dominio.Endereco;
-import dominio.Ocorrencia;
-import dominio.Regiao;
-import dominio.TipoViolencia;
-import dominio.Usuario;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
  * @author Clark
  */
 public class BeeSafe {
+    private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
     public BeeSafe(){
     }
@@ -38,29 +33,48 @@ public class BeeSafe {
         bd.criarBairro("Sarandi", "Norte");
         bd.criarBairro("Cristal", "Sul");
         bd.criarBairro("Partenon", "Leste");
+        bd.criarBairro("Anchieta", "Norte");
         
         
-        bd.criarTipoViolencia("Agressão", "Fisica");
-        bd.criarTipoViolencia("Discriminação", "Psicologica");
-        bd.criarTipoViolencia("Estupro", "Sexual");
+        bd.criarTipoViolencia("Agressao");
+        bd.criarTipoViolencia("Discriminacao");
+        bd.criarTipoViolencia("Estupro");
+        
+        bd.criarTipoUsuario("Comum");
+        bd.criarTipoUsuario("Adm");
         
         bd.criarEndereco("A", 1, "Cristo Redentor");
-        bd.criarEndereco("B", 2, "Centro Histórico");
+        bd.criarEndereco("B", 2, "Centro Historico");
         bd.criarEndereco("C", 3, "Sarandi");
         bd.criarEndereco("D", 4, "Anchieta");
         
-        bd.criarUsuario("Cristiano", "cristiano@gmail.com", "123456");
-        bd.criarUsuario("Matheus", "matheus@gmail.com", "123456");
-        bd.criarUsuario("Thayse", "thayse@gmail.com", "123456");
+        bd.criarUsuario("Cristiano", "cristiano@gmail.com", "123456", "Adm");
+        bd.criarUsuario("Matheus", "matheus@gmail.com", "123456", "Comum");
+        bd.criarUsuario("Thayse", "thayse@gmail.com", "123456", "Comum");
         
-        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "Descrição 1", "Estupro", new Date());
-        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "Descrição 2", "Discriminação", new Date());
-        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "Descrição 3", "Agressão", new Date());        
-        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "Descrição 3", "Agressão", new Date());
+        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "Descricao 1", "Estupro", formatarData("01/01/2016"));
+        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "Descricao 2", "Discriminacao", formatarData("20/02/2016"));
+        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "Descricao 3", "Agressao", formatarData("10/03/2015"));        
+        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "Descricao 4", "Agressao", formatarData("25/04/2015"));
         
         return bd;
     }
     
+    private Date formatarData(String data){
+        Date dataFormatada = null;
+        try{
+            dataFormatada = formataData.parse(data);
+        }
+        catch(Exception e){}
+        return dataFormatada;
+    }
+//import dominio.Bairro;
+//import dominio.Endereco;
+//import dominio.Ocorrencia;
+//import dominio.Regiao;
+//import dominio.TipoViolencia;
+//import dominio.Usuario;
+//import java.util.List;
 //    public static void main(String[] args) {
 //        BaseDeDados bd = new BaseDeDados();
 //        

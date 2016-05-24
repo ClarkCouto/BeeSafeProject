@@ -16,51 +16,30 @@ import testes.BeeSafe;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaInicial
-     */
     private BeeSafe bs;
     private BaseDeDados bd;
-    private TelaBairros telaBairros;
-    private TelaOcorrencias telaOcorrencias;
-    private TelaRegioes telaRegioes;
-    private TelaTipoViolencia telaTipoViolencia;
     private TelaUsuarios telaUsuarios;
-    private TelaPesquisar telaPesquisar;
-    
+    private TelaLogin telaLogin;
+    /**
+     * Creates new form TelaLogin
+     */
     public TelaInicial(BaseDeDados base) {
+        super("Tela Inicial");
         if(base == null){
             bs = new BeeSafe();
             base = bs.iniciarBaseDeDados();
         }
         bd = base;
-//        if(telaBairros == null){
-//            telaBairros = new TelaBairros(bd);
-//        }
-//        if(telaOcorrencias == null){
-//            telaOcorrencias = new TelaOcorrencias(bd);
-//        }
-//        if(telaRegioes == null){
-//            telaRegioes = new TelaRegioes(bd);
-//        }
-//        if(telaTipoViolencia == null){
-//            telaTipoViolencia = new TelaTipoViolencia(bd);
-//        }
-//        if(telaUsuarios == null){
-//            telaUsuarios = new TelaUsuarios(bd);
-            
-        telaBairros = new TelaBairros(bd);
-        telaOcorrencias = new TelaOcorrencias(bd);
-        telaRegioes = new TelaRegioes(bd);
-        telaTipoViolencia = new TelaTipoViolencia(bd);
-        telaUsuarios = new TelaUsuarios(bd);
-        telaPesquisar = new TelaPesquisar(bd);
-        
         initComponents();
+        telaUsuarios = new TelaUsuarios(bd);
+        telaLogin = new TelaLogin(bd);
+        
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
-        this.setVisible(true);
+
+        //Encerrar a aplicação quando fechar a tela 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
 
     /**
@@ -73,114 +52,54 @@ public class TelaInicial extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnBairros = new javax.swing.JButton();
-        btnEnderecos = new javax.swing.JButton();
-        btnOcorrencias = new javax.swing.JButton();
-        btnRegiao = new javax.swing.JButton();
-        btnTipoViolencia = new javax.swing.JButton();
-        btnUsuarios = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        btnPesquisar = new javax.swing.JButton();
-        btnEstatisticas = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
+        btnCriarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnBairros.setText("Bairros");
-        btnBairros.addActionListener(new java.awt.event.ActionListener() {
+        lblTitulo.setText("BeeSafe - Selecione uma opção:");
+
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBairrosActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
-        btnEnderecos.setText("Endereços");
-
-        btnOcorrencias.setText("Ocorrências");
-        btnOcorrencias.addActionListener(new java.awt.event.ActionListener() {
+        btnCriarUsuario.setText("Cadastrar");
+        btnCriarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOcorrenciasActionPerformed(evt);
+                btnCriarUsuarioActionPerformed(evt);
             }
         });
-
-        btnRegiao.setText("Regiões");
-        btnRegiao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegiaoActionPerformed(evt);
-            }
-        });
-
-        btnTipoViolencia.setText("Tipos de Violência");
-        btnTipoViolencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTipoViolenciaActionPerformed(evt);
-            }
-        });
-
-        btnUsuarios.setText("Usuários");
-        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuariosActionPerformed(evt);
-            }
-        });
-
-        lblTitulo.setText("ESCOLHA UMA OPÇÃO:");
-
-        btnPesquisar.setText("Pesquisar");
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
-            }
-        });
-
-        btnEstatisticas.setText("Estatísticas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBairros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOcorrencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTipoViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(35, 35, 35)
+                        .addComponent(lblTitulo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEstatisticas, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                            .addComponent(btnUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnRegiao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnEnderecos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(72, 72, 72))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(lblTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnCriarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(35, 35, 35)
                 .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBairros)
-                    .addComponent(btnEnderecos))
+                .addGap(27, 27, 27)
+                .addComponent(btnLogin)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOcorrencias)
-                    .addComponent(btnRegiao))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTipoViolencia)
-                    .addComponent(btnUsuarios))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPesquisar)
-                    .addComponent(btnEstatisticas))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addComponent(btnCriarUsuario)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,7 +108,7 @@ public class TelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -203,35 +122,15 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBairrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBairrosActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         this.setVisible(false);
-        telaBairros.setVisible(true);
-    }//GEN-LAST:event_btnBairrosActionPerformed
+        telaLogin.setVisible(true);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void btnRegiaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegiaoActionPerformed
+    private void btnCriarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarUsuarioActionPerformed
         this.setVisible(false);
-        telaRegioes.setVisible(true);
-    }//GEN-LAST:event_btnRegiaoActionPerformed
-
-    private void btnOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcorrenciasActionPerformed
-        this.setVisible(false);
-        telaOcorrencias.setVisible(true);
-    }//GEN-LAST:event_btnOcorrenciasActionPerformed
-
-    private void btnTipoViolenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoViolenciaActionPerformed
-        this.setVisible(false);
-        telaTipoViolencia.setVisible(true);
-    }//GEN-LAST:event_btnTipoViolenciaActionPerformed
-
-    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-       this.setVisible(false);
-       telaUsuarios.setVisible(true);
-    }//GEN-LAST:event_btnUsuariosActionPerformed
-
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.setVisible(false);
-        telaPesquisar.setVisible(true);
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+        telaUsuarios.setVisible(true);
+    }//GEN-LAST:event_btnCriarUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,6 +158,7 @@ public class TelaInicial extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -269,14 +169,8 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBairros;
-    private javax.swing.JButton btnEnderecos;
-    private javax.swing.JButton btnEstatisticas;
-    private javax.swing.JButton btnOcorrencias;
-    private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnRegiao;
-    private javax.swing.JButton btnTipoViolencia;
-    private javax.swing.JButton btnUsuarios;
+    private javax.swing.JButton btnCriarUsuario;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables

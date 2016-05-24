@@ -9,6 +9,7 @@ import dominio.Bairro;
 import dominio.BaseDeDados;
 import dominio.Ocorrencia;
 import dominio.TipoViolencia;
+import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
@@ -26,9 +27,12 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private BaseDeDados bd;
     private DefaultListModel lista; 
     private DefaultComboBoxModel model;
+    private Usuario usuario;
     
-    public TelaOcorrencias(BaseDeDados base) {
+    public TelaOcorrencias(BaseDeDados base, Usuario user) {
+        super("Ocorrências");
         this.bd = base;
+        this.usuario = user;
         initComponents();
         
         preencherComboBairros();
@@ -243,17 +247,17 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve informar o Número.", "Atenção!", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        else if (comboBairros.getSelectedIndex() == -1) {
+        else if (comboBairros.getSelectedIndex() == -1 || comboBairros.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Bairro!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        else if (comboTiposViolencia.getSelectedIndex() == -1) {
+        else if (comboTiposViolencia.getSelectedIndex() == -1  || comboTiposViolencia.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Violência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             return;
         }
         else{
             //String rua, int numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data
-            String mensagem = bd.criarOcorrencia(txtRua.getText(), txtNumero.getText(), comboBairros.getSelectedItem().toString(), "user", txtDescricao.getText(), comboTiposViolencia.getSelectedItem().toString(), new Date());
+            String mensagem = bd.criarOcorrencia(txtRua.getText(), txtNumero.getText(), comboBairros.getSelectedItem().toString(), "Matheus", txtDescricao.getText(), comboTiposViolencia.getSelectedItem().toString(), new Date());
             if(!mensagem.equals("OK")){
                 JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
             }
@@ -261,8 +265,8 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 txtRua.setText("");
                 txtNumero.setText("");
                 txtDescricao.setText("");
-                comboBairros.setSelectedIndex(-1);
-                comboTiposViolencia.setSelectedIndex(-1);
+                comboBairros.setSelectedIndex(0);
+                comboTiposViolencia.setSelectedIndex(0);
                 atualizarListaOcorrencias();
             }
         }
@@ -270,7 +274,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
-        new TelaInicial(bd).setVisible(true);
+        new TelaPrincipal(bd, usuario).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void atualizarListaOcorrencias(){
@@ -284,6 +288,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
 
     private void preencherComboBairros(){
         model = new DefaultComboBoxModel();
+        model.addElement("--Selecione--");
         List<Bairro> bairros = bd.getBairros();
         for(Bairro b : bairros){
             model.addElement(b);
@@ -292,6 +297,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     }
     private void preencherComboTiposViolencia(){
         model = new DefaultComboBoxModel();
+        model.addElement("--Selecione--");
         List<TipoViolencia> tipos = bd.getTiposViolencia();
         for(TipoViolencia t : tipos){
             model.addElement(t);

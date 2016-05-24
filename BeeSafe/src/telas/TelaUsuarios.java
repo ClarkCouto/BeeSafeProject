@@ -26,11 +26,10 @@ public class TelaUsuarios extends javax.swing.JFrame {
      * Creates new form TelaUsuarios
      */
     public TelaUsuarios(BaseDeDados base) {
+        super("Usuários");
         this.bd = base;
         initComponents();
-        
-        atualizarListaUsuarios();
-        
+                
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
@@ -57,8 +56,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         btnCriarUsuario = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaUsuarios = new javax.swing.JList();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,13 +74,6 @@ public class TelaUsuarios extends javax.swing.JFrame {
                 btnCriarUsuarioActionPerformed(evt);
             }
         });
-
-        listaUsuarios.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listaUsuarios);
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,18 +104,14 @@ public class TelaUsuarios extends javax.swing.JFrame {
                                     .addComponent(txtNome)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(btnCriarUsuario))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(btnVoltar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(116, 116, 116)
-                        .addComponent(lblTitulo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblTitulo))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCriarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,11 +131,9 @@ public class TelaUsuarios extends javax.swing.JFrame {
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCriarUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnVoltar)
-                .addGap(15, 15, 15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,9 +147,10 @@ public class TelaUsuarios extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -182,7 +167,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Você deve informar a Senha!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
         else{
-            String mensagem = bd.criarUsuario(txtNome.getText(), txtEmail.getText(), txtSenha.getText());
+            String mensagem = bd.criarUsuario(txtNome.getText(), txtEmail.getText(), txtSenha.getText(), "Comum");
             if(!mensagem.equals("OK")){
                 JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
             }
@@ -190,7 +175,9 @@ public class TelaUsuarios extends javax.swing.JFrame {
                 txtNome.setText("");
                 txtEmail.setText("");
                 txtSenha.setText("");
-                atualizarListaUsuarios();
+                JOptionPane.showMessageDialog(this, "Usuario criado com sucesso!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+                this.setVisible(false);
+                new TelaInicial(bd).setVisible(true);
             }
         }
     }//GEN-LAST:event_btnCriarUsuarioActionPerformed
@@ -200,25 +187,16 @@ public class TelaUsuarios extends javax.swing.JFrame {
         new TelaInicial(bd).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void atualizarListaUsuarios(){
-        lista = new DefaultListModel(); 
-        List<Usuario> usuarios = bd.getUsuarios();
-        for(Usuario u : usuarios){
-            lista.addElement(u);
-        }
-        this.listaUsuarios.setModel(lista);
-    }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarUsuario;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JList listaUsuarios;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;

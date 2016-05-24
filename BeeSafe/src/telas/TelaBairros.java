@@ -3,6 +3,7 @@ package telas;
 import dominio.Bairro;
 import dominio.BaseDeDados;
 import dominio.Regiao;
+import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -21,9 +22,12 @@ public class TelaBairros extends javax.swing.JFrame {
     private BaseDeDados bd;
     private DefaultListModel lista; 
     private DefaultComboBoxModel model;
+    private Usuario usuario;
 
-    public TelaBairros(BaseDeDados base) {
+    public TelaBairros(BaseDeDados base, Usuario user) {
+        super("Bairros");
         this.bd = base;
+        this.usuario = user;
         initComponents();
         preencherComboRegioes();
         atualizarListaBairros();
@@ -167,7 +171,8 @@ public class TelaBairros extends javax.swing.JFrame {
         if (txtNomeBairro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o nome do Bairro.", "Atenção!", JOptionPane.WARNING_MESSAGE);
         } 
-        else if (comboRegioes.getSelectedIndex() == -1) {
+        else if (comboRegioes.getSelectedIndex() == -1 || comboRegioes.getSelectedIndex() == 0) {
+        //else if (comboRegioes.getSelectedIndex() == -1 || comboRegioes.getSelectedItem().toString().equals("--Selecione--")) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a Região!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
         else{
@@ -177,7 +182,7 @@ public class TelaBairros extends javax.swing.JFrame {
             }
             else{
                 txtNomeBairro.setText("");
-                comboRegioes.setSelectedIndex(-1);
+                comboRegioes.setSelectedIndex(0);
                 atualizarListaBairros();
             }
         }
@@ -185,7 +190,7 @@ public class TelaBairros extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
-        new TelaInicial(bd).setVisible(true);
+        new TelaPrincipal(bd, usuario).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void atualizarListaBairros(){
@@ -199,6 +204,7 @@ public class TelaBairros extends javax.swing.JFrame {
     
     private void preencherComboRegioes(){
         model = new DefaultComboBoxModel();
+        model.addElement("--Selecione--");
         List<Regiao> regioes = bd.getRegioes();
         for(Regiao r : regioes){
             model.addElement(r);
