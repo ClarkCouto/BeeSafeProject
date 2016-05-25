@@ -29,6 +29,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private TelaTipoViolencia telaTipoViolencia;
     private TelaUsuarios telaUsuarios;
     private TelaPesquisar telaPesquisar;
+    private TelaEditarCadastro telaEditarCadastro;
+    private TelaEditarUsuarios telaEditarUsuarios;
     private Usuario usuario;
     
     public TelaPrincipal(BaseDeDados base, Usuario user) {
@@ -44,13 +46,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         initComponents();
         
-        JOptionPane.showMessageDialog(this, usuario.getInformacoesUsuario(), "Atenção!", JOptionPane.WARNING_MESSAGE);
+        //Imprime os dados do usuario logado
+        //JOptionPane.showMessageDialog(this, usuario.getInformacoesUsuario(), "Atenção!", JOptionPane.WARNING_MESSAGE);
         
         if(usuario.getTipoUsuario().getTipo().equals("COMUM")){
-            btnEnderecos.setVisible(false);
             btnBairros.setVisible(false);
             btnRegioes.setVisible(false);
-            btnUsuarios.setVisible(false);
+            btnTipoViolencia.setVisible(false);
+            btnEditarUsuarios.setVisible(false);
         }
         telaBairros = new TelaBairros(bd, usuario);
         telaOcorrencias = new TelaOcorrencias(bd, usuario);
@@ -58,7 +61,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaTipoViolencia = new TelaTipoViolencia(bd, usuario);
         telaUsuarios = new TelaUsuarios(bd);
         telaPesquisar = new TelaPesquisar(bd, usuario);
-        
+        telaEditarUsuarios = new TelaEditarUsuarios(bd, usuario);
+        telaEditarCadastro = new TelaEditarCadastro(bd, usuario);
         
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
@@ -80,35 +84,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnBairros = new javax.swing.JButton();
-        btnEnderecos = new javax.swing.JButton();
         btnOcorrencias = new javax.swing.JButton();
         btnRegioes = new javax.swing.JButton();
         btnTipoViolencia = new javax.swing.JButton();
-        btnUsuarios = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
         btnEstatisticas = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        btnEditarCadastro = new javax.swing.JButton();
+        btnEditarUsuarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnBairros.setText("Bairros");
+        btnBairros.setText("Criar Bairros");
         btnBairros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBairrosActionPerformed(evt);
             }
         });
 
-        btnEnderecos.setText("Endereços");
-
-        btnOcorrencias.setText("Ocorrências");
+        btnOcorrencias.setText("Criar Ocorrência");
         btnOcorrencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOcorrenciasActionPerformed(evt);
             }
         });
 
-        btnRegioes.setText("Regiões");
+        btnRegioes.setText("Criar Regiões");
         btnRegioes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegioesActionPerformed(evt);
@@ -119,13 +121,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnTipoViolencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTipoViolenciaActionPerformed(evt);
-            }
-        });
-
-        btnUsuarios.setText("Usuários");
-        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUsuariosActionPerformed(evt);
             }
         });
 
@@ -147,59 +142,78 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnEditarCadastro.setText("Editar Cadastro");
+        btnEditarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCadastroActionPerformed(evt);
+            }
+        });
+
+        btnEditarUsuarios.setText("Editar Usuários");
+        btnEditarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarUsuariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBairros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOcorrencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTipoViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                            .addComponent(btnRegioes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEstatisticas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnEnderecos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(72, 72, 72))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnOcorrencias, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnEditarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEstatisticas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBairros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRegioes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnTipoViolencia, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(btnEditarUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(lblTitulo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(lblTitulo))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(16, 16, 16)
                 .addComponent(lblTitulo)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBairros)
-                    .addComponent(btnEnderecos))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOcorrencias)
-                    .addComponent(btnRegioes))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTipoViolencia)
-                    .addComponent(btnUsuarios))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPesquisar)
                     .addComponent(btnEstatisticas))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOcorrencias)
+                    .addComponent(btnEditarCadastro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTipoViolencia)
+                    .addComponent(btnBairros))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditarUsuarios)
+                    .addComponent(btnRegioes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSair)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -208,17 +222,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,11 +258,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaTipoViolencia.setVisible(true);
     }//GEN-LAST:event_btnTipoViolenciaActionPerformed
 
-    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-       this.setVisible(false);
-       telaUsuarios.setVisible(true);
-    }//GEN-LAST:event_btnUsuariosActionPerformed
-
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         this.setVisible(false);
         telaPesquisar.setVisible(true);
@@ -259,16 +268,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaInicial(bd).setVisible(true);
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void btnEditarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCadastroActionPerformed
+        this.setVisible(false);
+        telaEditarCadastro.setVisible(true);
+    }//GEN-LAST:event_btnEditarCadastroActionPerformed
+
+    private void btnEditarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarUsuariosActionPerformed
+        this.setVisible(false);
+        telaEditarUsuarios.setVisible(true);
+    }//GEN-LAST:event_btnEditarUsuariosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBairros;
-    private javax.swing.JButton btnEnderecos;
+    private javax.swing.JButton btnEditarCadastro;
+    private javax.swing.JButton btnEditarUsuarios;
     private javax.swing.JButton btnEstatisticas;
     private javax.swing.JButton btnOcorrencias;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnRegioes;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnTipoViolencia;
-    private javax.swing.JButton btnUsuarios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables

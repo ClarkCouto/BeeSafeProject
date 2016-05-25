@@ -12,6 +12,7 @@ import dominio.TipoViolencia;
 import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -28,6 +29,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private DefaultListModel lista; 
     private DefaultComboBoxModel model;
     private Usuario usuario;
+    private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
     
     public TelaOcorrencias(BaseDeDados base, Usuario user) {
         super("Ocorrências");
@@ -150,7 +152,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                                 .addComponent(lblTitulo)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 10, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -166,13 +168,16 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                             .addComponent(lblDescricao))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCriarOcorrencia)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(109, 109, 109)
                         .addComponent(btnVoltar)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,9 +206,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                     .addComponent(lblTipoOcorrencia)
                     .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescricao)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblDescricao)
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCriarOcorrencia)
                 .addGap(13, 13, 13)
@@ -256,18 +261,24 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             return;
         }
         else{
-            //String rua, int numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data
-            String mensagem = bd.criarOcorrencia(txtRua.getText(), txtNumero.getText(), comboBairros.getSelectedItem().toString(), "Matheus", txtDescricao.getText(), comboTiposViolencia.getSelectedItem().toString(), new Date());
-            if(!mensagem.equals("OK")){
-                JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
+            Date data = formatarData(txtData.getText());
+            if(data == null){
+                JOptionPane.showMessageDialog(this, "Data Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             }
             else{
-                txtRua.setText("");
-                txtNumero.setText("");
-                txtDescricao.setText("");
-                comboBairros.setSelectedIndex(0);
-                comboTiposViolencia.setSelectedIndex(0);
-                atualizarListaOcorrencias();
+                //String rua, int numero, String nomeBairro, String nomeUsuario, String email, String senha, String descricao, String tipoDeViolencia, Date data
+                String mensagem = bd.criarOcorrencia(txtRua.getText(), txtNumero.getText(), comboBairros.getSelectedItem().toString(), usuario.getNome(), txtDescricao.getText(), comboTiposViolencia.getSelectedItem().toString(), data);
+                if(!mensagem.equals("OK")){
+                    JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                    txtRua.setText("");
+                    txtNumero.setText("");
+                    txtDescricao.setText("");
+                    comboBairros.setSelectedIndex(0);
+                    comboTiposViolencia.setSelectedIndex(0);
+                    atualizarListaOcorrencias();
+                }
             }
         }
     }//GEN-LAST:event_btnCriarOcorrenciaActionPerformed
@@ -286,6 +297,15 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         this.listaOcorrencias.setModel(lista);
     }
 
+    private Date formatarData(String data){
+        Date dataFormatada = null;
+        try{
+            dataFormatada = formataData.parse(data);
+        }
+        catch(Exception e){}
+        return dataFormatada;
+    }
+    
     private void preencherComboBairros(){
         model = new DefaultComboBoxModel();
         model.addElement("--Selecione--");

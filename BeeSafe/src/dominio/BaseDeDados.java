@@ -25,15 +25,7 @@ public class BaseDeDados {
     private List<TipoUsuario> listaTiposUsuario = new ArrayList<>();
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
     private Calendar c = Calendar.getInstance();
- 
-//    public List<Ocorrencia> pesquisar(ArrayList<String> parametros){
-//        return listaOcorrencias;
-//    }
-    
-//    public double gerarEstatisticas(ArrayList<String> parametros){
-//        return 0;
-//    }
-    
+     
     public String criarBairro(String nomeBairro, String nomeRegiao){
         Regiao regiao = validarRegiao(nomeRegiao);
         if(regiao != null){
@@ -53,8 +45,10 @@ public class BaseDeDados {
     }
     
     public String criarEndereco(String rua, int numero, String nomeBairro){
+        //Verifica se o bairro ja existe
         Bairro bairro = validarBairro(nomeBairro);
         if(bairro != null){
+            //caso exista cria o endereco e adiciona na lista
             Endereco endereco = new Endereco(rua, numero, bairro);
             listaEnderecos.add(endereco);
             return "OK";
@@ -64,6 +58,10 @@ public class BaseDeDados {
         }
     }
     
+    //usar este caso va receber só o nome do usuario e nao o objeto
+//    public String criarOcorrencia(String rua, String numero, String nomeBairro, Usuario user, String descricao, String tipoDeViolencia, Date data){
+//        Usuario usuario = user;
+    //usar este caso va receber só o nome do usuario e nao o objeto
     public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String descricao, String tipoDeViolencia, Date data){
         Usuario usuario = getUsuario(nomeUsuario);
         //Verifica se o usuario existe
@@ -107,8 +105,10 @@ public class BaseDeDados {
     
     
     public String criarRegiao(String nomeRegiao){
+        //Verifica se a Regiao ja existe
         Regiao regiao = validarRegiao(nomeRegiao);
         if(regiao == null){
+            //Caso nao exista cria a Regiao e adiciona na lista
             regiao =  new Regiao(nomeRegiao);
             listaRegioes.add(regiao);
             return "OK";
@@ -119,8 +119,10 @@ public class BaseDeDados {
     }
     
     public String criarTipoUsuario(String tipo){
+        //Verifica se o Tipo de Usuario ja existe
         TipoUsuario tipoUsuario = validarTipoUsuario(tipo.toUpperCase());
         if(tipoUsuario == null){
+            //Caso nao exista cria o novo Tipo e adiciona na lista
             tipoUsuario =  new TipoUsuario(tipo);
             listaTiposUsuario.add(tipoUsuario);
             return "OK";
@@ -131,8 +133,10 @@ public class BaseDeDados {
     }
     
     public String criarTipoViolencia(String tipo){
+        //Verifica se o Tipo de Violencia ja existe
         TipoViolencia tipoViolencia = validarTipoViolencia(tipo.toUpperCase());
         if(tipoViolencia == null){
+            //Caso nao exista cria o novo Tipo e adiciona na lista
             tipoViolencia =  new TipoViolencia(tipo);
             listaTiposViolencia.add(tipoViolencia);
             return "OK";
@@ -143,16 +147,20 @@ public class BaseDeDados {
     }
     
     public String criarUsuario(String nome, String email, String senha, String tipo){
+        //Verifica se o Tipo de Usuario existe
         TipoUsuario tipoUsuario = validarTipoUsuario(tipo);
+        //Caso nao exista retorna a mensagem de erro
         if(tipoUsuario == null){
             return "Tipo Usuario invalido!";
         }
         else{
+            //Caso exista, verifica se ja existe um Usuario cadastrado com os mesmos dados
             Usuario user = new Usuario(nome, email, senha, tipoUsuario);
             if(validarUsuario(user)){
                 return "Usuario ja cadastrado anteriormente!";
             }
             else{
+                //Caso nao exista adiciona na lista 
                 listaUsuarios.add(user);
                 return "OK";
             }
@@ -160,7 +168,7 @@ public class BaseDeDados {
     }
     
     public List<Ocorrencia> pesquisar(List<Object> parametros){
-        
+        //busca todas as ocorrencias cadastradas
         List<Ocorrencia> lista = getOcorrencias();
 //        if(!parametros.get(0).equals("") && !parametros.get(1).equals("")){
 //            //filtrar por período
@@ -190,7 +198,7 @@ public class BaseDeDados {
                     lista.remove(o);
             }
         }
-        //Filtra pela Mes
+        //Filtra pelo Mes
         if(!parametros.get(3).equals("")){
             for(Ocorrencia o: lista){
                 c.setTime(o.getData());
@@ -337,110 +345,156 @@ public class BaseDeDados {
         return quantidade/quantidadeTotal;
     }
     
+    //Retorna a lista de todos os Bairros
     public List<Bairro> getBairros(){
         return listaBairros;
     }
     
-    public Bairro getBairro(int codBairro){
-        return listaBairros.get(codBairro);
-    }
     
-    public List<Endereco> getEnderecos(){
-        return listaEnderecos;
-    }
+//    public Bairro getBairro(int codBairro){
+//        return listaBairros.get(codBairro);
+//    }
     
-    public Endereco getEndereco(int codEndereco){
-        return listaEnderecos.get(codEndereco);
-    }
+    //Retorna a lista de Enderecos
+//    public List<Endereco> getEnderecos(){
+//        return listaEnderecos;
+//    }
+    
+//    public Endereco getEndereco(int codEndereco){
+//        return listaEnderecos.get(codEndereco);
+//    }
         
+    //Retorna a lista de todas as ocorrencias
     public List<Ocorrencia> getOcorrencias(){
         return listaOcorrencias;
     }
     
-    public Ocorrencia getOcorrencia(int codOcorrencia){
-        return listaOcorrencias.get(codOcorrencia);
-    }
+//    public Ocorrencia getOcorrencia(int codOcorrencia){
+//        return listaOcorrencias.get(codOcorrencia);
+//    }
     
+    //Retorna a lista de todas as Regioes
     public List<Regiao> getRegioes(){
         return listaRegioes;
     }
     
-    public Regiao getRegiao(int codRegiao){
-        return listaRegioes.get(codRegiao);
-    }
+//    public Regiao getRegiao(int codRegiao){
+//        return listaRegioes.get(codRegiao);
+//    }
     
+    //Retorna a lista de todos os Tipos de Violencia
     public List<TipoViolencia> getTiposViolencia(){
         return listaTiposViolencia;
     }
     
-    public TipoViolencia getTipoViolencia(int codTipoViolencia){
-        return listaTiposViolencia.get(codTipoViolencia);
+//    public TipoViolencia getTipoViolencia(int codTipoViolencia){
+//        return listaTiposViolencia.get(codTipoViolencia);
+//    }
+    
+    //Retorna a lista de todos os Tipos de Usuario
+    public List<TipoUsuario> getTiposUsuario(){
+        return listaTiposUsuario;
     }
     
+    //Retorna a lista de todos os Usuarios
     public List<Usuario> getUsuarios(){
         return listaUsuarios;
     }
     
+    //Verifica se o nome do Usuario ja existe
     public Usuario getUsuario(String nomeUsuario){
+        //para cada usuario cadastrado, verifica se o nome e igual ao passado por parametro
         for(Usuario u : listaUsuarios){
             if(u.getNome().toUpperCase().equals(nomeUsuario.toUpperCase())){
+                //se for igual retorna o Usuario
                 return u;
             }
         }
+        //Se nao existir retorna null
         return null;
     }
         
+    //Verifica se o Bairro ja existe
     public Bairro validarBairro(String bairro){
+        //para cada Bairro da lista
         for(Bairro b : listaBairros){
+            //verifica se o nome do bairro cadastrado e igual ao passado por parametro
             if(b.getNome().toUpperCase().equals(bairro.toUpperCase())){
+                //caso seja, retorna o bairro
                 return b;
             }
         }
+        //caso nao seja encontrado, retorn null
         return null;
     }
     
+    //Verifica se o Endereco ja existe
     public boolean validarEndereco(Endereco endereco){
+        //para cada Endereco da lista
         for(Endereco e : listaEnderecos){
+            //verifica se algum dos Enderecos cadastrados e igual ao passado por parametro
             if(endereco.equals(e)){
+                //caso seja, retorna o true
                 return true;
             }
         }
+        //caso nao seja encontrado, retorn false
         return false;
     }
-        
+      
+    //Verifica se a Regiao ja existe
     public Regiao validarRegiao(String regiao){
+        //para cada Regiao da lista
         for(Regiao r : listaRegioes){
+            //verifica se alguma das Regioes cadastradas e igual a passada por parametro
             if(r.getNome().toUpperCase().equals(regiao.toUpperCase())){
+                //caso seja, retorna o true
                 return r;
             }
         }
+        //caso nao seja encontrado, retorn false
         return null;
     }
     
+    //Verifica se o TipoViolencia ja existe
     public TipoViolencia validarTipoViolencia(String tipo){
+        //para cada TipoViolencia da lista
         for(TipoViolencia tv : listaTiposViolencia){
+            //verifica se algum dos TipoViolencia cadastradas e igual ao passado por parametro
             if(tv.getTipo().toUpperCase().equals(tipo.toUpperCase())){
+                //caso seja, retorna o true
                 return tv;
             }
         }
+        //caso nao seja encontrado, retorn false
         return null;
     }    
     
+    //Verifica se o TipoUsuario ja existe
     public TipoUsuario validarTipoUsuario(String tipo){
+        //para cada TipoUsuario da lista
         for(TipoUsuario tu : listaTiposUsuario){
+            //verifica se algum dos TipoUsuario cadastradas e igual ao passado por parametro
             if(tu.getTipo().toUpperCase().equals(tipo.toUpperCase())){
+                //caso seja, retorna o true
                 return tu;
             }
         }
+        //caso nao seja encontrado, retorn false
         return null;
     }
     
+    //Verifica se o Usuario ja existe
     public boolean validarUsuario(Usuario usuario){
+        //para cada Usuario da lista
         for(Usuario u : listaUsuarios){
+            //verifica se algum dos Usuarios cadastrados e igual ao passado por parametro
             if(usuario.equals(u)){
+                //caso seja, retorna o true
                 return true;
             }
         }
+        //caso nao seja encontrado, retorn false
         return false;
     }
 }
