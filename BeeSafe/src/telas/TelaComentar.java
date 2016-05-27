@@ -6,7 +6,6 @@
 package telas;
 
 import dominio.BaseDeDados;
-import dominio.Comentario;
 import dominio.Ocorrencia;
 import dominio.Usuario;
 import java.awt.Dimension;
@@ -19,27 +18,21 @@ import javax.swing.JOptionPane;
  *
  * @author ccouto
  */
-public class TelaDetalhesComentario extends javax.swing.JFrame {
+public class TelaComentar extends javax.swing.JFrame {
 
     private BaseDeDados bd;
-    private Comentario comentario;
-    private Ocorrencia ocorrencia;
     private Usuario usuario;
+    private Ocorrencia ocorrencia;
     private SimpleDateFormat formataData;
-    
     /**
-     * Creates new form TelaDetalhesComentario
+     * Creates new form TelaComentar
      */
-    public TelaDetalhesComentario(BaseDeDados base, Usuario user, Ocorrencia ocorrencia, Comentario comentario) {
-        super("Detalhes Comentário");
+    public TelaComentar(BaseDeDados base, Usuario user, Ocorrencia ocorrencia) {
+        super("Comentar");
         this.bd = base;
-        this.comentario = comentario;
-        this.ocorrencia = ocorrencia;
         this.usuario = user;
+        this.ocorrencia = ocorrencia;
         initComponents();
-        
-        preencherCampos();   
-        desabilitarCampos();
         
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
@@ -61,33 +54,33 @@ public class TelaDetalhesComentario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
-        lblUsuario = new javax.swing.JLabel();
+        lblTituloComentario = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
         txtData = new javax.swing.JTextField();
-        txtUsuario = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
-        btnEditar = new javax.swing.JButton();
+        btnComentar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtTitulo = new javax.swing.JTextField();
-        lblDescricao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblTitulo.setText("Comentário");
+        lblTitulo.setText("Comentar:");
 
         lblData.setText("Data:");
 
-        lblUsuario.setText("Usuário:");
+        lblTituloComentario.setText("Título:");
+
+        lblDescricao.setText("Descrição:");
 
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
         jScrollPane1.setViewportView(txtDescricao);
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnComentar.setText("Comentar");
+        btnComentar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnComentarActionPerformed(evt);
             }
         });
 
@@ -98,71 +91,60 @@ public class TelaDetalhesComentario extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Título:");
-
-        lblDescricao.setText("Descrição:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(lblDescricao))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblData)
+                                .addComponent(lblTituloComentario))
+                            .addGap(35, 35, 35)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblUsuario)
-                                    .addComponent(lblData))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
+                        .addGap(90, 90, 90)
                         .addComponent(lblTitulo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblDescricao)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnComentar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblData)
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblTituloComentario)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(lblDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar)
+                    .addComponent(btnComentar)
                     .addComponent(btnVoltar))
-                .addGap(19, 19, 19))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,8 +153,8 @@ public class TelaDetalhesComentario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,8 +167,11 @@ public class TelaDetalhesComentario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (txtTitulo.getText().isEmpty()) {
+    private void btnComentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComentarActionPerformed
+        if(txtData.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "A Data deve ser informada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+        }
+        else if (txtTitulo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o Título do Comentário!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -195,62 +180,52 @@ public class TelaDetalhesComentario extends javax.swing.JFrame {
             return;
         }
         else{
-            comentario.setTitulo(txtTitulo.getText());
-            comentario.setDescricao(txtDescricao.getText());
-            JOptionPane.showMessageDialog(this, "Comentário alterado com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
-            this.setVisible(false);
-            new TelaDetalhesOcorrencia(bd, usuario, ocorrencia).setVisible(true);
+            Date dataFormatada = formatarData(txtData.getText());
+            if(dataFormatada != null){
+                String mensagem = bd.criarComentario(dataFormatada, txtTitulo.getText(), txtDescricao.getText(), usuario, ocorrencia);
+                
+                if(!mensagem.equals("OK")){
+                    JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Comentário criado com sucesso", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    new TelaDetalhesOcorrencia(bd, usuario, ocorrencia).setVisible(true);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Data Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+                txtData.setText("");
+            }
         }
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }//GEN-LAST:event_btnComentarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
         new TelaDetalhesOcorrencia(bd, usuario, ocorrencia).setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private String formatarData(Date data){
+    private Date formatarData(String data){
         formataData = new SimpleDateFormat("dd/MM/yyyy");
-        String dataFormatada = "";
+        Date dataFormatada = null;
         try{
-            dataFormatada = formataData.format(data);
+            dataFormatada = formataData.parse(data);
         }
         catch(Exception e){}
         return dataFormatada;
     }
-    
-    private void preencherCampos(){
-        //Preenche os campos
-        txtData.setText(formatarData(comentario.getData()));
-        txtUsuario.setText(comentario.getUsuario().getNome());
-        txtTitulo.setText(comentario.getTitulo());
-        txtDescricao.setText(comentario.getDescricao());
-    }
-    
-    private void desabilitarCampos(){
-        //Desabilita a edicao
-        txtData.setEnabled(false);
-        txtUsuario.setEnabled(false); 
-        //se o usuario não for o mesmo que criou o comentario
-        if(!this.usuario.equals(comentario.getUsuario())){
-            btnEditar.setVisible(false);
-            txtTitulo.setEnabled(false);
-            txtDescricao.setEnabled(false);
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnComentar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblTituloComentario;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtTitulo;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
