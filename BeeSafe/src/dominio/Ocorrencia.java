@@ -17,23 +17,37 @@ import java.util.List;
 public class Ocorrencia {
     private Endereco endereco;
     private Usuario usuario;
+    private String titulo;
     private String descricao;
     private TipoViolencia tipoViolencia;
     private List<Comentario> comentarios;
     private Date data;
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Ocorrencia(Endereco endereco, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
+    public Ocorrencia(Endereco endereco, Usuario usuario, String titulo, String descricao, TipoViolencia tipoViolencia, Date data) {
         comentarios = new ArrayList<>();
-        this.endereco = endereco;
-        this.usuario = usuario;
-        this.descricao = descricao;
         this.data = data;
+        this.descricao = descricao;
+        this.endereco = endereco;
         this.tipoViolencia = tipoViolencia;
+        this.titulo = titulo;
+        this.usuario = usuario;
     }   
     
-    public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String descricao, TipoViolencia tipoViolencia, Date data) {
-        this(new Endereco(rua, numero, bairro), usuario, descricao, tipoViolencia, data);
+    public Ocorrencia(String rua, int numero, Bairro bairro, Usuario usuario, String titulo, String descricao, TipoViolencia tipoViolencia, Date data) {
+        this(new Endereco(rua, numero, bairro), usuario, titulo, descricao, tipoViolencia, data);
+    }
+    
+    public Bairro getBairro(){
+        return endereco.getBairro();
+    }
+
+    public List<Comentario> getComentarios(){
+        return comentarios;
+    }
+    
+    public Date getData(){
+        return this.data;
     }
     
     public String getDescricao() {
@@ -44,26 +58,6 @@ public class Ocorrencia {
         return endereco;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }    
-    
-    public Bairro getBairro(){
-        return endereco.getBairro();
-    }
-
-//    public String getBairro(){
-//        return endereco.getBairro().getNome();
-//    }
-    
-    public Date getData(){
-        return this.data;
-    }
-    
-//    public String getData(){
-//        return formataData.format(this.data);
-//    }
-    
     public String getNomeUsuario(){
         return usuario.getNome();
     }
@@ -71,17 +65,21 @@ public class Ocorrencia {
     public String getRegiao(){
         return endereco.getBairro().getRegiao();
     }
-
+    
     public String getTipoViolencia(){
         return tipoViolencia.getTipo();
     }
     
+    public String getTitulo(){
+        return titulo;
+    }
+        
+    public Usuario getUsuario() {
+        return usuario;
+    }    
+        
     public void adiconarComentario(Comentario comentario){
         comentarios.add(comentario);
-    }
-    
-    public List<Comentario> getComentarios(){
-        return comentarios;
     }
     
     @Override

@@ -47,15 +47,24 @@ public class BeeSafe {
         bd.criarTipoUsuario("Adm");
         
         //Cria os Usuarios iniciais
-        bd.criarUsuario("C", "cristiano@gmail.com", "123", "Adm");
-        bd.criarUsuario("Matheus", "matheus@gmail.com", "123", "Comum");
-        bd.criarUsuario("Thayse", "thayse@gmail.com", "123", "Comum");
+        bd.criarUsuario("C", "cristiano@gmail.com", "1", "Adm");
+        bd.criarUsuario("M", "matheus@gmail.com", "1", "Comum");
+        bd.criarUsuario("T", "thayse@gmail.com", "1", "Comum");
+        
+//        bd.criarUsuario("Cristiano", "cristiano@gmail.com", "123456", "Adm");
+//        bd.criarUsuario("Matheus", "matheus@gmail.com", "123456", "Comum");
+//        bd.criarUsuario("Thayse", "thayse@gmail.com", "123456", "Comum");
         
         //Cria as Ocorrencias iniciais
-        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "Descricao 1", "Estupro", formatarData("01/01/2016"));
-        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "Descricao 2", "Discriminacao", formatarData("20/02/2016"));
-        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "Descricao 3", "Agressao", formatarData("10/03/2015"));        
-        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "Descricao 4", "Agressao", formatarData("25/04/2015"));
+        bd.criarOcorrencia("A", "1", "Cristo Redentor", "C", "Titulo 1", "Descricao 1", "Estupro", formatarData("01/01/2016"));
+        bd.criarOcorrencia("B", "2", "Centro Histórico", "T", "Titulo 2", "Descricao 2", "Discriminacao", formatarData("20/02/2016"));
+        bd.criarOcorrencia("C", "3", "Sarandi", "M", "Titulo 3", "Descricao 3", "Agressao", formatarData("10/03/2015"));        
+        bd.criarOcorrencia("D", "4", "Anchieta", "M", "Titulo 4", "Descricao 4", "Agressao", formatarData("25/04/2015"));
+        
+//        bd.criarOcorrencia("A", "1", "Cristo Redentor", "Cristiano", "Titulo 1", "Descricao 1", "Estupro", formatarData("01/01/2016"));
+//        bd.criarOcorrencia("B", "2", "Centro Histórico", "Thayse", "Titulo 2", "Descricao 2", "Discriminacao", formatarData("20/02/2016"));
+//        bd.criarOcorrencia("C", "3", "Sarandi", "Matheus", "Titulo 3", "Descricao 3", "Agressao", formatarData("10/03/2015"));        
+//        bd.criarOcorrencia("D", "4", "Anchieta", "Matheus", "Titulo 4", "Descricao 4", "Agressao", formatarData("25/04/2015"));
         
         return bd;
     }

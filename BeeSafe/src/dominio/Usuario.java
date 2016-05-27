@@ -5,6 +5,8 @@
  */
 package dominio;
 
+import java.util.Objects;
+
 /**
  *
  * @author Clark
@@ -56,6 +58,33 @@ public class Usuario {
     
     public boolean fazerLogin(String email, String senha){
         if(!this.email.equals(email) || !this.senha.equals(senha)){
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoUsuario, other.tipoUsuario)) {
             return false;
         }
         return true;
