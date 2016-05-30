@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -326,239 +327,103 @@ public class BaseDeDados {
     
     
     public List<Ocorrencia> pesquisar(List<Object> parametros){
-        //busca todas as ocorrencias cadastradas
+        //Busca todas as ocorrencias cadastradas
         List<Ocorrencia> lista = getOcorrencias();
-        List<Ocorrencia> auxiliar = getOcorrencias();
-//        if(!parametros.get(0).equals("") && !parametros.get(1).equals("")){
-//            //filtrar por período
-//        }
+        //Cria uma lista auxiliar e adiciona os dados nela
+        List<Ocorrencia> auxiliar = new ArrayList<>();
+        for(Ocorrencia o : lista){
+            auxiliar.add(o);
+        }
+        
         //Filtra a partir da DataInicial
         if(parametros.get(0) != null){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
                 c.setTime(o.getData());
                 if(!c.after(parametros.get(0)))
-                    auxiliar.remove(o);
+                    i.remove();
             }
-        }        
+        }   
+        
         //Filtra ate a DataFinal
         if(parametros.get(1) != null){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
                 c.setTime(o.getData());
-                if(!c.before(parametros.get(0)))
-                    auxiliar.remove(o);
+                if(!c.before(parametros.get(1)))
+                    i.remove();
             }
         }
-        //Filtra pelo Ano
-        if((int)parametros.get(2) > 0){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                c.setTime(o.getData());
-                int ano = (int)parametros.get(2);
-                if(c.get(Calendar.YEAR) != ano)
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pelo Mes
-        if(!parametros.get(3).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                c.setTime(o.getData());
-                int mes = (int)parametros.get(3);
-                if(c.get(Calendar.MONTH) != mes)
-                    auxiliar.remove(o);
-            }
-        }
+        
         //Filtra pelo Tipo de Violencia
-        if(!parametros.get(4).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getTipoViolencia().equals(parametros.get(4)))
-                    auxiliar.remove(o);
+        if(!parametros.get(2).equals("")){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
+                if(!o.getTipoViolencia().equals(parametros.get(2)))
+                    i.remove();
             }
         }
+        
         //Filtra pela Regiao
-        if(!parametros.get(5).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getRegiao().equals(parametros.get(5)))
-                    auxiliar.remove(o);
+        if(!parametros.get(3).equals("")){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
+                if(!o.getRegiao().equals(parametros.get(3)))
+                    i.remove();
             }
         }
+        
         //Filtra pelo Bairro
-        if(parametros.get(6) != null){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getBairro().equals(parametros.get(6)))
-                    auxiliar.remove(o);
+        if(parametros.get(4) != null){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
+                if(!o.getBairro().equals(parametros.get(4)))
+                    i.remove();
             }
         }
+        
         //Filtra pela Rua
-        if(!parametros.get(7).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getEndereco().getRua().equals(parametros.get(7)))
-                    auxiliar.remove(o);
+        if(!parametros.get(5).equals("")){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
+                if(!o.getEndereco().getRua().equals(parametros.get(5)))
+                    i.remove();
             }
         }
-        return lista;
+        
+        //Retorna a lista filtrada
+        return auxiliar;
     }
     
-    /*
-        //busca todas as ocorrencias cadastradas
-        List<Ocorrencia> lista = getOcorrencias();
-        List<Ocorrencia> auxiliar = getOcorrencias();
-//        if(!parametros.get(0).equals("") && !parametros.get(1).equals("")){
-//            //filtrar por período
+    //Não vai precisar
+    public double gerarEstatisticas(List<Object> parametros, String filtro){
+        return 0;
+//        List<Ocorrencia> total = getOcorrencias();
+//        int quantidadeTotal = total.size();
+//        //Se nao houver nenhuma ocorrencia cadastrada retorna 0
+//        if(quantidadeTotal == 0){
+//            return 0;
 //        }
-        //Filtra a partir da DataInicial
-        if(parametros.get(0) != null){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                c.setTime(o.getData());
-                if(!c.after(parametros.get(0)))
-                    auxiliar.remove(o);
-            }
-        }        
-        //Filtra ate a DataFinal
-        if(parametros.get(1) != null){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                c.setTime(o.getData());
-                if(!c.before(parametros.get(0)))
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pelo Ano
-        if((int)parametros.get(2) > 0){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                c.setTime(o.getData());
-                int ano = (int)parametros.get(2);
-                if(c.get(Calendar.YEAR) != ano)
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pelo Mes
-        if(!parametros.get(3).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                c.setTime(o.getData());
-                int mes = (int)parametros.get(3);
-                if(c.get(Calendar.MONTH) != mes)
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pelo Tipo de Violencia
-        if(!parametros.get(4).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getTipoViolencia().equals(parametros.get(4)))
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pela Regiao
-        if(!parametros.get(5).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getRegiao().equals(parametros.get(5)))
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pelo Bairro
-        if(parametros.get(6) != null){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getBairro().equals(parametros.get(6)))
-                    auxiliar.remove(o);
-            }
-        }
-        //Filtra pela Rua
-        if(!parametros.get(7).equals("")){
-            auxiliar = lista;
-            for(Ocorrencia o: auxiliar){
-                if(!o.getEndereco().getRua().equals(parametros.get(7)))
-                    auxiliar.remove(o);
-            }
-        }
-        lista = auxiliar;
-        return lista;
-    }
-*/
-    
-    
-    
-//    public List<Ocorrencia> pesquisar(List<String> parametros){
 //        
-//        List<Ocorrencia> lista = getOcorrencias();
-////        if(!parametros.get(0).equals("") && !parametros.get(1).equals("")){
-////            //filtrar por período
-////        }
-//        //Filtra a partir da DataInicial
-//        if(!parametros.get(0).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getData().equals(parametros.get(0)))
-//                    lista.remove(o);
-//            }
-//        }        
-//        //Filtra ate a DataFinal
-//        if(!parametros.get(1).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getData().equals(parametros.get(1)))
-//                    lista.remove(o);
-//            }
+//        //caso contrario filtra as ocorrencias de acordo com os parametros 
+//        List<Ocorrencia> filtrada = pesquisar(parametros);
+//        int quantidadeFiltrada = filtrada.size();
+//        
+//        //Efetua o calculo solicitado pelo usuario
+//        switch(filtro){
+//            case "PERCENTUAL":
+//                return quantidadeFiltrada/quantidadeTotal;
+//            case "QUANTIDADE":
+//                return quantidadeFiltrada/quantidadeTotal;
+//            default:
+//                return 0;
 //        }
-//        //Filtra pelo Ano
-//        if(!parametros.get(2).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getData().equals(parametros.get(2)))
-//                    lista.remove(o);
-//            }
-//        }
-//        //Filtra pela Ano
-//        if(!parametros.get(3).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getData().equals(parametros.get(3)))
-//                    lista.remove(o);
-//            }
-//        }
-//        //Filtra pelo Tipo de Violencia
-//        if(!parametros.get(4).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getTipoViolencia().equals(parametros.get(4)))
-//                    lista.remove(o);
-//            }
-//        }
-//        //Filtra pela Regiao
-//        if(!parametros.get(5).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getRegiao().equals(parametros.get(5)))
-//                    lista.remove(o);
-//            }
-//        }
-//        //Filtra pelo Bairro
-//        if(!parametros.get(6).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getBairro().equals(parametros.get(6)))
-//                    lista.remove(o);
-//            }
-//        }
-//        //Filtra pela Rua
-//        if(!parametros.get(7).equals("")){
-//            for(Ocorrencia o: lista){
-//                if(!o.getEndereco().getRua().equals(parametros.get(7)))
-//                    lista.remove(o);
-//            }
-//        }
-//        return lista;
-//    }
-    
-    public double gerarEstatisticas(List<String> parametros){
-        List<Ocorrencia> lista = getOcorrencias();
-        int quantidadeTotal = lista.size();
-        double quantidade = 0;
-        return quantidade/quantidadeTotal;
     }
     
 }

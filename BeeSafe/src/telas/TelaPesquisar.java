@@ -43,9 +43,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
         this.usuario = user;
         ocorrencias = new ArrayList<>();
         initComponents();
-
-        preencherComboAnos();
-        preencherComboMeses();
+        
         preencherComboBairros();
         preencherComboRegioes();
         preencherComboTiposViolencia();
@@ -78,15 +76,15 @@ public class TelaPesquisar extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaOcorrencias = new javax.swing.JList<>();
         btnVoltar = new javax.swing.JButton();
-        lblMes = new javax.swing.JLabel();
-        lblAno = new javax.swing.JLabel();
-        comboMeses = new javax.swing.JComboBox<>();
-        comboAnos = new javax.swing.JComboBox<>();
         txtDataFinal = new javax.swing.JTextField();
         lblDataFinal = new javax.swing.JLabel();
         btnDetalhes = new javax.swing.JButton();
         txtTitulo = new javax.swing.JTextField();
         lblTituloOcorrencia = new javax.swing.JLabel();
+        btnLimpar = new javax.swing.JButton();
+        btnPercentual = new javax.swing.JButton();
+        btnQuantidade = new javax.swing.JButton();
+        lblEstatisticas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,14 +127,6 @@ public class TelaPesquisar extends javax.swing.JFrame {
             }
         });
 
-        lblMes.setText("Mês:");
-
-        lblAno.setText("Ano:");
-
-        comboMeses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboAnos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblDataFinal.setText("Data Final:");
 
         btnDetalhes.setText("Detalhes");
@@ -147,6 +137,27 @@ public class TelaPesquisar extends javax.swing.JFrame {
         });
 
         lblTituloOcorrencia.setText("Título:");
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        btnPercentual.setText("Percentual");
+        btnPercentual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPercentualActionPerformed(evt);
+            }
+        });
+
+        btnQuantidade.setText("Quantidade");
+        btnQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuantidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,21 +170,15 @@ public class TelaPesquisar extends javax.swing.JFrame {
                         .addGap(112, 112, 112)
                         .addComponent(lblTitulo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(btnDetalhes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(btnPesquisar))
+                        .addContainerGap()
+                        .addComponent(lblData)
+                        .addGap(44, 44, 44)
+                        .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTiposViolencia)
                             .addComponent(lblDataFinal)
-                            .addComponent(lblMes)
-                            .addComponent(lblAno)
-                            .addComponent(lblData)
                             .addComponent(lblRegiao)
                             .addComponent(lblBairro)
                             .addComponent(lblRua)
@@ -184,14 +189,27 @@ public class TelaPesquisar extends javax.swing.JFrame {
                                 .addComponent(comboRegioes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(comboBairros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboTiposViolencia, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(txtDataFinal)
-                                    .addComponent(comboAnos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(comboMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comboTiposViolencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(btnPesquisar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnQuantidade)
+                            .addComponent(btnDetalhes))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPercentual)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblEstatisticas)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,18 +221,10 @@ public class TelaPesquisar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblData)
                     .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataFinal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAno)
-                    .addComponent(comboAnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMes)
-                    .addComponent(comboMeses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTiposViolencia)
@@ -228,9 +238,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
-                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar))
+                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRegiao)
                         .addGap(12, 12, 12)
@@ -240,8 +248,18 @@ public class TelaPesquisar extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblTituloOcorrencia)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPesquisar)
+                    .addComponent(btnLimpar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPercentual)
+                    .addComponent(btnQuantidade))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(lblEstatisticas)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar)
                     .addComponent(btnDetalhes))
@@ -261,89 +279,30 @@ public class TelaPesquisar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //String dataInicial = txtDataInicial.getText();
-        //String dataFinal = txtRua.getText();
-        Calendar dataInicial = null;
-        Calendar dataFinal = null;
-        String mes = "";
-        int ano = 0;
-        String tipoViolencia = "";
-        String regiao = "";
-        Bairro bairro = null;
-        String rua = "";
-        boolean ok = true;
-        if(!txtDataInicial.getText().equals("")){
-            dataInicial = converterData(txtDataInicial.getText());
-            if(dataInicial == null){
-                JOptionPane.showMessageDialog(this, "Data Inicial Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-                txtDataInicial.setText("");
-                ok = false;
-            }
-        }
-        if(!txtDataFinal.getText().equals("")){
-            dataFinal = converterData(txtDataFinal.getText());
-            if(dataFinal == null){
-                JOptionPane.showMessageDialog(this, "Data Final Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-                txtDataFinal.setText("");
-                ok = false;
-            }
-        }
-        if(comboAnos.getSelectedIndex() != -1 && comboMeses.getSelectedIndex() != 0){
-            ano = Integer.parseInt(comboAnos.getSelectedItem().toString());
-        }
-        if(comboMeses.getSelectedIndex() != -1 && comboMeses.getSelectedIndex() != 0){
-            mes = comboMeses.getSelectedItem().toString();
-        }
-        if(comboTiposViolencia.getSelectedIndex() != -1 && comboTiposViolencia.getSelectedIndex() != 0){
-            comboTiposViolencia.getSelectedItem().toString();
-        }
-        if(comboRegioes.getSelectedIndex() != -1 && comboRegioes.getSelectedIndex() != 0){
-            regiao = comboRegioes.getSelectedItem().toString();
-        }
-        if(comboBairros.getSelectedIndex() != -1 && comboBairros.getSelectedIndex() != 0){
-            bairro = (Bairro)comboBairros.getSelectedItem();
-        }
-
-        List<Object> parametros = new ArrayList<>();
-        parametros.add(dataInicial);
-        parametros.add(dataFinal);
-        parametros.add(ano);
-        parametros.add(mes);
-        parametros.add(tipoViolencia);
-        parametros.add(regiao);
-        parametros.add(bairro);
-        parametros.add(rua);
-
-        ocorrencias = bd.pesquisar(parametros);
-        if (ocorrencias.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência encontrada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-            txtDataInicial.setText("");
-            txtRua.setText("");
-            comboBairros.setSelectedIndex(0);
-            comboRegioes.setSelectedIndex(0);
-            comboTiposViolencia.setSelectedIndex(0);
-        }
-        atualizarListaOcorrencias(ocorrencias);
-    }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.setVisible(false);
-        new TelaPrincipal(bd, usuario).setVisible(true);
-    }//GEN-LAST:event_btnVoltarActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtDataInicial.setText("");
+        txtDataFinal.setText("");
+        txtRua.setText("");
+        comboBairros.setSelectedIndex(0);
+        comboRegioes.setSelectedIndex(0);
+        comboTiposViolencia.setSelectedIndex(0);
+        lblEstatisticas.setText("");
+        atualizarListaOcorrencias(new ArrayList<>());
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
+        //Verifica se um ocorrencia foi selecionada, caso nao tenha, retorna um erro
         if(listaOcorrencias.getSelectedIndex() == -1){
             JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência selecionada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
+        //caso tenha, abre a tela de detalhes da ocorrencia
         else{
             Object selecionado = listaOcorrencias.getModel().getElementAt(listaOcorrencias.getSelectedIndex());
             Ocorrencia ocorrencia = (Ocorrencia)selecionado;
@@ -352,6 +311,78 @@ public class TelaPesquisar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDetalhesActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.setVisible(false);
+        new TelaPrincipal(bd, usuario).setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        Calendar dataInicial = null;
+        Calendar dataFinal = null;
+        String tipoViolencia = "";
+        String regiao = "";
+        Bairro bairro = null;
+        String rua = "";
+        lblEstatisticas.setText("");
+        boolean ok = true;
+        //Verifica se a data inicial foi preenchida e se e uma data valida
+        if(!txtDataInicial.getText().equals("")){
+            dataInicial = converterData(txtDataInicial.getText());
+            if(dataInicial == null){
+                JOptionPane.showMessageDialog(this, "Data Inicial Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+                txtDataInicial.setText("");
+                ok = false;
+            }
+        }
+        //Verifica se a data final foi preenchida e se e uma data valida
+        if(!txtDataFinal.getText().equals("")){
+            dataFinal = converterData(txtDataFinal.getText());
+            if(dataFinal == null){
+                JOptionPane.showMessageDialog(this, "Data Final Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+                txtDataFinal.setText("");
+                ok = false;
+            }
+        }
+        //se as datas sao validas continua a filtrar os resultados
+        if(ok){
+            if(comboTiposViolencia.getSelectedIndex() != -1 && comboTiposViolencia.getSelectedIndex() != 0){
+                tipoViolencia = comboTiposViolencia.getSelectedItem().toString();
+            }
+            if(comboRegioes.getSelectedIndex() != -1 && comboRegioes.getSelectedIndex() != 0){
+                regiao = comboRegioes.getSelectedItem().toString();
+            }
+            if(comboBairros.getSelectedIndex() != -1 && comboBairros.getSelectedIndex() != 0){
+                bairro = (Bairro)comboBairros.getSelectedItem();
+            }
+
+            List<Object> parametros = new ArrayList<>();
+            parametros.add(dataInicial);
+            parametros.add(dataFinal);
+            parametros.add(tipoViolencia);
+            parametros.add(regiao);
+            parametros.add(bairro);
+            parametros.add(rua);
+
+            ocorrencias = bd.pesquisar(parametros);
+            atualizarListaOcorrencias(ocorrencias);
+            if (ocorrencias.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência encontrada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuantidadeActionPerformed
+        lblEstatisticas.setText("Foram encontradas " + ocorrencias.size() + " ocorrências!");
+    }//GEN-LAST:event_btnQuantidadeActionPerformed
+
+    private void btnPercentualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercentualActionPerformed
+        double totalOcorrencias = bd.getOcorrencias().size();
+        double ocorrenciasFiltradas = ocorrencias.size();
+        double percentual = (ocorrenciasFiltradas/totalOcorrencias)*100.0;
+        lblEstatisticas.setText("Estas ocorrências correspondem a " + percentual + "% do total!");
+    }//GEN-LAST:event_btnPercentualActionPerformed
+
+    //Converte a string digitada em uma Data
     private Calendar converterData(String data){
         Calendar c = Calendar.getInstance();
         try {
@@ -401,48 +432,23 @@ public class TelaPesquisar extends javax.swing.JFrame {
         }
         comboTiposViolencia.setModel(model);
     }
-
-    private void preencherComboMeses() {
-        model = new DefaultComboBoxModel();
-        model.addElement("--Selecione--");
-        model.addElement("Janeiro");
-        model.addElement("Fevereiro");
-        model.addElement("Marco");
-        model.addElement("Abril");
-        model.addElement("Maio");
-        model.addElement("Junho");
-        model.addElement("Julho");
-        model.addElement("Agosto");
-        model.addElement("Setembro");
-        model.addElement("Outubro");
-        model.addElement("Novembro");
-        model.addElement("Dezembro");
-        comboMeses.setModel(model);
-    }
-
-    private void preencherComboAnos() {
-        model = new DefaultComboBoxModel();
-        model.addElement("--Selecione--");
-        //bd.getAnos();
-        comboAnos.setModel(model);
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalhes;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnPercentual;
     private javax.swing.JButton btnPesquisar;
+    private javax.swing.JButton btnQuantidade;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> comboAnos;
     private javax.swing.JComboBox<String> comboBairros;
-    private javax.swing.JComboBox<String> comboMeses;
     private javax.swing.JComboBox<String> comboRegioes;
     private javax.swing.JComboBox<String> comboTiposViolencia;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAno;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDataFinal;
-    private javax.swing.JLabel lblMes;
+    private javax.swing.JLabel lblEstatisticas;
     private javax.swing.JLabel lblRegiao;
     private javax.swing.JLabel lblRua;
     private javax.swing.JLabel lblTiposViolencia;
