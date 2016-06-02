@@ -20,12 +20,12 @@ public class Ocorrencia {
     private String titulo;
     private String descricao;
     private TipoViolencia tipoViolencia;
-    private List<Comentario> comentarios;
+    private List<Comentario> listaComentarios;
     private Date data;
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
     public Ocorrencia(Endereco endereco, Usuario usuario, String titulo, String descricao, TipoViolencia tipoViolencia, Date data) {
-        comentarios = new ArrayList<>();
+        listaComentarios = new ArrayList<>();
         this.data = data;
         this.descricao = descricao;
         this.endereco = endereco;
@@ -42,8 +42,20 @@ public class Ocorrencia {
         return endereco.getBairro();
     }
 
-    public List<Comentario> getComentarios(){
-        return comentarios;
+    //Retorna o comentario que corresponde ao titulo passado por parametro
+    public Comentario getComentario(String tituloComentario){
+        //para cada comentario cadastrado, verifica se o titulo e igual ao passado por parametro
+        for(Comentario o : listaComentarios){
+            if(o.getTitulo().toUpperCase().equals(tituloComentario.toUpperCase())){
+                //se for igual retorna o comentario
+                return o;
+            }
+        }
+        //Se nao existir retorna null
+        return null;
+    }
+    public List<Comentario> getListaComentarios(){
+        return listaComentarios;
     }
     
     public Date getData(){
@@ -79,7 +91,7 @@ public class Ocorrencia {
     }    
         
     public void adiconarComentario(Comentario comentario){
-        comentarios.add(comentario);
+        listaComentarios.add(comentario);
     }
     
     @Override

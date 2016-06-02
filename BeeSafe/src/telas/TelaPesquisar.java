@@ -16,10 +16,14 @@ import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -28,7 +32,7 @@ import javax.swing.JOptionPane;
 public class TelaPesquisar extends javax.swing.JFrame {
 
     private BaseDeDados bd;
-    private DefaultListModel lista;
+    private DefaultTableModel tabela;
     private DefaultComboBoxModel model;
     private List<Ocorrencia> ocorrencias;
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
@@ -44,10 +48,11 @@ public class TelaPesquisar extends javax.swing.JFrame {
         ocorrencias = new ArrayList<>();
         initComponents();
         
+        lblEstatisticas.setText("");
         preencherComboBairros();
         preencherComboRegioes();
         preencherComboTiposViolencia();
-        atualizarListaOcorrencias(ocorrencias);
+        atualizarTabelaOcorrencias(new ArrayList<>());
 
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
@@ -73,8 +78,6 @@ public class TelaPesquisar extends javax.swing.JFrame {
         comboBairros = new javax.swing.JComboBox<>();
         txtRua = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaOcorrencias = new javax.swing.JList<>();
         btnVoltar = new javax.swing.JButton();
         txtDataFinal = new javax.swing.JTextField();
         lblDataFinal = new javax.swing.JLabel();
@@ -85,6 +88,9 @@ public class TelaPesquisar extends javax.swing.JFrame {
         btnPercentual = new javax.swing.JButton();
         btnQuantidade = new javax.swing.JButton();
         lblEstatisticas = new javax.swing.JLabel();
+        lblTituloEstatisticas = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaOcorrencias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,13 +118,6 @@ public class TelaPesquisar extends javax.swing.JFrame {
                 btnPesquisarActionPerformed(evt);
             }
         });
-
-        listaOcorrencias.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listaOcorrencias);
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -159,111 +158,162 @@ public class TelaPesquisar extends javax.swing.JFrame {
             }
         });
 
+        lblEstatisticas.setText("Estatisticas");
+
+        lblTituloEstatisticas.setText("GERAR ESTATÍSTICAS");
+
+        tabelaOcorrencias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Data", "Tipo", "Região", "Bairro", "Título"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabelaOcorrencias);
+        if (tabelaOcorrencias.getColumnModel().getColumnCount() > 0) {
+            tabelaOcorrencias.getColumnModel().getColumn(0).setResizable(false);
+            tabelaOcorrencias.getColumnModel().getColumn(1).setResizable(false);
+            tabelaOcorrencias.getColumnModel().getColumn(2).setResizable(false);
+            tabelaOcorrencias.getColumnModel().getColumn(3).setResizable(false);
+            tabelaOcorrencias.getColumnModel().getColumn(4).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(197, 197, 197)
+                            .addComponent(btnPesquisar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(257, 257, 257)
+                            .addComponent(lblTitulo))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(172, 172, 172)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnDetalhes)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnQuantidade)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnPercentual)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(lblTitulo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblData)
-                        .addGap(44, 44, 44)
-                        .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTiposViolencia)
-                            .addComponent(lblDataFinal)
-                            .addComponent(lblRegiao)
-                            .addComponent(lblBairro)
-                            .addComponent(lblRua)
-                            .addComponent(lblTituloOcorrencia))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(comboRegioes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboBairros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(comboTiposViolencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(btnPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnQuantidade)
-                            .addComponent(btnDetalhes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPercentual)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblEstatisticas)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblTiposViolencia)
+                                            .addComponent(lblRegiao, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(comboRegioes, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(38, 38, 38)
+                                                .addComponent(lblBairro)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(comboBairros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(lblTituloOcorrencia)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addComponent(lblData)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblDataFinal)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblRua)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(238, 238, 238))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(198, 198, 198)
+                                .addComponent(lblTituloEstatisticas)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(lblEstatisticas)
+                .addContainerGap(302, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(4, 4, 4)
                 .addComponent(lblTitulo)
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblData)
-                    .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataFinal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTiposViolencia)
-                    .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTiposViolencia)
+                        .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(comboRegioes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBairros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegiao)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblBairro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblRua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(1, 1, 1)
                         .addComponent(lblTituloOcorrencia)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRegiao)
+                    .addComponent(comboRegioes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comboBairros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBairro)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRua))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPesquisar)
                     .addComponent(btnLimpar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTituloEstatisticas)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPercentual)
-                    .addComponent(btnQuantidade))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(btnQuantidade)
+                    .addComponent(btnPercentual))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblEstatisticas)
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar)
-                    .addComponent(btnDetalhes))
-                .addContainerGap())
+                    .addComponent(btnDetalhes)
+                    .addComponent(btnVoltar))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,12 +329,22 @@ public class TelaPesquisar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuantidadeActionPerformed
+        lblEstatisticas.setText("Foram encontradas " + ocorrencias.size() + " ocorrências!");
+    }//GEN-LAST:event_btnQuantidadeActionPerformed
+
+    private void btnPercentualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercentualActionPerformed
+        double totalOcorrencias = bd.getOcorrencias().size();
+        double ocorrenciasFiltradas = ocorrencias.size();
+        double percentual = (ocorrenciasFiltradas/totalOcorrencias)*100.0;
+        lblEstatisticas.setText("Estas ocorrências correspondem a " + percentual + "% do total!");
+    }//GEN-LAST:event_btnPercentualActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         txtDataInicial.setText("");
@@ -294,18 +354,18 @@ public class TelaPesquisar extends javax.swing.JFrame {
         comboRegioes.setSelectedIndex(0);
         comboTiposViolencia.setSelectedIndex(0);
         lblEstatisticas.setText("");
-        atualizarListaOcorrencias(new ArrayList<>());
+        atualizarTabelaOcorrencias(new ArrayList<>());
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
         //Verifica se um ocorrencia foi selecionada, caso nao tenha, retorna um erro
-        if(listaOcorrencias.getSelectedIndex() == -1){
+        if(tabelaOcorrencias.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência selecionada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
         //caso tenha, abre a tela de detalhes da ocorrencia
         else{
-            Object selecionado = listaOcorrencias.getModel().getElementAt(listaOcorrencias.getSelectedIndex());
-            Ocorrencia ocorrencia = (Ocorrencia)selecionado;
+            Object tituloOcorrencia = tabelaOcorrencias.getValueAt(tabelaOcorrencias.getSelectedRow(), 4);
+            Ocorrencia ocorrencia = bd.getOcorrencia ((String)tituloOcorrencia);
             this.setVisible(false);
             new TelaDetalhesOcorrencia(bd, usuario, ocorrencia).setVisible(true);
         }
@@ -364,23 +424,12 @@ public class TelaPesquisar extends javax.swing.JFrame {
             parametros.add(rua);
 
             ocorrencias = bd.pesquisar(parametros);
-            atualizarListaOcorrencias(ocorrencias);
+            atualizarTabelaOcorrencias(ocorrencias);
             if (ocorrencias.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência encontrada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void btnQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuantidadeActionPerformed
-        lblEstatisticas.setText("Foram encontradas " + ocorrencias.size() + " ocorrências!");
-    }//GEN-LAST:event_btnQuantidadeActionPerformed
-
-    private void btnPercentualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercentualActionPerformed
-        double totalOcorrencias = bd.getOcorrencias().size();
-        double ocorrenciasFiltradas = ocorrencias.size();
-        double percentual = (ocorrenciasFiltradas/totalOcorrencias)*100.0;
-        lblEstatisticas.setText("Estas ocorrências correspondem a " + percentual + "% do total!");
-    }//GEN-LAST:event_btnPercentualActionPerformed
 
     //Converte a string digitada em uma Data
     private Calendar converterData(String data){
@@ -394,13 +443,28 @@ public class TelaPesquisar extends javax.swing.JFrame {
         }
     }
     
-    private void atualizarListaOcorrencias(List<Ocorrencia> listaOcorrencias){
-        lista = new DefaultListModel();
-        ocorrencias = listaOcorrencias;
-        for(Ocorrencia o : ocorrencias){
-            lista.addElement(o);
+    private String formatarData(Date data){
+        formataData = new SimpleDateFormat("dd/MM/yyyy");
+        String dataFormatada = "";
+        try{
+            dataFormatada = formataData.format(data);
         }
-        this.listaOcorrencias.setModel(lista);
+        catch(Exception e){}
+        return dataFormatada;
+    }
+        
+    private void atualizarTabelaOcorrencias(List<Ocorrencia> lista){
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tabelaOcorrencias.getModel());
+        tabelaOcorrencias.setRowSorter(sorter);	
+        tabela = (DefaultTableModel) tabelaOcorrencias.getModel();
+        //Verifica se te algum dado anterior e exclui
+        while (tabela.getRowCount() > 0) {
+            tabela.removeRow(0);
+        }
+        //Adiciona as ocorrencias na tabela
+        for (Ocorrencia o : lista) {
+            tabela.addRow(new Object[] { formatarData(o.getData()), o.getTipoViolencia(), o.getRegiao(), o.getBairro().getNome(), o.getTitulo() });
+        }
     }
     
     private void preencherComboBairros() {
@@ -444,7 +508,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboRegioes;
     private javax.swing.JComboBox<String> comboTiposViolencia;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDataFinal;
@@ -453,8 +517,9 @@ public class TelaPesquisar extends javax.swing.JFrame {
     private javax.swing.JLabel lblRua;
     private javax.swing.JLabel lblTiposViolencia;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTituloEstatisticas;
     private javax.swing.JLabel lblTituloOcorrencia;
-    private javax.swing.JList<String> listaOcorrencias;
+    private javax.swing.JTable tabelaOcorrencias;
     private javax.swing.JTextField txtDataFinal;
     private javax.swing.JTextField txtDataInicial;
     private javax.swing.JTextField txtRua;
