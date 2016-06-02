@@ -188,7 +188,7 @@ public class TelaComentar extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, mensagem, "Atenção!", JOptionPane.WARNING_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(this, "Comentário criado com sucesso", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Comentário criado com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
                     this.setVisible(false);
                     new TelaDetalhesOcorrencia(bd, usuario, ocorrencia).setVisible(true);
                 }

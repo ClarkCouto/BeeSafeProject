@@ -16,6 +16,9 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -26,7 +29,7 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
     private BaseDeDados bd;
     private Usuario usuario;
     private Ocorrencia ocorrencia;
-    private DefaultListModel lista; 
+    private DefaultTableModel tabela;
     private SimpleDateFormat formataData;
     /**
      * Creates new form TelaDetalhesOcorrencia
@@ -40,7 +43,7 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
         
         preencherCampos();   
         desabilitarEdicoes();
-        preencherListaComentarios();
+        atualizarTabelaComentarios();
         
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
@@ -73,8 +76,6 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
         lblRua = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblComentarios = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaComentarios = new javax.swing.JList<>();
         btnDetalhes = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         txtBairro = new javax.swing.JTextField();
@@ -82,6 +83,8 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
         lblTituloOcorrencia = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
         btnComentar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaComentarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,14 +106,7 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
 
         lblTitulo.setText("OCORRÊNCIAS");
 
-        lblComentarios.setText("Comentários:");
-
-        listaComentarios.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listaComentarios);
+        lblComentarios.setText("COMENTÁRIOS ANTERIORES");
 
         btnDetalhes.setText("Detalhes");
         btnDetalhes.addActionListener(new java.awt.event.ActionListener() {
@@ -135,60 +131,76 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
             }
         });
 
+        tabelaComentarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Data", "Usuário", "Título"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tabelaComentarios);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblRua)
-                                            .addComponent(lblNumero)
-                                            .addComponent(lblBairro)
-                                            .addComponent(lblData)
-                                            .addComponent(lblTipoOcorrencia))
-                                        .addGap(15, 15, 15)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtTipoViolencia, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(txtData)
-                                            .addComponent(txtRua)
-                                            .addComponent(txtNumero)
-                                            .addComponent(txtBairro)))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addComponent(lblTitulo)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblDescricao)
-                                .addGap(165, 165, 165))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTituloOcorrencia)
-                                .addGap(79, 79, 79)
-                                .addComponent(txtTitulo)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(99, 99, 99)
+                                    .addComponent(btnComentar))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(61, 61, 61)
+                                    .addComponent(btnDetalhes)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblRua)
+                                .addComponent(lblNumero)
+                                .addComponent(lblBairro)
+                                .addComponent(lblData)
+                                .addComponent(lblTipoOcorrencia)
+                                .addComponent(lblTituloOcorrencia))
+                            .addGap(15, 15, 15)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtTipoViolencia)
+                                .addComponent(txtData)
+                                .addComponent(txtRua)
+                                .addComponent(txtNumero)
+                                .addComponent(txtBairro)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(99, 99, 99)
+                            .addComponent(lblTitulo))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(82, 82, 82)
+                            .addComponent(lblComentarios))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDescricao)))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnComentar)
-                    .addComponent(lblComentarios))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(btnDetalhes)
-                .addGap(32, 32, 32)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,10 +219,10 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBairro))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRua))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblRua)
+                    .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,21 +231,21 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTituloOcorrencia))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnComentar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblComentarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblComentarios)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVoltar)
                     .addComponent(btnDetalhes))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -242,27 +254,29 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
-        if(listaComentarios.getSelectedIndex() == -1){
+        //Verifica se um comentario foi selecionado, caso nao tenha, retorna um erro
+        if(tabelaComentarios.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(this, "Nenhum Comentário selecionado!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
+        //caso tenha, abre a tela de detalhes da ocorrencia
         else{
-            Object selecionado = listaComentarios.getModel().getElementAt(listaComentarios.getSelectedIndex());
-            Comentario comentario = (Comentario)selecionado;
+            Object tituloComentario = tabelaComentarios.getValueAt(tabelaComentarios.getSelectedRow(), 2);
+            Comentario comentario = ocorrencia.getComentario((String)tituloComentario);
             this.setVisible(false);
             new TelaDetalhesComentario(bd, usuario, ocorrencia, comentario).setVisible(true);
         }
@@ -310,18 +324,21 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
             txtTitulo.setEnabled(false);
             txtDescricao.setEnabled(false);
         }
-        else{
-            
-        }
     }
     
-    private void preencherListaComentarios(){
-        lista = new DefaultListModel();
-        List<Comentario> comentarios = ocorrencia.getComentarios();
-        for(Comentario c : comentarios){
-            lista.addElement(c);
+    private void atualizarTabelaComentarios(){
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tabelaComentarios.getModel());
+        tabelaComentarios.setRowSorter(sorter);	
+        tabela = (DefaultTableModel) tabelaComentarios.getModel();
+        //Verifica se te algum dado anterior e exclui
+        while (tabela.getRowCount() > 0) {
+            tabela.removeRow(0);
         }
-        this.listaComentarios.setModel(lista);
+        List<Comentario> comentarios = ocorrencia.getListaComentarios();
+        //Adiciona as ocorrencias na tabela
+        for (Comentario c : comentarios) {
+            tabela.addRow(new Object[] { formatarData(c.getData()), c.getUsuario().getNome(), c.getTitulo() });
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -329,8 +346,8 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
     private javax.swing.JButton btnDetalhes;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblComentarios;
     private javax.swing.JLabel lblData;
@@ -340,7 +357,7 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
     private javax.swing.JLabel lblTipoOcorrencia;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloOcorrencia;
-    private javax.swing.JList<String> listaComentarios;
+    private javax.swing.JTable tabelaComentarios;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextArea txtDescricao;

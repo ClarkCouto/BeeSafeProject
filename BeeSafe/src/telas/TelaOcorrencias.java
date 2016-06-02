@@ -26,7 +26,6 @@ import javax.swing.JOptionPane;
 public class TelaOcorrencias extends javax.swing.JFrame {
 
     private BaseDeDados bd;
-    private DefaultListModel lista; 
     private DefaultComboBoxModel model;
     private Usuario usuario;
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
@@ -39,7 +38,6 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         
         preencherComboBairros();
         preencherComboTiposViolencia();
-        atualizarListaOcorrencias();
         
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
@@ -73,11 +71,8 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
         btnCriarOcorrencia = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listaOcorrencias = new javax.swing.JList();
         btnVoltar = new javax.swing.JButton();
         lblDescricao = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         lblTituloOcorrencia = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
 
@@ -110,13 +105,6 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             }
         });
 
-        listaOcorrencias.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(listaOcorrencias);
-
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,8 +114,6 @@ public class TelaOcorrencias extends javax.swing.JFrame {
 
         lblDescricao.setText("Descrição:");
 
-        jLabel1.setText("OCORRÊNCIAS CADASTRADAS");
-
         lblTituloOcorrencia.setText("Título:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -135,7 +121,18 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(btnCriarOcorrencia)
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTipoOcorrencia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -155,41 +152,18 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                                 .addGap(92, 92, 92)
                                 .addComponent(lblTitulo)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(54, 54, 54))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTipoOcorrencia)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCriarOcorrencia)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(btnVoltar))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDescricao))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTituloOcorrencia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDescricao))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblTituloOcorrencia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,13 +201,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCriarOcorrencia)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVoltar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCriarOcorrencia)
+                    .addComponent(btnVoltar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -255,6 +225,11 @@ public class TelaOcorrencias extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.setVisible(false);
+        new TelaPrincipal(bd, usuario).setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnCriarOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarOcorrenciaActionPerformed
         if (txtData.getText().isEmpty()) {
@@ -300,25 +275,11 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                     txtTitulo.setText("");
                     comboBairros.setSelectedIndex(0);
                     comboTiposViolencia.setSelectedIndex(0);
-                    atualizarListaOcorrencias();
+                    JOptionPane.showMessageDialog(this, "Ocorrência criada com sucesso!", "Atenção!", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
     }//GEN-LAST:event_btnCriarOcorrenciaActionPerformed
-
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.setVisible(false);
-        new TelaPrincipal(bd, usuario).setVisible(true);
-    }//GEN-LAST:event_btnVoltarActionPerformed
-
-    private void atualizarListaOcorrencias(){
-        lista = new DefaultListModel();
-        List<Ocorrencia> ocorrencias = bd.getOcorrencias();
-        for(Ocorrencia o : ocorrencias){
-            lista.addElement(o);
-        }
-        this.listaOcorrencias.setModel(lista);
-    }
 
     private Date formatarData(String data){
         Date dataFormatada = null;
@@ -353,9 +314,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox comboBairros;
     private javax.swing.JComboBox comboTiposViolencia;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblData;
@@ -365,7 +324,6 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private javax.swing.JLabel lblTipoOcorrencia;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloOcorrencia;
-    private javax.swing.JList listaOcorrencias;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtNumero;
