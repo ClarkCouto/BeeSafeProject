@@ -326,7 +326,9 @@ public class BaseDeDados {
     }
     
     
-    public List<Ocorrencia> pesquisar(List<Object> parametros){
+    public List<Ocorrencia> pesquisar(Calendar dataInicial, Calendar dataFinal, String tipoViolencia, String regiao, Bairro bairro, String rua, String titulo){
+        Iterator<Ocorrencia> i = null;
+        
         //Busca todas as ocorrencias cadastradas
         List<Ocorrencia> lista = getOcorrencias();
         //Cria uma lista auxiliar e adiciona os dados nela
@@ -336,94 +338,77 @@ public class BaseDeDados {
         }
         
         //Filtra a partir da DataInicial
-        if(parametros.get(0) != null){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
+        if(dataInicial != null){
+            i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
                 c.setTime(o.getData());
-                if(!c.after(parametros.get(0)))
+                if(!c.equals(dataInicial) && !c.after(dataInicial))
                     i.remove();
             }
         }   
         
         //Filtra ate a DataFinal
-        if(parametros.get(1) != null){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
+        if(dataFinal != null){
+            i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
                 c.setTime(o.getData());
-                if(!c.before(parametros.get(1)))
+                if(!c.equals(dataFinal) && !c.before(dataFinal))
                     i.remove();
             }
         }
         
         //Filtra pelo Tipo de Violencia
-        if(!parametros.get(2).equals("")){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
+        if(!tipoViolencia.equals("")){
+            i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getTipoViolencia().equals(parametros.get(2)))
+                if(!o.getTipoViolencia().equals(tipoViolencia))
                     i.remove();
             }
         }
         
         //Filtra pela Regiao
-        if(!parametros.get(3).equals("")){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
+        if(!regiao.equals("")){
+            i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getRegiao().equals(parametros.get(3)))
+                if(!o.getRegiao().equals(regiao))
                     i.remove();
             }
         }
         
         //Filtra pelo Bairro
-        if(parametros.get(4) != null){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
+        if(bairro != null){
+            i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getBairro().equals(parametros.get(4)))
+                if(!o.getBairro().equals(bairro))
                     i.remove();
             }
         }
         
         //Filtra pela Rua
-        if(!parametros.get(5).equals("")){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
+        if(!rua.equals("")){
+            i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getEndereco().getRua().equals(parametros.get(5)))
+                if(!o.getEndereco().getRua().contains(rua))
                     i.remove();
             }
         }
         
+        //Filtra pelo titulo
+        if(!titulo.equals("")){
+            i = auxiliar.iterator();
+            while (i.hasNext()) {
+                Ocorrencia o = i.next();
+                if(!o.getTitulo().contains(titulo))
+                    i.remove();
+            }
+        }
         //Retorna a lista filtrada
         return auxiliar;
     }
-    
-    //Não vai precisar
-    public double gerarEstatisticas(List<Object> parametros, String filtro){
-        return 0;
-//        List<Ocorrencia> total = getOcorrencias();
-//        int quantidadeTotal = total.size();
-//        //Se nao houver nenhuma ocorrencia cadastrada retorna 0
-//        if(quantidadeTotal == 0){
-//            return 0;
-//        }
-//        
-//        //caso contrario filtra as ocorrencias de acordo com os parametros 
-//        List<Ocorrencia> filtrada = pesquisar(parametros);
-//        int quantidadeFiltrada = filtrada.size();
-//        
-//        //Efetua o calculo solicitado pelo usuario
-//        switch(filtro){
-//            case "PERCENTUAL":
-//                return quantidadeFiltrada/quantidadeTotal;
-//            case "QUANTIDADE":
-//                return quantidadeFiltrada/quantidadeTotal;
-//            default:
-//                return 0;
-//        }
-    }
-    
 }
