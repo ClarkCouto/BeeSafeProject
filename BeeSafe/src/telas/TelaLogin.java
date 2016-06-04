@@ -9,7 +9,6 @@ import dominio.BaseDeDados;
 import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,6 +31,9 @@ public class TelaLogin extends javax.swing.JFrame {
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
 
+        //Bloqueia o resize da tela
+        setResizable(false);
+        
         //Encerrar a aplicação quando fechar a tela 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
@@ -95,10 +97,10 @@ public class TelaLogin extends javax.swing.JFrame {
                             .addComponent(txtUsuario)
                             .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLogar))))
+                        .addGap(50, 50, 50)
+                        .addComponent(btnLogar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -115,9 +117,9 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnLogar)
-                .addGap(18, 18, 18)
-                .addComponent(btnSair)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogar)
+                    .addComponent(btnSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

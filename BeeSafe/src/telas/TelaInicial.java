@@ -38,6 +38,9 @@ public class TelaInicial extends javax.swing.JFrame {
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
 
+        //Bloqueia o resize da tela
+        setResizable(false);
+        
         //Encerrar a aplicação quando fechar a tela 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
@@ -84,22 +87,22 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(lblTitulo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCriarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCriarUsuario)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lblTitulo)
-                .addGap(27, 27, 27)
-                .addComponent(btnLogin)
                 .addGap(18, 18, 18)
-                .addComponent(btnCriarUsuario)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin)
+                    .addComponent(btnCriarUsuario))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author 0729159
+ * @author Cristiano do Couto
  */
 public class TelaTipoViolencia extends javax.swing.JFrame {
 

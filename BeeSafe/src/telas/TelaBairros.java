@@ -7,10 +7,7 @@ import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -38,6 +35,9 @@ public class TelaBairros extends javax.swing.JFrame {
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
+        
+        //Bloqueia o resize da tela
+        setResizable(false);
         
         //Encerrar a aplicação quando fechar a tela 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);

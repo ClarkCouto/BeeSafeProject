@@ -7,7 +7,6 @@ package telas;
 
 import dominio.Bairro;
 import dominio.BaseDeDados;
-import dominio.Ocorrencia;
 import dominio.TipoViolencia;
 import dominio.Usuario;
 import java.awt.Dimension;
@@ -16,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +40,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         //Centraliza a tela
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
+        
+        //Bloqueia o resize da tela
+        setResizable(false);
         
         //Encerrar a aplicação quando fechar a tela 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -234,27 +235,21 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private void btnCriarOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarOcorrenciaActionPerformed
         if (txtData.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar a Data.", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         else if (txtRua.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar a Rua.", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         else if (txtNumero.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o Número.", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         else if (comboBairros.getSelectedIndex() == -1 || comboBairros.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Bairro!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         else if (comboTiposViolencia.getSelectedIndex() == -1  || comboTiposViolencia.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Violência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         else if (txtTitulo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o Título da Ocorrência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            return;
         }
         else{
             Date data = formatarData(txtData.getText());
