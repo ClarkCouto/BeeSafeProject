@@ -12,10 +12,14 @@ import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -292,6 +296,19 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
         new TelaComentar(bd, usuario, ocorrencia).setVisible(true);
     }//GEN-LAST:event_btnComentarActionPerformed
 
+    //Converte string em uma Data
+    private Calendar converterData(String data){
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(formataData.parse(data));
+            return c;
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
+    
+    //Formata uma Data em uma String modelada
     private String formatarData(Date data){
         formataData = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = "";
@@ -327,8 +344,16 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
     }
     
     private void atualizarTabelaComentarios(){
+        //Seta a ordenação pela data        
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(tabelaComentarios.getModel());
+        sorter.setComparator(0, comparator);
         tabelaComentarios.setRowSorter(sorter);	
+        
+        //Efetua a ordenação automaticamente ao criar a tabela a partir da data mais recente
+        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        sorter.setSortKeys(sortKeys); 
+        
         tabela = (DefaultTableModel) tabelaComentarios.getModel();
         //Verifica se te algum dado anterior e exclui
         while (tabela.getRowCount() > 0) {
@@ -340,6 +365,15 @@ public class TelaDetalhesOcorrencia extends javax.swing.JFrame {
             tabela.addRow(new Object[] { formatarData(c.getData()), c.getUsuario().getNome(), c.getTitulo() });
         }
     }
+    
+    //Efetua a comparação entre duas datas
+    private Comparator<String> comparator = new Comparator<String>() {
+        public int compare(String d1, String d2) {
+            Calendar data1 = converterData(d1);
+            Calendar data2 = converterData(d2);
+            return data1.compareTo(data2);
+        }
+    };  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnComentar;

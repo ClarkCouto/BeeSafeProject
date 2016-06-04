@@ -16,11 +16,13 @@ import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -73,9 +75,9 @@ public class TelaPesquisar extends javax.swing.JFrame {
         lblBairro = new javax.swing.JLabel();
         lblRua = new javax.swing.JLabel();
         txtDataInicial = new javax.swing.JTextField();
-        comboTiposViolencia = new javax.swing.JComboBox<>();
-        comboRegioes = new javax.swing.JComboBox<>();
-        comboBairros = new javax.swing.JComboBox<>();
+        comboTiposViolencia = new javax.swing.JComboBox<String>();
+        comboRegioes = new javax.swing.JComboBox<String>();
+        comboBairros = new javax.swing.JComboBox<String>();
         txtRua = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
@@ -106,11 +108,11 @@ public class TelaPesquisar extends javax.swing.JFrame {
 
         lblRua.setText("Rua:");
 
-        comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        comboRegioes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboRegioes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        comboBairros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBairros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -196,28 +198,28 @@ public class TelaPesquisar extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(197, 197, 197)
-                            .addComponent(btnPesquisar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(257, 257, 257)
-                            .addComponent(lblTitulo))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(172, 172, 172)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnDetalhes)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnQuantidade)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnPercentual)))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(197, 197, 197)
+                                .addComponent(btnPesquisar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(257, 257, 257)
+                                .addComponent(lblTitulo))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(172, 172, 172)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnDetalhes)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnQuantidade)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPercentual))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -256,13 +258,12 @@ public class TelaPesquisar extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(198, 198, 198)
                                 .addComponent(lblTituloEstatisticas)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
+                .addGap(153, 153, 153)
                 .addComponent(lblEstatisticas)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,13 +308,15 @@ public class TelaPesquisar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuantidade)
                     .addComponent(btnPercentual))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEstatisticas)
                 .addGap(18, 18, 18)
+                .addComponent(lblEstatisticas)
+                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDetalhes)
                     .addComponent(btnVoltar))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -383,8 +386,10 @@ public class TelaPesquisar extends javax.swing.JFrame {
         String regiao = "";
         Bairro bairro = null;
         String rua = "";
+        String titulo = "";
         lblEstatisticas.setText("");
         boolean ok = true;
+        
         //Verifica se a data inicial foi preenchida e se e uma data valida
         if(!txtDataInicial.getText().equals("")){
             dataInicial = converterData(txtDataInicial.getText());
@@ -403,6 +408,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
                 ok = false;
             }
         }
+        
         //se as datas sao validas continua a filtrar os resultados
         if(ok){
             if(comboTiposViolencia.getSelectedIndex() != -1 && comboTiposViolencia.getSelectedIndex() != 0){
@@ -414,16 +420,14 @@ public class TelaPesquisar extends javax.swing.JFrame {
             if(comboBairros.getSelectedIndex() != -1 && comboBairros.getSelectedIndex() != 0){
                 bairro = (Bairro)comboBairros.getSelectedItem();
             }
+            if(!txtTitulo.getText().isEmpty()){
+                titulo = txtTitulo.getText();
+            }
+            if(!txtRua.getText().isEmpty()){
+                titulo = txtRua.getText();
+            }
 
-            List<Object> parametros = new ArrayList<>();
-            parametros.add(dataInicial);
-            parametros.add(dataFinal);
-            parametros.add(tipoViolencia);
-            parametros.add(regiao);
-            parametros.add(bairro);
-            parametros.add(rua);
-
-            ocorrencias = bd.pesquisar(parametros);
+            ocorrencias = bd.pesquisar(dataInicial, dataFinal, tipoViolencia, regiao, bairro, rua, titulo);
             atualizarTabelaOcorrencias(ocorrencias);
             if (ocorrencias.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência encontrada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
@@ -431,7 +435,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    //Converte a string digitada em uma Data
+    //Converte string em uma Data
     private Calendar converterData(String data){
         Calendar c = Calendar.getInstance();
         try {
@@ -443,6 +447,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
         }
     }
     
+    //Formata uma Data em uma String modelada
     private String formatarData(Date data){
         formataData = new SimpleDateFormat("dd/MM/yyyy");
         String dataFormatada = "";
@@ -454,8 +459,15 @@ public class TelaPesquisar extends javax.swing.JFrame {
     }
         
     private void atualizarTabelaOcorrencias(List<Ocorrencia> lista){
+        //Seta a ordenação pela data
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(tabelaOcorrencias.getModel());
+        sorter.setComparator(0, comparator);
         tabelaOcorrencias.setRowSorter(sorter);	
+        //Efetua a ordenação automaticamente ao criar a tabela a partir da data mais recente
+        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+        sorter.setSortKeys(sortKeys); 
+        
         tabela = (DefaultTableModel) tabelaOcorrencias.getModel();
         //Verifica se te algum dado anterior e exclui
         while (tabela.getRowCount() > 0) {
@@ -465,7 +477,17 @@ public class TelaPesquisar extends javax.swing.JFrame {
         for (Ocorrencia o : lista) {
             tabela.addRow(new Object[] { formatarData(o.getData()), o.getTipoViolencia(), o.getRegiao(), o.getBairro().getNome(), o.getTitulo() });
         }
+        
     }
+    
+    //Efetua a comparação entre duas datas
+    private Comparator<String> comparator = new Comparator<String>() {
+        public int compare(String d1, String d2) {
+            Calendar data1 = converterData(d1);
+            Calendar data2 = converterData(d2);
+            return data1.compareTo(data2);
+        }
+    };   
     
     private void preencherComboBairros() {
         model = new DefaultComboBoxModel();
