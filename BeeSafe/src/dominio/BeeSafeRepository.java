@@ -15,9 +15,6 @@ import java.util.Date;
  */
 public class BeeSafeRepository {
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
-
-    public BeeSafeRepository(){
-    }
     
     public BaseDeDados iniciarBaseDeDados(){
         BaseDeDados bd = new BaseDeDados();
