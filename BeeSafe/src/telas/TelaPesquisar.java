@@ -467,7 +467,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
         sorter.setComparator(0, comparator);
         tabelaOcorrencias.setRowSorter(sorter);	
         //Efetua a ordenação automaticamente ao criar a tabela a partir da data mais recente
-        List <RowSorter.SortKey> sortKeys = new ArrayList<RowSorter.SortKey>();
+        List <RowSorter.SortKey> sortKeys = new ArrayList<>();
         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
         sorter.setSortKeys(sortKeys); 
         

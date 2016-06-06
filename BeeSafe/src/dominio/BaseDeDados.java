@@ -65,10 +65,6 @@ public class BaseDeDados {
         }
     }
     
-    //usar este caso va receber só o nome do usuario e nao o objeto
-//    public String criarOcorrencia(String rua, String numero, String nomeBairro, Usuario user, String descricao, String tipoDeViolencia, Date data){
-//        Usuario usuario = user;
-    //usar este caso va receber só o nome do usuario e nao o objeto
     public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String titulo, String descricao, String tipoDeViolencia, Date data){
         Usuario usuario = getUsuario(nomeUsuario);
         //Verifica se o usuario existe
@@ -109,7 +105,6 @@ public class BaseDeDados {
             return "Usuario nao cadastrado!";
         }
     }
-    
     
     public String criarRegiao(String nomeRegiao){
         //Verifica se a Regiao ja existe
@@ -173,17 +168,6 @@ public class BaseDeDados {
             }
         }
     }
-    
-//    private Date formatarData(String data){
-//        Date dataFormatada = null;
-//        try{
-//            dataFormatada = formataData.parse(data);
-//        }
-//        catch(Exception e){
-//            return null;
-//        }
-//        return dataFormatada;
-//    }
     
     //Retorna a lista de todos os Bairros
     public List<Bairro> getBairros(){
@@ -324,7 +308,6 @@ public class BaseDeDados {
         //caso nao seja encontrado, retorn false
         return false;
     }
-    
     
     public List<Ocorrencia> pesquisar(Calendar dataInicial, Calendar dataFinal, String tipoViolencia, String regiao, Bairro bairro, String rua, String titulo){
         Iterator<Ocorrencia> i = null;
