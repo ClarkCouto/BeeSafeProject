@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testes;
+package dominio;
 
 import dominio.BaseDeDados;
 import java.text.SimpleDateFormat;
@@ -13,10 +13,10 @@ import java.util.Date;
  *
  * @author Clark
  */
-public class BeeSafe {
+public class BeeSafeRepository {
     private SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
 
-    public BeeSafe(){
+    public BeeSafeRepository(){
     }
     
     public BaseDeDados iniciarBaseDeDados(){

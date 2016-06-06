@@ -8,7 +8,7 @@ package telas;
 import dominio.BaseDeDados;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import testes.BeeSafe;
+import dominio.BeeSafeRepository;
 
 /**
  *
@@ -16,7 +16,7 @@ import testes.BeeSafe;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
-    private BeeSafe bs;
+    private BeeSafeRepository bs;
     private BaseDeDados bd;
     private TelaUsuarios telaUsuarios;
     private TelaLogin telaLogin;
@@ -26,7 +26,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial(BaseDeDados base) {
         super("Tela Inicial");
         if(base == null){
-            bs = new BeeSafe();
+            bs = new BeeSafeRepository();
             base = bs.iniciarBaseDeDados();
         }
         bd = base;

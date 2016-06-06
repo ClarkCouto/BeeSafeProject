@@ -9,7 +9,7 @@ import dominio.BaseDeDados;
 import dominio.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import testes.BeeSafe;
+import dominio.BeeSafeRepository;
 
 /**
  *
@@ -20,7 +20,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    private BeeSafe bs;
+    private BeeSafeRepository bs;
     private BaseDeDados bd;
     private TelaBairros telaBairros;
     private TelaOcorrencias telaOcorrencias;
@@ -35,7 +35,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal(BaseDeDados base, Usuario user) {
         super("Inicio");
         if(base == null){
-            bs = new BeeSafe();
+            bs = new BeeSafeRepository();
             base = bs.iniciarBaseDeDados();
         }
         if(usuario == null){
