@@ -91,7 +91,8 @@ public class Usuario {
     }
     
     public String getInformacoesUsuario(){        
-        return "Nome: " + this.getNome() + "\nEmail: " + this.getEmail() + "\nSenha: " + this.getSenha() + "\nTipo: " + this.getTipoUsuario().getTipo();
+         //return "Nome: " + this.getNome() + "\t Email: " + this.getEmail() + "\t Senha: " + this.getSenha() + "\t Tipo: " + this.getTipoUsuario().getTipo();
+         return "Nome: " + this.getNome() + "\nEmail: " + this.getEmail() + "\nSenha: " + this.getSenha() + "\nTipo: " + this.getTipoUsuario().getTipo();
     }
     
     @Override

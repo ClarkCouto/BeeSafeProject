@@ -7,6 +7,7 @@ package telas;
 
 import dominio.Bairro;
 import dominio.BaseDeDados;
+import dominio.Ocorrencia;
 import dominio.TipoViolencia;
 import dominio.Usuario;
 import java.awt.Dimension;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,9 +43,6 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
         
-        //Bloqueia o resize da tela
-        setResizable(false);
-        
         //Encerrar a aplicação quando fechar a tela 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
@@ -60,7 +59,6 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblData = new javax.swing.JLabel();
         txtData = new javax.swing.JTextField();
-        lblTitulo = new javax.swing.JLabel();
         txtRua = new javax.swing.JTextField();
         lblRua = new javax.swing.JLabel();
         lblNumero = new javax.swing.JLabel();
@@ -76,27 +74,59 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         lblDescricao = new javax.swing.JLabel();
         lblTituloOcorrencia = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(600, 600));
+        setMinimumSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(600, 600));
+        setResizable(false);
 
+        jPanel1.setMaximumSize(new java.awt.Dimension(600, 600));
+        jPanel1.setMinimumSize(new java.awt.Dimension(600, 600));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 600));
+
+        lblData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblData.setText("Data:");
 
-        lblTitulo.setText("OCORRÊNCIAS");
+        txtData.setPreferredSize(new java.awt.Dimension(473, 25));
 
+        txtRua.setMaximumSize(new java.awt.Dimension(473, 25));
+        txtRua.setMinimumSize(new java.awt.Dimension(473, 25));
+        txtRua.setPreferredSize(new java.awt.Dimension(473, 25));
+
+        lblRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblRua.setText("Rua:");
 
+        lblNumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblNumero.setText("Número:");
 
-        comboBairros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtNumero.setMaximumSize(new java.awt.Dimension(473, 25));
+        txtNumero.setMinimumSize(new java.awt.Dimension(473, 25));
+        txtNumero.setPreferredSize(new java.awt.Dimension(473, 25));
 
+        comboBairros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBairros.setMaximumSize(new java.awt.Dimension(473, 25));
+        comboBairros.setMinimumSize(new java.awt.Dimension(473, 25));
+        comboBairros.setPreferredSize(new java.awt.Dimension(473, 25));
+
+        lblBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblBairro.setText("Bairro:");
 
+        lblTipoOcorrencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTipoOcorrencia.setText("Tipo de Ocorrência:");
 
         comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTiposViolencia.setMaximumSize(new java.awt.Dimension(473, 25));
+        comboTiposViolencia.setMinimumSize(new java.awt.Dimension(473, 25));
+        comboTiposViolencia.setPreferredSize(new java.awt.Dimension(473, 25));
 
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
+        txtDescricao.setMaximumSize(new java.awt.Dimension(473, 94));
+        txtDescricao.setMinimumSize(new java.awt.Dimension(473, 94));
+        txtDescricao.setPreferredSize(new java.awt.Dimension(473, 94));
         jScrollPane2.setViewportView(txtDescricao);
 
         btnCriarOcorrencia.setText("Criar");
@@ -113,115 +143,126 @@ public class TelaOcorrencias extends javax.swing.JFrame {
             }
         });
 
+        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblDescricao.setText("Descrição:");
 
+        lblTituloOcorrencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTituloOcorrencia.setText("Título:");
+
+        txtTitulo.setMaximumSize(new java.awt.Dimension(473, 25));
+        txtTitulo.setMinimumSize(new java.awt.Dimension(473, 25));
+        txtTitulo.setPreferredSize(new java.awt.Dimension(473, 25));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(btnCriarOcorrencia)
-                .addGap(18, 18, 18)
-                .addComponent(btnVoltar)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTituloOcorrencia)
+                            .addComponent(lblTipoOcorrencia))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboTiposViolencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblBairro)
+                        .addGap(84, 84, 84)
+                        .addComponent(comboBairros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNumero)
+                        .addGap(71, 71, 71)
+                        .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblRua)
+                        .addGap(94, 94, 94)
+                        .addComponent(txtRua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTipoOcorrencia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblData)
-                                    .addComponent(lblRua)
-                                    .addComponent(lblNumero)
-                                    .addComponent(lblBairro))
-                                .addGap(68, 68, 68)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtData)
-                                    .addComponent(txtRua)
-                                    .addComponent(txtNumero)
-                                    .addComponent(comboBairros, 0, 150, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addComponent(lblTitulo)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDescricao))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblTituloOcorrencia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                        .addGap(228, 228, 228)
+                        .addComponent(btnCriarOcorrencia)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVoltar))
+                    .addComponent(lblDescricao))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblData)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblData)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblRua))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRua, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtRua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairro)
                     .addComponent(comboBairros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTipoOcorrencia)
-                    .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(comboTiposViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTipoOcorrencia))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTituloOcorrencia)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(41, 41, 41)
                 .addComponent(lblDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCriarOcorrencia)
                     .addComponent(btnVoltar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(51, 51, 51))
         );
+
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTitulo.setText("Ocorrências");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(261, 261, 261)
+                .addComponent(lblTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(lblTitulo)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -235,21 +276,27 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private void btnCriarOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarOcorrenciaActionPerformed
         if (txtData.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar a Data.", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else if (txtRua.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar a Rua.", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else if (txtNumero.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o Número.", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else if (comboBairros.getSelectedIndex() == -1 || comboBairros.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Bairro!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else if (comboTiposViolencia.getSelectedIndex() == -1  || comboTiposViolencia.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Você deve selecionar o Tipo de Violência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else if (txtTitulo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Você deve informar o Título da Ocorrência!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else{
             Date data = formatarData(txtData.getText());
@@ -311,6 +358,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
     private javax.swing.JComboBox comboTiposViolencia;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDescricao;

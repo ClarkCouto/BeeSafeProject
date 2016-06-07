@@ -8,6 +8,7 @@ package dominio;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -65,6 +66,10 @@ public class BaseDeDados {
         }
     }
     
+    //usar este caso va receber só o nome do usuario e nao o objeto
+//    public String criarOcorrencia(String rua, String numero, String nomeBairro, Usuario user, String descricao, String tipoDeViolencia, Date data){
+//        Usuario usuario = user;
+    //usar este caso va receber só o nome do usuario e nao o objeto
     public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String titulo, String descricao, String tipoDeViolencia, Date data){
         Usuario usuario = getUsuario(nomeUsuario);
         //Verifica se o usuario existe
@@ -105,6 +110,7 @@ public class BaseDeDados {
             return "Usuario nao cadastrado!";
         }
     }
+    
     
     public String criarRegiao(String nomeRegiao){
         //Verifica se a Regiao ja existe
@@ -168,6 +174,17 @@ public class BaseDeDados {
             }
         }
     }
+    
+//    private Date formatarData(String data){
+//        Date dataFormatada = null;
+//        try{
+//            dataFormatada = formataData.parse(data);
+//        }
+//        catch(Exception e){
+//            return null;
+//        }
+//        return dataFormatada;
+//    }
     
     //Retorna a lista de todos os Bairros
     public List<Bairro> getBairros(){
@@ -309,9 +326,8 @@ public class BaseDeDados {
         return false;
     }
     
-    public List<Ocorrencia> pesquisar(Calendar dataInicial, Calendar dataFinal, String tipoViolencia, String regiao, Bairro bairro, String rua, String titulo){
-        Iterator<Ocorrencia> i = null;
-        
+    
+    public List<Ocorrencia> pesquisar(List<Object> parametros){
         //Busca todas as ocorrencias cadastradas
         List<Ocorrencia> lista = getOcorrencias();
         //Cria uma lista auxiliar e adiciona os dados nela
@@ -321,77 +337,94 @@ public class BaseDeDados {
         }
         
         //Filtra a partir da DataInicial
-        if(dataInicial != null){
-            i = auxiliar.iterator();
+        if(parametros.get(0) != null){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
                 c.setTime(o.getData());
-                if(!c.equals(dataInicial) && !c.after(dataInicial))
+                if(!c.after(parametros.get(0)))
                     i.remove();
             }
         }   
         
         //Filtra ate a DataFinal
-        if(dataFinal != null){
-            i = auxiliar.iterator();
+        if(parametros.get(1) != null){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
                 c.setTime(o.getData());
-                if(!c.equals(dataFinal) && !c.before(dataFinal))
+                if(!c.before(parametros.get(1)))
                     i.remove();
             }
         }
         
         //Filtra pelo Tipo de Violencia
-        if(!tipoViolencia.equals("")){
-            i = auxiliar.iterator();
+        if(!parametros.get(2).equals("")){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getTipoViolencia().equals(tipoViolencia))
+                if(!o.getTipoViolencia().equals(parametros.get(2)))
                     i.remove();
             }
         }
         
         //Filtra pela Regiao
-        if(!regiao.equals("")){
-            i = auxiliar.iterator();
+        if(!parametros.get(3).equals("")){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getRegiao().equals(regiao))
+                if(!o.getRegiao().equals(parametros.get(3)))
                     i.remove();
             }
         }
         
         //Filtra pelo Bairro
-        if(bairro != null){
-            i = auxiliar.iterator();
+        if(parametros.get(4) != null){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getBairro().equals(bairro))
+                if(!o.getBairro().equals(parametros.get(4)))
                     i.remove();
             }
         }
         
         //Filtra pela Rua
-        if(!rua.equals("")){
-            i = auxiliar.iterator();
+        if(!parametros.get(5).equals("")){
+            Iterator<Ocorrencia> i = auxiliar.iterator();
             while (i.hasNext()) {
                 Ocorrencia o = i.next();
-                if(!o.getEndereco().getRua().contains(rua))
+                if(!o.getEndereco().getRua().equals(parametros.get(5)))
                     i.remove();
             }
         }
         
-        //Filtra pelo titulo
-        if(!titulo.equals("")){
-            i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                if(!o.getTitulo().contains(titulo))
-                    i.remove();
-            }
-        }
         //Retorna a lista filtrada
         return auxiliar;
     }
+    
+    //Não vai precisar
+    public double gerarEstatisticas(List<Object> parametros, String filtro){
+        return 0;
+//        List<Ocorrencia> total = getOcorrencias();
+//        int quantidadeTotal = total.size();
+//        //Se nao houver nenhuma ocorrencia cadastrada retorna 0
+//        if(quantidadeTotal == 0){
+//            return 0;
+//        }
+//        
+//        //caso contrario filtra as ocorrencias de acordo com os parametros 
+//        List<Ocorrencia> filtrada = pesquisar(parametros);
+//        int quantidadeFiltrada = filtrada.size();
+//        
+//        //Efetua o calculo solicitado pelo usuario
+//        switch(filtro){
+//            case "PERCENTUAL":
+//                return quantidadeFiltrada/quantidadeTotal;
+//            case "QUANTIDADE":
+//                return quantidadeFiltrada/quantidadeTotal;
+//            default:
+//                return 0;
+//        }
+    }
+    
 }
