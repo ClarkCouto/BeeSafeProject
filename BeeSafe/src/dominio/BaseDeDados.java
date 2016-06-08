@@ -66,10 +66,7 @@ public class BaseDeDados {
         }
     }
     
-    //usar este caso va receber só o nome do usuario e nao o objeto
-//    public String criarOcorrencia(String rua, String numero, String nomeBairro, Usuario user, String descricao, String tipoDeViolencia, Date data){
-//        Usuario usuario = user;
-    //usar este caso va receber só o nome do usuario e nao o objeto
+    
     public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String titulo, String descricao, String tipoDeViolencia, Date data){
         Usuario usuario = getUsuario(nomeUsuario);
         //Verifica se o usuario existe
@@ -174,17 +171,7 @@ public class BaseDeDados {
             }
         }
     }
-    
-//    private Date formatarData(String data){
-//        Date dataFormatada = null;
-//        try{
-//            dataFormatada = formataData.parse(data);
-//        }
-//        catch(Exception e){
-//            return null;
-//        }
-//        return dataFormatada;
-//    }
+
     
     //Retorna a lista de todos os Bairros
     public List<Bairro> getBairros(){
@@ -327,79 +314,90 @@ public class BaseDeDados {
     }
     
     
-    public List<Ocorrencia> pesquisar(List<Object> parametros){
-        //Busca todas as ocorrencias cadastradas
-        List<Ocorrencia> lista = getOcorrencias();
-        //Cria uma lista auxiliar e adiciona os dados nela
-        List<Ocorrencia> auxiliar = new ArrayList<>();
-        for(Ocorrencia o : lista){
-            auxiliar.add(o);
-        }
-        
-        //Filtra a partir da DataInicial
-        if(parametros.get(0) != null){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                c.setTime(o.getData());
-                if(!c.after(parametros.get(0)))
-                    i.remove();
-            }
-        }   
-        
-        //Filtra ate a DataFinal
-        if(parametros.get(1) != null){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                c.setTime(o.getData());
-                if(!c.before(parametros.get(1)))
-                    i.remove();
-            }
-        }
-        
-        //Filtra pelo Tipo de Violencia
-        if(!parametros.get(2).equals("")){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                if(!o.getTipoViolencia().equals(parametros.get(2)))
-                    i.remove();
-            }
-        }
-        
-        //Filtra pela Regiao
-        if(!parametros.get(3).equals("")){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                if(!o.getRegiao().equals(parametros.get(3)))
-                    i.remove();
-            }
-        }
-        
-        //Filtra pelo Bairro
-        if(parametros.get(4) != null){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                if(!o.getBairro().equals(parametros.get(4)))
-                    i.remove();
-            }
-        }
-        
-        //Filtra pela Rua
-        if(!parametros.get(5).equals("")){
-            Iterator<Ocorrencia> i = auxiliar.iterator();
-            while (i.hasNext()) {
-                Ocorrencia o = i.next();
-                if(!o.getEndereco().getRua().equals(parametros.get(5)))
-                    i.remove();
-            }
-        }
-        
-        //Retorna a lista filtrada
-        return auxiliar;
+    public List<Ocorrencia> pesquisar(Calendar dataInicial, Calendar dataFinal, String tipoViolencia, String regiao, Bairro bairro, String rua, String titulo){
+         Iterator<Ocorrencia> i = null;
+         
+         //Busca todas as ocorrencias cadastradas
+         List<Ocorrencia> lista = getOcorrencias();
+         //Cria uma lista auxiliar e adiciona os dados nela
+         List<Ocorrencia> auxiliar = new ArrayList<>();
+         for(Ocorrencia o : lista){
+             auxiliar.add(o);
+         }
+         
+         //Filtra a partir da DataInicial
+         if(dataInicial != null){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 c.setTime(o.getData());
+                 if(!c.equals(dataInicial) && !c.after(dataInicial))
+                     i.remove();
+             }
+         }   
+         
+         //Filtra ate a DataFinal
+         if(dataFinal != null){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 c.setTime(o.getData());
+                 if(!c.equals(dataFinal) && !c.before(dataFinal))
+                     i.remove();
+             }
+         }
+         
+         //Filtra pelo Tipo de Violencia
+         if(!tipoViolencia.equals("")){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 if(!o.getTipoViolencia().equals(tipoViolencia))
+                     i.remove();
+             }
+         }
+         
+         //Filtra pela Regiao
+         if(!regiao.equals("")){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 if(!o.getRegiao().equals(regiao))
+                     i.remove();
+             }
+         }
+         
+         //Filtra pelo Bairro
+         if(bairro != null){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 if(!o.getBairro().equals(bairro))
+                     i.remove();
+             }
+         }
+         
+         //Filtra pela Rua
+         if(!rua.equals("")){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 if(!o.getEndereco().getRua().contains(rua))
+                     i.remove();
+             }
+         }
+         
+         //Filtra pelo titulo
+         if(!titulo.equals("")){
+             i = auxiliar.iterator();
+             while (i.hasNext()) {
+                 Ocorrencia o = i.next();
+                 if(!o.getTitulo().contains(titulo))
+                     i.remove();
+             }
+         }
+         //Retorna a lista filtrada
+         return auxiliar;
     }
     
     //Não vai precisar
