@@ -16,11 +16,14 @@ import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -115,11 +118,19 @@ public class TelaPesquisar extends javax.swing.JFrame {
 
         lblRua.setText("Rua:");
 
+        txtDataInicial.setMaximumSize(new java.awt.Dimension(150, 25));
+        txtDataInicial.setMinimumSize(new java.awt.Dimension(150, 25));
+        txtDataInicial.setPreferredSize(new java.awt.Dimension(150, 25));
+
         comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboRegioes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboBairros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtRua.setMaximumSize(new java.awt.Dimension(150, 25));
+        txtRua.setMinimumSize(new java.awt.Dimension(150, 25));
+        txtRua.setPreferredSize(new java.awt.Dimension(150, 25));
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -135,6 +146,10 @@ public class TelaPesquisar extends javax.swing.JFrame {
             }
         });
 
+        txtDataFinal.setMaximumSize(new java.awt.Dimension(150, 25));
+        txtDataFinal.setMinimumSize(new java.awt.Dimension(150, 25));
+        txtDataFinal.setPreferredSize(new java.awt.Dimension(150, 25));
+
         lblDataFinal.setText("Data Final:");
 
         btnDetalhes.setText("Detalhes");
@@ -144,6 +159,10 @@ public class TelaPesquisar extends javax.swing.JFrame {
                 btnDetalhesActionPerformed(evt);
             }
         });
+
+        txtTitulo.setMaximumSize(new java.awt.Dimension(150, 25));
+        txtTitulo.setMinimumSize(new java.awt.Dimension(150, 25));
+        txtTitulo.setPreferredSize(new java.awt.Dimension(150, 25));
 
         lblTituloOcorrencia.setText("Título:");
 
@@ -220,12 +239,8 @@ public class TelaPesquisar extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -261,8 +276,8 @@ public class TelaPesquisar extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblDataFinal)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnPesquisar)
@@ -293,7 +308,7 @@ public class TelaPesquisar extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,125 +426,149 @@ public class TelaPesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        Calendar dataInicial = null;
-        Calendar dataFinal = null;
-        String tipoViolencia = "";
-        String regiao = "";
-        Bairro bairro = null;
-        String rua = "";
-        lblEstatisticas.setText("");
-        boolean ok = true;
-        //Verifica se a data inicial foi preenchida e se e uma data valida
-        if(!txtDataInicial.getText().equals("")){
-            dataInicial = converterData(txtDataInicial.getText());
-            if(dataInicial == null){
-                JOptionPane.showMessageDialog(this, "Data Inicial Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-                txtDataInicial.setText("");
-                ok = false;
-            }
-        }
-        //Verifica se a data final foi preenchida e se e uma data valida
-        if(!txtDataFinal.getText().equals("")){
-            dataFinal = converterData(txtDataFinal.getText());
-            if(dataFinal == null){
-                JOptionPane.showMessageDialog(this, "Data Final Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-                txtDataFinal.setText("");
-                ok = false;
-            }
-        }
-        //se as datas sao validas continua a filtrar os resultados
-        if(ok){
-            if(comboTiposViolencia.getSelectedIndex() != -1 && comboTiposViolencia.getSelectedIndex() != 0){
-                tipoViolencia = comboTiposViolencia.getSelectedItem().toString();
-            }
-            if(comboRegioes.getSelectedIndex() != -1 && comboRegioes.getSelectedIndex() != 0){
-                regiao = comboRegioes.getSelectedItem().toString();
-            }
-            if(comboBairros.getSelectedIndex() != -1 && comboBairros.getSelectedIndex() != 0){
-                bairro = (Bairro)comboBairros.getSelectedItem();
-            }
-
-            List<Object> parametros = new ArrayList<>();
-            parametros.add(dataInicial);
-            parametros.add(dataFinal);
-            parametros.add(tipoViolencia);
-            parametros.add(regiao);
-            parametros.add(bairro);
-            parametros.add(rua);
-
-            ocorrencias = bd.pesquisar(parametros);
-            atualizarTabelaOcorrencias(ocorrencias);
-            if (ocorrencias.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência encontrada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-            }
-        }
+        
+      Calendar dataInicial = null;
+         Calendar dataFinal = null;
+         String tipoViolencia = "";
+         String regiao = "";
+         Bairro bairro = null;
+         String rua = "";
+         String titulo = "";
+         lblEstatisticas.setText("");
+         boolean ok = true;
+         
+         //Verifica se a data inicial foi preenchida e se e uma data valida
+         if(!txtDataInicial.getText().equals("")){
+             dataInicial = converterData(txtDataInicial.getText());
+             if(dataInicial == null){
+                 JOptionPane.showMessageDialog(this, "Data Inicial Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+                 txtDataInicial.setText("");
+                 ok = false;
+             }
+         }
+         //Verifica se a data final foi preenchida e se e uma data valida
+         if(!txtDataFinal.getText().equals("")){
+             dataFinal = converterData(txtDataFinal.getText());
+             if(dataFinal == null){
+                 JOptionPane.showMessageDialog(this, "Data Final Inválida!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+                 txtDataFinal.setText("");
+                 ok = false;
+             }
+         }
+         
+         //se as datas sao validas continua a filtrar os resultados
+         if(ok){
+             if(comboTiposViolencia.getSelectedIndex() != -1 && comboTiposViolencia.getSelectedIndex() != 0){
+                 tipoViolencia = comboTiposViolencia.getSelectedItem().toString();
+             }
+             if(comboRegioes.getSelectedIndex() != -1 && comboRegioes.getSelectedIndex() != 0){
+                 regiao = comboRegioes.getSelectedItem().toString();
+             }
+             if(comboBairros.getSelectedIndex() != -1 && comboBairros.getSelectedIndex() != 0){
+                 bairro = (Bairro)comboBairros.getSelectedItem();
+             }
+             if(!txtTitulo.getText().isEmpty()){
+                 titulo = txtTitulo.getText();
+             }
+             if(!txtRua.getText().isEmpty()){
+                 titulo = txtRua.getText();
+             }
+ 
+             ocorrencias = bd.pesquisar(dataInicial, dataFinal, tipoViolencia, regiao, bairro, rua, titulo);
+             atualizarTabelaOcorrencias(ocorrencias);
+             if (ocorrencias.isEmpty()) {
+                 JOptionPane.showMessageDialog(this, "Nenhuma Ocorrência encontrada!", "Atenção!", JOptionPane.WARNING_MESSAGE);
+             }
+         }
+     }//GEN-LAST:event_btnPesquisarActionPerformed
+ 
+     //Converte string em uma Data
+     private Calendar converterData(String data){
+         Calendar c = Calendar.getInstance();
+         try {
+             c.setTime(formataData.parse(data));
+             return c;
+         }
+         catch (Exception e) {
+             return null;
+         }
+     }
+     
+     //Formata uma Data em uma String modelada
+     private String formatarData(Date data){
+         formataData = new SimpleDateFormat("dd/MM/yyyy");
+         String dataFormatada = "";
+         try{
+             dataFormatada = formataData.format(data);
+         }
+         catch(Exception e){}
+         return dataFormatada;
+     }
+         
+     private void atualizarTabelaOcorrencias(List<Ocorrencia> lista){
+         //Seta a ordenação pela data
+         TableRowSorter<TableModel> sorter = new TableRowSorter<>(tabelaOcorrencias.getModel());
+         sorter.setComparator(0, comparator);
+         tabelaOcorrencias.setRowSorter(sorter);	
+         //Efetua a ordenação automaticamente ao criar a tabela a partir da data mais recente
+        
+         List <RowSorter.SortKey> sortKeys = new ArrayList<>();
+         sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+         sorter.setSortKeys(sortKeys); 
+         
+         tabela = (DefaultTableModel) tabelaOcorrencias.getModel();
+         //Verifica se te algum dado anterior e exclui
+         while (tabela.getRowCount() > 0) {
+             tabela.removeRow(0);
+         }
+         //Adiciona as ocorrencias na tabela
+         for (Ocorrencia o : lista) {
+             tabela.addRow(new Object[] { formatarData(o.getData()), o.getTipoViolencia(), o.getRegiao(), o.getBairro().getNome(), o.getTitulo() });
+         }
+         
+     }
+     
+     //Efetua a comparação entre duas datas
+     private Comparator<String> comparator = new Comparator<String>() {
+         public int compare(String d1, String d2) {
+             Calendar data1 = converterData(d1);
+             Calendar data2 = converterData(d2);
+             return data1.compareTo(data2);
+         }
+     };   
+     
+     private void preencherComboBairros() {
+         model = new DefaultComboBoxModel();
+         model.addElement("--Selecione--");
+         List<Bairro> bairros = bd.getBairros();
+         for (Bairro b : bairros) {
+             model.addElement(b);
+         }
+         comboBairros.setModel(model);
+     }
+ 
+     private void preencherComboRegioes() {
+         model = new DefaultComboBoxModel();
+         model.addElement("--Selecione--");
+         List<Regiao> regioes = bd.getRegioes();
+         for (Regiao r : regioes) {
+             model.addElement(r);
+         }
+         comboRegioes.setModel(model);
+     }
+ 
+     private void preencherComboTiposViolencia() {
+         model = new DefaultComboBoxModel();
+         model.addElement("--Selecione--");
+         List<TipoViolencia> tipos = bd.getTiposViolencia();
+         for (TipoViolencia t : tipos) {
+             model.addElement(t);
+         }
+         comboTiposViolencia.setModel(model);
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    //Converte a string digitada em uma Data
-    private Calendar converterData(String data){
-        Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(formataData.parse(data));
-            return c;
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
     
-    private String formatarData(Date data){
-        formataData = new SimpleDateFormat("dd/MM/yyyy");
-        String dataFormatada = "";
-        try{
-            dataFormatada = formataData.format(data);
-        }
-        catch(Exception e){}
-        return dataFormatada;
-    }
-        
-    private void atualizarTabelaOcorrencias(List<Ocorrencia> lista){
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tabelaOcorrencias.getModel());
-        tabelaOcorrencias.setRowSorter(sorter);	
-        tabela = (DefaultTableModel) tabelaOcorrencias.getModel();
-        //Verifica se te algum dado anterior e exclui
-        while (tabela.getRowCount() > 0) {
-            tabela.removeRow(0);
-        }
-        //Adiciona as ocorrencias na tabela
-        for (Ocorrencia o : lista) {
-            tabela.addRow(new Object[] { formatarData(o.getData()), o.getTipoViolencia(), o.getRegiao(), o.getBairro().getNome(), o.getTitulo() });
-        }
-    }
     
-    private void preencherComboBairros() {
-        model = new DefaultComboBoxModel();
-        model.addElement("--Selecione--");
-        List<Bairro> bairros = bd.getBairros();
-        for (Bairro b : bairros) {
-            model.addElement(b);
-        }
-        comboBairros.setModel(model);
-    }
-
-    private void preencherComboRegioes() {
-        model = new DefaultComboBoxModel();
-        model.addElement("--Selecione--");
-        List<Regiao> regioes = bd.getRegioes();
-        for (Regiao r : regioes) {
-            model.addElement(r);
-        }
-        comboRegioes.setModel(model);
-    }
-
-    private void preencherComboTiposViolencia() {
-        model = new DefaultComboBoxModel();
-        model.addElement("--Selecione--");
-        List<TipoViolencia> tipos = bd.getTiposViolencia();
-        for (TipoViolencia t : tipos) {
-            model.addElement(t);
-        }
-        comboTiposViolencia.setModel(model);
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalhes;
