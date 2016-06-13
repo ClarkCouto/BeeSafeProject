@@ -86,11 +86,22 @@ public class TelaComentar extends javax.swing.JFrame {
         lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblDescricao.setText("Descrição:");
 
+        txtData.setMaximumSize(new java.awt.Dimension(210, 25));
+        txtData.setMinimumSize(new java.awt.Dimension(210, 25));
+        txtData.setPreferredSize(new java.awt.Dimension(210, 25));
+
+        txtTitulo.setMaximumSize(new java.awt.Dimension(210, 25));
+        txtTitulo.setMinimumSize(new java.awt.Dimension(210, 25));
+        txtTitulo.setPreferredSize(new java.awt.Dimension(210, 25));
+
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
         jScrollPane1.setViewportView(txtDescricao);
 
         btnComentar.setText("Comentar");
+        btnComentar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnComentar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnComentar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnComentar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnComentarActionPerformed(evt);
@@ -98,6 +109,9 @@ public class TelaComentar extends javax.swing.JFrame {
         });
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -114,9 +128,9 @@ public class TelaComentar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(182, 182, 182)
-                                .addComponent(btnComentar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnComentar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,11 +139,11 @@ public class TelaComentar extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblTituloComentario)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txtTitulo))
+                                            .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblData)
                                             .addGap(18, 18, 18)
-                                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 43, Short.MAX_VALUE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -158,12 +172,17 @@ public class TelaComentar extends javax.swing.JFrame {
                 .addComponent(lblDescricao)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnComentar)
-                    .addComponent(btnVoltar))
+                    .addComponent(btnComentar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(102, 102, 102))
         );
+
+        btnComentar.getAccessibleContext().setAccessibleName("");
+        btnComentar.getAccessibleContext().setAccessibleDescription("");
+        btnVoltar.getAccessibleContext().setAccessibleName("");
+        btnVoltar.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

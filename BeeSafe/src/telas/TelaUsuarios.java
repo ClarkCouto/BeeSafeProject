@@ -72,25 +72,25 @@ public class TelaUsuarios extends javax.swing.JFrame {
         lblNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblNome.setText("Nome:");
 
-        txtNome.setMaximumSize(new java.awt.Dimension(400, 30));
-        txtNome.setMinimumSize(new java.awt.Dimension(400, 30));
-        txtNome.setPreferredSize(new java.awt.Dimension(400, 30));
+        txtNome.setMaximumSize(new java.awt.Dimension(400, 25));
+        txtNome.setMinimumSize(new java.awt.Dimension(400, 25));
+        txtNome.setPreferredSize(new java.awt.Dimension(400, 25));
         txtNome.setRequestFocusEnabled(false);
 
         lblEmail.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblEmail.setText("Email:");
 
-        txtEmail.setMaximumSize(new java.awt.Dimension(400, 30));
-        txtEmail.setMinimumSize(new java.awt.Dimension(400, 30));
-        txtEmail.setPreferredSize(new java.awt.Dimension(400, 30));
+        txtEmail.setMaximumSize(new java.awt.Dimension(400, 25));
+        txtEmail.setMinimumSize(new java.awt.Dimension(400, 25));
+        txtEmail.setPreferredSize(new java.awt.Dimension(400, 25));
         txtEmail.setRequestFocusEnabled(false);
 
         lblSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblSenha.setText("Senha:");
 
-        txtSenha.setMaximumSize(new java.awt.Dimension(400, 30));
-        txtSenha.setMinimumSize(new java.awt.Dimension(400, 30));
-        txtSenha.setPreferredSize(new java.awt.Dimension(400, 30));
+        txtSenha.setMaximumSize(new java.awt.Dimension(400, 25));
+        txtSenha.setMinimumSize(new java.awt.Dimension(400, 25));
+        txtSenha.setPreferredSize(new java.awt.Dimension(400, 25));
         txtSenha.setRequestFocusEnabled(false);
 
         btnCriarUsuario.setText("Criar");
@@ -153,7 +153,7 @@ public class TelaUsuarios extends javax.swing.JFrame {
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

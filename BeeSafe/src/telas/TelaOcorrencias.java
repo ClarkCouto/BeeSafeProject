@@ -90,11 +90,13 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         lblData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblData.setText("Data:");
 
-        txtData.setPreferredSize(new java.awt.Dimension(473, 25));
+        txtData.setMaximumSize(new java.awt.Dimension(460, 25));
+        txtData.setMinimumSize(new java.awt.Dimension(460, 25));
+        txtData.setPreferredSize(new java.awt.Dimension(460, 25));
 
-        txtRua.setMaximumSize(new java.awt.Dimension(473, 25));
-        txtRua.setMinimumSize(new java.awt.Dimension(473, 25));
-        txtRua.setPreferredSize(new java.awt.Dimension(473, 25));
+        txtRua.setMaximumSize(new java.awt.Dimension(460, 25));
+        txtRua.setMinimumSize(new java.awt.Dimension(460, 25));
+        txtRua.setPreferredSize(new java.awt.Dimension(460, 25));
 
         lblRua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblRua.setText("Rua:");
@@ -102,14 +104,14 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         lblNumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblNumero.setText("Número:");
 
-        txtNumero.setMaximumSize(new java.awt.Dimension(473, 25));
-        txtNumero.setMinimumSize(new java.awt.Dimension(473, 25));
-        txtNumero.setPreferredSize(new java.awt.Dimension(473, 25));
+        txtNumero.setMaximumSize(new java.awt.Dimension(460, 25));
+        txtNumero.setMinimumSize(new java.awt.Dimension(460, 25));
+        txtNumero.setPreferredSize(new java.awt.Dimension(460, 25));
 
         comboBairros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBairros.setMaximumSize(new java.awt.Dimension(473, 25));
-        comboBairros.setMinimumSize(new java.awt.Dimension(473, 25));
-        comboBairros.setPreferredSize(new java.awt.Dimension(473, 25));
+        comboBairros.setMaximumSize(new java.awt.Dimension(460, 25));
+        comboBairros.setMinimumSize(new java.awt.Dimension(460, 25));
+        comboBairros.setPreferredSize(new java.awt.Dimension(460, 25));
 
         lblBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblBairro.setText("Bairro:");
@@ -118,9 +120,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         lblTipoOcorrencia.setText("Tipo de Ocorrência:");
 
         comboTiposViolencia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboTiposViolencia.setMaximumSize(new java.awt.Dimension(473, 25));
-        comboTiposViolencia.setMinimumSize(new java.awt.Dimension(473, 25));
-        comboTiposViolencia.setPreferredSize(new java.awt.Dimension(473, 25));
+        comboTiposViolencia.setMaximumSize(new java.awt.Dimension(460, 25));
+        comboTiposViolencia.setMinimumSize(new java.awt.Dimension(460, 25));
+        comboTiposViolencia.setPreferredSize(new java.awt.Dimension(460, 25));
 
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
@@ -130,6 +132,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtDescricao);
 
         btnCriarOcorrencia.setText("Criar");
+        btnCriarOcorrencia.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnCriarOcorrencia.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnCriarOcorrencia.setPreferredSize(new java.awt.Dimension(100, 30));
         btnCriarOcorrencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCriarOcorrenciaActionPerformed(evt);
@@ -137,6 +142,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         });
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -149,9 +157,9 @@ public class TelaOcorrencias extends javax.swing.JFrame {
         lblTituloOcorrencia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTituloOcorrencia.setText("Título:");
 
-        txtTitulo.setMaximumSize(new java.awt.Dimension(473, 25));
-        txtTitulo.setMinimumSize(new java.awt.Dimension(473, 25));
-        txtTitulo.setPreferredSize(new java.awt.Dimension(473, 25));
+        txtTitulo.setMaximumSize(new java.awt.Dimension(460, 25));
+        txtTitulo.setMinimumSize(new java.awt.Dimension(460, 25));
+        txtTitulo.setPreferredSize(new java.awt.Dimension(460, 25));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,7 +176,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboTiposViolencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblBairro)
@@ -185,17 +193,17 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(22, 22, 22))
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(228, 228, 228)
-                        .addComponent(btnCriarOcorrencia)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVoltar))
-                    .addComponent(lblDescricao))
+                .addComponent(lblDescricao)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCriarOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(176, 176, 176))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,15 +211,15 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblData)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRua, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtRua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairro)
@@ -224,15 +232,15 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTituloOcorrencia)
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(35, 35, 35)
                 .addComponent(lblDescricao)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCriarOcorrencia)
-                    .addComponent(btnVoltar))
-                .addGap(51, 51, 51))
+                    .addComponent(btnCriarOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(92, 92, 92))
         );
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -250,7 +258,7 @@ public class TelaOcorrencias extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

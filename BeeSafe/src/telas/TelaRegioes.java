@@ -70,7 +70,9 @@ public class TelaRegioes extends javax.swing.JFrame {
 
         lblNomeRegiao.setText("Nome:");
 
-        txtNomeRegiao.setPreferredSize(new java.awt.Dimension(478, 20));
+        txtNomeRegiao.setMaximumSize(new java.awt.Dimension(473, 25));
+        txtNomeRegiao.setMinimumSize(new java.awt.Dimension(473, 25));
+        txtNomeRegiao.setPreferredSize(new java.awt.Dimension(473, 25));
         txtNomeRegiao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeRegiaoActionPerformed(evt);
@@ -78,6 +80,9 @@ public class TelaRegioes extends javax.swing.JFrame {
         });
 
         btnCriarRegiao.setText("Criar");
+        btnCriarRegiao.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnCriarRegiao.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnCriarRegiao.setPreferredSize(new java.awt.Dimension(100, 30));
         btnCriarRegiao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCriarRegiaoActionPerformed(evt);
@@ -99,6 +104,9 @@ public class TelaRegioes extends javax.swing.JFrame {
         lblRegioes.setText("Regiões");
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -121,7 +129,7 @@ public class TelaRegioes extends javax.swing.JFrame {
                     .addComponent(lblTituloRegioes)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(215, 215, 215)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -132,7 +140,7 @@ public class TelaRegioes extends javax.swing.JFrame {
                         .addComponent(txtNomeRegiao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCriarRegiao, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCriarRegiao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
@@ -147,13 +155,13 @@ public class TelaRegioes extends javax.swing.JFrame {
                     .addComponent(lblNomeRegiao)
                     .addComponent(txtNomeRegiao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addComponent(btnCriarRegiao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(btnCriarRegiao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(lblTituloRegioes)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(btnVoltar)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
 

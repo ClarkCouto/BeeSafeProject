@@ -6,12 +6,11 @@
 package telas;
 
 import dominio.BaseDeDados;
-import java.awt.Color;
+import dominio.BeeSafeRepository;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import testes.BeeSafe;
 
 /**
  *
@@ -19,7 +18,7 @@ import testes.BeeSafe;
  */
 public class TelaInicial extends javax.swing.JFrame {
 
-    private BeeSafe bs;
+    private BeeSafeRepository bs;
     private BaseDeDados bd;
     private TelaUsuarios telaUsuarios;
     private TelaLogin telaLogin;
@@ -29,7 +28,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial(BaseDeDados base) {
         super("Tela Inicial");
         if(base == null){
-            bs = new BeeSafe();
+            bs = new BeeSafeRepository();
             base = bs.iniciarBaseDeDados();
         }
         bd = base;
@@ -41,13 +40,8 @@ public class TelaInicial extends javax.swing.JFrame {
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((tela.width - this.getSize().width) / 2, (tela.height - this.getSize().height) / 2);
 
-        
         //Encerrar a aplicação quando fechar a tela 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
-        
-
-        
         
     }
 

@@ -8,7 +8,6 @@ package dominio;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -65,8 +64,7 @@ public class BaseDeDados {
             return "O bairro " + nomeBairro + " nao existe!";
         }
     }
-    
-    
+        
     public String criarOcorrencia(String rua, String numero, String nomeBairro, String nomeUsuario, String titulo, String descricao, String tipoDeViolencia, Date data){
         Usuario usuario = getUsuario(nomeUsuario);
         //Verifica se o usuario existe
@@ -107,8 +105,7 @@ public class BaseDeDados {
             return "Usuario nao cadastrado!";
         }
     }
-    
-    
+        
     public String criarRegiao(String nomeRegiao){
         //Verifica se a Regiao ja existe
         Regiao regiao = validarRegiao(nomeRegiao);
@@ -171,7 +168,6 @@ public class BaseDeDados {
             }
         }
     }
-
     
     //Retorna a lista de todos os Bairros
     public List<Bairro> getBairros(){
@@ -311,8 +307,7 @@ public class BaseDeDados {
         }
         //caso nao seja encontrado, retorn false
         return false;
-    }
-    
+    }    
     
     public List<Ocorrencia> pesquisar(Calendar dataInicial, Calendar dataFinal, String tipoViolencia, String regiao, Bairro bairro, String rua, String titulo){
          Iterator<Ocorrencia> i = null;
@@ -398,31 +393,5 @@ public class BaseDeDados {
          }
          //Retorna a lista filtrada
          return auxiliar;
-    }
-    
-    //Não vai precisar
-    public double gerarEstatisticas(List<Object> parametros, String filtro){
-        return 0;
-//        List<Ocorrencia> total = getOcorrencias();
-//        int quantidadeTotal = total.size();
-//        //Se nao houver nenhuma ocorrencia cadastrada retorna 0
-//        if(quantidadeTotal == 0){
-//            return 0;
-//        }
-//        
-//        //caso contrario filtra as ocorrencias de acordo com os parametros 
-//        List<Ocorrencia> filtrada = pesquisar(parametros);
-//        int quantidadeFiltrada = filtrada.size();
-//        
-//        //Efetua o calculo solicitado pelo usuario
-//        switch(filtro){
-//            case "PERCENTUAL":
-//                return quantidadeFiltrada/quantidadeTotal;
-//            case "QUANTIDADE":
-//                return quantidadeFiltrada/quantidadeTotal;
-//            default:
-//                return 0;
-//        }
-    }
-    
+    }    
 }

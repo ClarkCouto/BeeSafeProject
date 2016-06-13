@@ -73,20 +73,29 @@ public class TelaEditarCadastro extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
-        txtNome.setPreferredSize(new java.awt.Dimension(438, 29));
+        txtNome.setMaximumSize(new java.awt.Dimension(440, 25));
+        txtNome.setMinimumSize(new java.awt.Dimension(440, 25));
+        txtNome.setPreferredSize(new java.awt.Dimension(440, 25));
 
         lblEmail.setText("Email:");
 
-        txtEmail.setPreferredSize(new java.awt.Dimension(438, 29));
+        txtEmail.setMaximumSize(new java.awt.Dimension(440, 25));
+        txtEmail.setMinimumSize(new java.awt.Dimension(440, 25));
+        txtEmail.setPreferredSize(new java.awt.Dimension(440, 25));
 
         lblSenha.setText("Senha:");
 
-        txtSenha.setPreferredSize(new java.awt.Dimension(438, 29));
+        txtSenha.setMaximumSize(new java.awt.Dimension(440, 25));
+        txtSenha.setMinimumSize(new java.awt.Dimension(440, 25));
+        txtSenha.setPreferredSize(new java.awt.Dimension(440, 25));
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTitulo.setText("Cadastro");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnSalvar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnSalvar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -94,6 +103,9 @@ public class TelaEditarCadastro extends javax.swing.JFrame {
         });
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -118,15 +130,16 @@ public class TelaEditarCadastro extends javax.swing.JFrame {
                             .addComponent(lblNome))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(187, 187, 187))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +154,7 @@ public class TelaEditarCadastro extends javax.swing.JFrame {
                         .addComponent(lblNome))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,9 +165,9 @@ public class TelaEditarCadastro extends javax.swing.JFrame {
                     .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(102, 102, 102)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnVoltar))
-                .addContainerGap(206, Short.MAX_VALUE))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

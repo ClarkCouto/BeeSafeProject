@@ -71,9 +71,9 @@ public class TelaEditarUsuarios extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        comboUsuarios = new javax.swing.JComboBox<>();
+        comboUsuarios = new javax.swing.JComboBox<String>();
         lblUsuario = new javax.swing.JLabel();
-        comboTiposUsuario = new javax.swing.JComboBox<>();
+        comboTiposUsuario = new javax.swing.JComboBox<String>();
         lblTipoUsuario = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
@@ -93,19 +93,24 @@ public class TelaEditarUsuarios extends javax.swing.JFrame {
         lblTitulo.setText("Editar Usuários");
         lblTitulo.setAlignmentX(0.5F);
 
-        comboUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboUsuarios.setMaximumSize(new java.awt.Dimension(415, 30));
-        comboUsuarios.setMinimumSize(new java.awt.Dimension(415, 30));
-        comboUsuarios.setPreferredSize(new java.awt.Dimension(415, 30));
+        comboUsuarios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUsuarios.setMaximumSize(new java.awt.Dimension(440, 25));
+        comboUsuarios.setMinimumSize(new java.awt.Dimension(440, 25));
+        comboUsuarios.setPreferredSize(new java.awt.Dimension(440, 25));
 
         lblUsuario.setText("Usuário:");
 
-        comboTiposUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboTiposUsuario.setPreferredSize(new java.awt.Dimension(415, 30));
+        comboTiposUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboTiposUsuario.setMaximumSize(new java.awt.Dimension(440, 25));
+        comboTiposUsuario.setMinimumSize(new java.awt.Dimension(440, 25));
+        comboTiposUsuario.setPreferredSize(new java.awt.Dimension(440, 25));
 
         lblTipoUsuario.setText("Tipo Usuário:");
 
         btnEditar.setText("Editar");
+        btnEditar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnEditar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnEditar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -113,6 +118,9 @@ public class TelaEditarUsuarios extends javax.swing.JFrame {
         });
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -125,14 +133,14 @@ public class TelaEditarUsuarios extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 47, Short.MAX_VALUE)
+                .addGap(0, 22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblTipoUsuario)
                     .addComponent(lblUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTiposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTiposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,10 +148,10 @@ public class TelaEditarUsuarios extends javax.swing.JFrame {
                         .addGap(231, 231, 231)
                         .addComponent(lblTitulo))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(171, 171, 171)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,18 +161,18 @@ public class TelaEditarUsuarios extends javax.swing.JFrame {
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsuario)
-                    .addComponent(comboUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipoUsuario)
-                    .addComponent(comboTiposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboTiposUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(142, 142, 142)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar)
-                    .addComponent(btnVoltar))
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(171, 171, 171))
         );
 

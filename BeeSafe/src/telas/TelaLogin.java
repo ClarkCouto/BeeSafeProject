@@ -79,9 +79,9 @@ public class TelaLogin extends javax.swing.JFrame {
         txtSenha.setPreferredSize(new java.awt.Dimension(300, 30));
 
         btnLogar.setText("Entrar");
-        btnLogar.setMaximumSize(new java.awt.Dimension(100, 35));
-        btnLogar.setMinimumSize(new java.awt.Dimension(100, 35));
-        btnLogar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnLogar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnLogar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnLogar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogarActionPerformed(evt);
@@ -89,9 +89,9 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         btnSair.setText("Sair");
-        btnSair.setMaximumSize(new java.awt.Dimension(100, 35));
-        btnSair.setMinimumSize(new java.awt.Dimension(100, 35));
-        btnSair.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnSair.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnSair.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnSair.setPreferredSize(new java.awt.Dimension(100, 30));
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSairActionPerformed(evt);
@@ -137,14 +137,14 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(135, 135, 135)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(128, 128, 128))
         );
 

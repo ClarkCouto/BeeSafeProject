@@ -75,12 +75,14 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Violência:");
 
-        txtTipoViolencia.setMaximumSize(new java.awt.Dimension(276, 30));
-        txtTipoViolencia.setMinimumSize(new java.awt.Dimension(276, 30));
-        txtTipoViolencia.setPreferredSize(new java.awt.Dimension(276, 30));
+        txtTipoViolencia.setMaximumSize(new java.awt.Dimension(275, 25));
+        txtTipoViolencia.setMinimumSize(new java.awt.Dimension(275, 25));
+        txtTipoViolencia.setPreferredSize(new java.awt.Dimension(275, 25));
 
         btnCriarTipoViolencia.setText("Criar");
-        btnCriarTipoViolencia.setPreferredSize(new java.awt.Dimension(103, 30));
+        btnCriarTipoViolencia.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnCriarTipoViolencia.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnCriarTipoViolencia.setPreferredSize(new java.awt.Dimension(100, 30));
         btnCriarTipoViolencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCriarTipoViolenciaActionPerformed(evt);
@@ -98,6 +100,9 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listaTiposViolencia);
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(100, 30));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -111,7 +116,7 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(267, 267, 267)
-                .addComponent(btnVoltar)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,9 +127,9 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(txtTipoViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(btnCriarTipoViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTipoViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(btnCriarTipoViolencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
@@ -146,8 +151,8 @@ public class TelaTipoViolencia extends javax.swing.JFrame {
                 .addGap(90, 90, 90)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
-                .addComponent(btnVoltar)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
